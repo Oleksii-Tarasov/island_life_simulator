@@ -1,0 +1,14 @@
+package ua.com.javarush.island_life_simulator.services.AnimalFactories;
+
+import ua.com.javarush.island_life_simulator.annotations.ReproductionController;
+import ua.com.javarush.island_life_simulator.game_items.animals.Animal;
+import ua.com.javarush.island_life_simulator.game_items.animals.herbivores.Boar;
+
+@ReproductionController(minAmount = 50, maxAmount = 150)
+
+public class BoarFactory implements AnimalFactory {
+    @Override
+    public Animal create() {
+        return new Boar(400, 50, 2, 50);
+    }
+}
