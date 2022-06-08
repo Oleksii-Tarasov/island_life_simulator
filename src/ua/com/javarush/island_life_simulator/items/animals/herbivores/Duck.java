@@ -1,9 +1,9 @@
-package ua.com.javarush.island_life_simulator.game_items.animals.herbivores;
+package ua.com.javarush.island_life_simulator.items.animals.herbivores;
 
-import ua.com.javarush.island_life_simulator.game_field.ItemPosition;
-import ua.com.javarush.island_life_simulator.game_items.animals.HerbivoreAnimal;
+import ua.com.javarush.island_life_simulator.field.ItemPosition;
+import ua.com.javarush.island_life_simulator.items.animals.HerbivoreAnimal;
 
-public class Goat extends HerbivoreAnimal {
+public class Duck extends HerbivoreAnimal {
     private double weight;
     private int maxAmountOnCell;
     private int speed;
@@ -11,7 +11,7 @@ public class Goat extends HerbivoreAnimal {
     private double currentSaturation;
     private ItemPosition animalPosition;
 
-    public Goat(double weight, int maxAmountOnCell, int speed, double fullSaturation) {
+    public Duck(double weight, int maxAmountOnCell, int speed, double fullSaturation) {
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -30,7 +30,17 @@ public class Goat extends HerbivoreAnimal {
     }
 
     @Override
+    public int getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public String move() {
+        return chooseDirection();
+    }
+
+    @Override
     public String toString() {
-        return "\uD83D\uDC10";
+        return "\uD83E\uDD86";
     }
 }

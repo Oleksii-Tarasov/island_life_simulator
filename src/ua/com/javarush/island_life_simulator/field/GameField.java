@@ -1,19 +1,17 @@
-package ua.com.javarush.island_life_simulator.game_field;
+package ua.com.javarush.island_life_simulator.field;
 
 import ua.com.javarush.island_life_simulator.services.ItemCreator;
 
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.*;
 
-public class IslandField {
-    private final int width = ISLAND_WIDTH;
-    private final int height = ISLAND_HEIGHT;
+public class GameField {
     public static Cell[][] islandField;
 
     public void createIsland() {
-        islandField = new Cell[height][width];
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                islandField[i][j] = new Cell(new ItemPosition(i, j));
+        islandField = new Cell[ISLAND_HEIGHT][ISLAND_WIDTH];
+        for (int y = 0; y < ISLAND_HEIGHT; y++) {
+            for (int x = 0; x < ISLAND_WIDTH; x++) {
+                islandField[y][x] = new Cell(new ItemPosition(y, x));
             }
         }
     }
@@ -25,9 +23,9 @@ public class IslandField {
     }
 
     public void printIsland() {
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                System.out.print(islandField[i][j]);
+        for (int y = 0; y < ISLAND_HEIGHT; y++) {
+            for (int x = 0; x < ISLAND_WIDTH; x++) {
+                System.out.print(islandField[y][x]);
             }
             System.out.println();
         }

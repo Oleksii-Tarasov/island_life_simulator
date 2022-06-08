@@ -1,4 +1,4 @@
-package ua.com.javarush.island_life_simulator.game_field;
+package ua.com.javarush.island_life_simulator.field;
 
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_HEIGHT;
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_WIDTH;

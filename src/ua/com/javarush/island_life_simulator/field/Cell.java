@@ -1,9 +1,9 @@
-package ua.com.javarush.island_life_simulator.game_field;
+package ua.com.javarush.island_life_simulator.field;
 
-import ua.com.javarush.island_life_simulator.game_items.animals.Animal;
-import ua.com.javarush.island_life_simulator.game_items.animals.CarnivoreAnimal;
-import ua.com.javarush.island_life_simulator.game_items.animals.HerbivoreAnimal;
-import ua.com.javarush.island_life_simulator.game_items.plants.Plant;
+import ua.com.javarush.island_life_simulator.items.animals.Animal;
+import ua.com.javarush.island_life_simulator.items.animals.CarnivoreAnimal;
+import ua.com.javarush.island_life_simulator.items.animals.HerbivoreAnimal;
+import ua.com.javarush.island_life_simulator.items.plants.Plant;
 
 import java.util.*;
 
@@ -19,13 +19,17 @@ public class Cell {
         this.cellPosition = cellPosition;
     }
 
-    public void fillAnimalListsByType(Animal animal) {
+    public void addAnimalToListsByType(Animal animal) {
         if (animal instanceof CarnivoreAnimal) {
             carnivoreAnimalsList.add((CarnivoreAnimal) animal);
         }
         else {
             herbivoreAnimalsList.add((HerbivoreAnimal) animal);
         }
+    }
+
+    public void removeAnimalFromList(Animal animal) {
+        carnivoreAnimalsList.remove(animal);
     }
     
     private String getItemsForPrint() {

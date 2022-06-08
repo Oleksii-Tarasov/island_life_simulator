@@ -1,16 +1,16 @@
 package ua.com.javarush.island_life_simulator.services;
 
 import ua.com.javarush.island_life_simulator.annotations.ReproductionController;
-import ua.com.javarush.island_life_simulator.game_field.Cell;
-import ua.com.javarush.island_life_simulator.game_field.ItemPosition;
-import ua.com.javarush.island_life_simulator.game_items.animals.Animal;
+import ua.com.javarush.island_life_simulator.field.Cell;
+import ua.com.javarush.island_life_simulator.field.ItemPosition;
+import ua.com.javarush.island_life_simulator.items.animals.Animal;
 import ua.com.javarush.island_life_simulator.services.AnimalFactories.AnimalFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.animalFactories;
-import static ua.com.javarush.island_life_simulator.game_field.IslandField.islandField;
+import static ua.com.javarush.island_life_simulator.field.GameField.islandField;
 
 public class ItemCreator {
     private static final List<Animal> animalList = new ArrayList<>();
@@ -33,7 +33,7 @@ public class ItemCreator {
         for (Animal animal : animalList) {
             animal.setAnimalPosition(new ItemPosition());
             Cell cell = islandField[animal.getAnimalPosition().getY()][animal.getAnimalPosition().getX()];
-            cell.fillAnimalListsByType(animal);
+            cell.addAnimalToListsByType(animal);
         }
     }
 }

@@ -1,9 +1,9 @@
-package ua.com.javarush.island_life_simulator.game_items.animals.carnivores;
+package ua.com.javarush.island_life_simulator.items.animals.carnivores;
 
-import ua.com.javarush.island_life_simulator.game_field.ItemPosition;
-import ua.com.javarush.island_life_simulator.game_items.animals.CarnivoreAnimal;
+import ua.com.javarush.island_life_simulator.field.ItemPosition;
+import ua.com.javarush.island_life_simulator.items.animals.CarnivoreAnimal;
 
-public class Eagle extends CarnivoreAnimal {
+public class Boa extends CarnivoreAnimal {
     private double weight;
     private int maxAmountOnCell;
     private int speed;
@@ -11,7 +11,7 @@ public class Eagle extends CarnivoreAnimal {
     private double currentSaturation;
     private ItemPosition animalPosition;
 
-    public Eagle(double weight, int maxAmountOnCell, int speed, double fullSaturation) {
+    public Boa(double weight, int maxAmountOnCell, int speed, double fullSaturation) {
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -30,7 +30,17 @@ public class Eagle extends CarnivoreAnimal {
     }
 
     @Override
+    public int getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public String move() {
+        return chooseDirection();
+    }
+
+    @Override
     public String toString() {
-        return "\uD83E\uDD85";
+        return "\uD83D\uDC0D";
     }
 }

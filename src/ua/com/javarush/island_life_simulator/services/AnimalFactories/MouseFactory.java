@@ -1,8 +1,8 @@
 package ua.com.javarush.island_life_simulator.services.AnimalFactories;
 
 import ua.com.javarush.island_life_simulator.annotations.ReproductionController;
-import ua.com.javarush.island_life_simulator.game_items.animals.Animal;
-import ua.com.javarush.island_life_simulator.game_items.animals.herbivores.Mouse;
+import ua.com.javarush.island_life_simulator.items.animals.Animal;
+import ua.com.javarush.island_life_simulator.items.animals.herbivores.Mouse;
 
 @ReproductionController(minAmount = 500, maxAmount = 1000)
 public class MouseFactory implements AnimalFactory {

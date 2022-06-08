@@ -1,8 +1,8 @@
 package ua.com.javarush.island_life_simulator.services.AnimalFactories;
 
 import ua.com.javarush.island_life_simulator.annotations.ReproductionController;
-import ua.com.javarush.island_life_simulator.game_items.animals.Animal;
-import ua.com.javarush.island_life_simulator.game_items.animals.herbivores.Rabbit;
+import ua.com.javarush.island_life_simulator.items.animals.Animal;
+import ua.com.javarush.island_life_simulator.items.animals.herbivores.Rabbit;
 
 @ReproductionController(minAmount = 150, maxAmount = 350)
 public class RabbitFactory implements AnimalFactory {

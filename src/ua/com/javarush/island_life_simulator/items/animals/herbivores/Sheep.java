@@ -1,7 +1,7 @@
-package ua.com.javarush.island_life_simulator.game_items.animals.herbivores;
+package ua.com.javarush.island_life_simulator.items.animals.herbivores;
 
-import ua.com.javarush.island_life_simulator.game_field.ItemPosition;
-import ua.com.javarush.island_life_simulator.game_items.animals.HerbivoreAnimal;
+import ua.com.javarush.island_life_simulator.field.ItemPosition;
+import ua.com.javarush.island_life_simulator.items.animals.HerbivoreAnimal;
 
 public class Sheep extends HerbivoreAnimal {
     private double weight;
@@ -27,6 +27,16 @@ public class Sheep extends HerbivoreAnimal {
     @Override
     public ItemPosition getAnimalPosition() {
         return animalPosition;
+    }
+
+    @Override
+    public int getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public String move() {
+        return chooseDirection();
     }
 
     @Override
