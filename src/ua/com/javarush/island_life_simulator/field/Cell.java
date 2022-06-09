@@ -1,8 +1,6 @@
 package ua.com.javarush.island_life_simulator.field;
 
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
-import ua.com.javarush.island_life_simulator.items.animals.CarnivoreAnimal;
-import ua.com.javarush.island_life_simulator.items.animals.HerbivoreAnimal;
 import ua.com.javarush.island_life_simulator.items.plants.Plant;
 
 import java.util.*;
@@ -10,43 +8,34 @@ import java.util.*;
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.*;
 
 public class Cell {
-    private List<CarnivoreAnimal> carnivoreAnimalsList = new ArrayList<>();
-    private List<HerbivoreAnimal> herbivoreAnimalsList = new ArrayList<>();
+    private List<Animal> animalList = new ArrayList<>();
     private List<Plant> plantsList;
-    private ItemPosition cellPosition;
+    private final ItemPosition cellPosition;
 
     public Cell(ItemPosition cellPosition) {
         this.cellPosition = cellPosition;
     }
 
-    public void addAnimalToListsByType(Animal animal) {
-        if (animal instanceof CarnivoreAnimal) {
-            carnivoreAnimalsList.add((CarnivoreAnimal) animal);
-        }
-        else {
-            herbivoreAnimalsList.add((HerbivoreAnimal) animal);
-        }
+    public void addAnimalToList(Animal animal) {
+        this.animalList.add(animal);
     }
 
-    public void removeAnimalFromList(Animal animal) {
-        carnivoreAnimalsList.remove(animal);
+    public List<Animal> getAnimalList() {
+        return animalList;
     }
-    
+
+    public void setAnimalList(List<Animal> animalList) {
+        this.animalList = animalList;
+    }
+
     private String getItemsForPrint() {
         StringBuilder itemsForPrint = new StringBuilder();
-        if (carnivoreAnimalsList.isEmpty() && herbivoreAnimalsList.isEmpty()) {
+
+        if (animalList.isEmpty()) {
             return EMPTY_CELL;
         }
-        
-        if (!carnivoreAnimalsList.isEmpty()) {
-            itemsForPrint.append(visualizeItems(carnivoreAnimalsList));
-        }
 
-        if (!herbivoreAnimalsList.isEmpty()) {
-            itemsForPrint.append(visualizeItems(herbivoreAnimalsList));
-        }
-
-        return itemsForPrint.toString();
+        return itemsForPrint.append(visualizeItems(animalList)).toString();
     }
 
     private String visualizeItems(List<? extends Animal> animalList) {

@@ -1,4 +1,4 @@
-package ua.com.javarush.island_life_simulator.services.AnimalFactories;
+package ua.com.javarush.island_life_simulator.factories.AnimalFactories;
 
 import ua.com.javarush.island_life_simulator.annotations.ReproductionController;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;

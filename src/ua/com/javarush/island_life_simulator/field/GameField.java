@@ -17,9 +17,9 @@ public class GameField {
     }
 
     public void fillingIslandWithAnimals() {
-        ItemCreator itemCreator = new ItemCreator();
-        itemCreator.createAnimals();
-        itemCreator.putAnimalsOnTheField();
+//        ItemCreator itemCreator = new ItemCreator();
+//        itemCreator.createAnimals();
+//        itemCreator.putAnimalsOnTheField();
     }
 
     public void printIsland() {
@@ -29,5 +29,6 @@ public class GameField {
             }
             System.out.println();
         }
+        System.out.println("______________________");
     }
 }

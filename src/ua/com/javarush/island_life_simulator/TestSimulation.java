@@ -1,28 +1,44 @@
 package ua.com.javarush.island_life_simulator;
 
-import ua.com.javarush.island_life_simulator.field.Cell;
+import ua.com.javarush.island_life_simulator.controllers.LifeController;
 import ua.com.javarush.island_life_simulator.field.GameField;
-import ua.com.javarush.island_life_simulator.field.ItemPosition;
-import ua.com.javarush.island_life_simulator.items.animals.carnivores.Beer;
-import ua.com.javarush.island_life_simulator.services.ItemMover;
+import ua.com.javarush.island_life_simulator.services.ItemCreator;
 
 public class TestSimulation {
-    public void startTest(){
+    public void startTest() {
         GameField islandField = new GameField();
+        ItemCreator itemCreator = new ItemCreator();
+        LifeController lifeController = new LifeController();
+
         islandField.createIsland();
 
-        /* проверка движения животного */
-        Beer beer = new Beer(500, 5, 2, 80);
-        ItemPosition position = new ItemPosition();
-        position.setX(1);
-        position.setY(1);
-        beer.setAnimalPosition(position);
-        Cell cell = GameField.islandField[beer.getAnimalPosition().getY()][beer.getAnimalPosition().getX()];
-        cell.addAnimalToListsByType(beer);
-        ItemMover itemMover = new ItemMover();
-        itemMover.moveItem(beer);
+        /* создание животных */
+        itemCreator.createAnimals();
 
-        /* печатаем остров */
+        /* размещение животных */
+        itemCreator.putAnimalsOnTheField();
+        islandField.printIsland();
+
+        /* перемещение животных */
+        lifeController.movingAnimals();
+        islandField.printIsland();
+
+        /* уменьшаем насыщенность у животных */
+        lifeController.startDayCycle();
+        islandField.printIsland();
+
+        /* перемещение животных */
+        lifeController.movingAnimals();
+        islandField.printIsland();
+
+        System.out.println("__________");
+
+        /* уменьшаем насыщенность у животных */
+        lifeController.startDayCycle();
+        islandField.printIsland();
+
+        /* перемещение животных */
+        lifeController.movingAnimals();
         islandField.printIsland();
     }
 }

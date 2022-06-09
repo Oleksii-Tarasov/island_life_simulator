@@ -9,7 +9,9 @@ public class Eagle extends CarnivoreAnimal {
     private int speed;
     private double fullSaturation;
     private double currentSaturation;
+    private double weightLossPerDay = 5;
     private ItemPosition animalPosition;
+    private boolean alreadyWalked;
 
     public Eagle(double weight, int maxAmountOnCell, int speed, double fullSaturation) {
         this.weight = weight;
@@ -17,26 +19,22 @@ public class Eagle extends CarnivoreAnimal {
         this.speed = speed;
         this.fullSaturation = fullSaturation;
         this.currentSaturation = fullSaturation;
+        alreadyWalked = false;
     }
 
     @Override
-    public void setAnimalPosition(ItemPosition animalPosition) {
-        this.animalPosition = animalPosition;
+    public void reduceSaturation() {
+        this.currentSaturation = this.currentSaturation - weightLossPerDay;
     }
 
     @Override
-    public ItemPosition getAnimalPosition() {
-        return animalPosition;
+    public double getCurrentSaturation() {
+        return this.currentSaturation;
     }
 
     @Override
     public int getSpeed() {
-        return speed;
-    }
-
-    @Override
-    public String move() {
-        return chooseDirection();
+        return this.speed;
     }
 
     @Override

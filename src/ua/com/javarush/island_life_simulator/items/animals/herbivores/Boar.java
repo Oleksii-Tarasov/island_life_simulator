@@ -9,7 +9,9 @@ public class Boar extends HerbivoreAnimal {
     private int speed;
     private double fullSaturation;
     private double currentSaturation;
+    private double weightLossPerDay = 5;
     private ItemPosition animalPosition;
+    private boolean alreadyWalked;
 
     public Boar(double weight, int maxAmountOnCell, int speed, double fullSaturation) {
         this.weight = weight;
@@ -20,23 +22,18 @@ public class Boar extends HerbivoreAnimal {
     }
 
     @Override
-    public void setAnimalPosition(ItemPosition animalPosition) {
-        this.animalPosition = animalPosition;
+    public void reduceSaturation() {
+        this.currentSaturation = this.currentSaturation - weightLossPerDay;
     }
 
     @Override
-    public ItemPosition getAnimalPosition() {
-        return animalPosition;
+    public double getCurrentSaturation() {
+        return this.currentSaturation;
     }
 
     @Override
     public int getSpeed() {
-        return speed;
-    }
-
-    @Override
-    public String move() {
-        return chooseDirection();
+        return this.speed;
     }
 
     @Override

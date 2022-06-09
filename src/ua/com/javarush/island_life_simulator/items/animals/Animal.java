@@ -9,16 +9,36 @@ public abstract class Animal {
     private int maxAmountOnCell;
     private int speed;
     private int fullSaturation;
-    private int currentSaturation;
+    private double currentSaturation;
+    private double weightLossPerDay;
     private ItemPosition animalPosition;
+    private boolean alreadyWalked;
 
-    public abstract void setAnimalPosition(ItemPosition animalPosition);
+    public boolean isAlreadyWalked(){
+        return this.alreadyWalked;
+    }
 
-    public abstract ItemPosition getAnimalPosition();
+    public void setAlreadyWalked(boolean alreadyWalked){
+        this.alreadyWalked = alreadyWalked;
+    }
 
-    public abstract int getSpeed();
+    public void setAnimalPosition(ItemPosition animalPosition) {
+        this.animalPosition = animalPosition;
+    }
 
-    public abstract String move();
+    public ItemPosition getAnimalPosition() {
+        return this.animalPosition;
+    }
+
+    public int getSpeed() {
+        return this.speed;
+    }
+
+    public abstract void reduceSaturation();
+
+    public double getCurrentSaturation() {
+        return this.currentSaturation;
+    }
 
     public String chooseDirection() {
         List<String> directionsList = List.of("Left", "Right", "Up", "Down", "Stand");

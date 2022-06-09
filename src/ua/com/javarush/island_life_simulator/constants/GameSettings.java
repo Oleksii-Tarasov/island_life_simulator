@@ -1,7 +1,7 @@
 package ua.com.javarush.island_life_simulator.constants;
 
-import ua.com.javarush.island_life_simulator.services.AnimalFactories.*;
-import ua.com.javarush.island_life_simulator.services.AnimalFactories.AnimalFactory;
+import ua.com.javarush.island_life_simulator.factories.AnimalFactories.*;
+import ua.com.javarush.island_life_simulator.factories.AnimalFactories.AnimalFactory;
 
 public final class GameSettings {
     private GameSettings(){}
@@ -11,8 +11,10 @@ public final class GameSettings {
             new DeerFactory(), new DuckFactory(), new GoatFactory(), new HorseFactory(), new MouseFactory(),
             new RabbitFactory(), new SheepFactory()};
 
-    public static final int ISLAND_WIDTH = 10;
-    public static final int ISLAND_HEIGHT = 200;
+//    public static final int ISLAND_WIDTH = 6;
+    public static final int ISLAND_WIDTH = 5;
+    public static final int ISLAND_HEIGHT = 5;
+//    public static final int ISLAND_HEIGHT = 200;
 
     public static final String OPEN_CELL = "[";
     public static final String EMPTY_CELL = "  ";
