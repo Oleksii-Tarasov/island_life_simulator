@@ -40,6 +40,10 @@ public abstract class Animal {
         return this.currentSaturation;
     }
 
+    public double getFullSaturation() {
+        return fullSaturation;
+    }
+
     public String chooseDirection() {
         List<String> directionsList = List.of("Left", "Right", "Up", "Down", "Stand");
 

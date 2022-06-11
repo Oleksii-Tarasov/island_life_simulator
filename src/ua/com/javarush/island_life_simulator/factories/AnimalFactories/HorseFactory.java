@@ -4,10 +4,10 @@ import ua.com.javarush.island_life_simulator.annotations.ReproductionController;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
 import ua.com.javarush.island_life_simulator.items.animals.herbivores.Horse;
 
-@ReproductionController(minAmount = 20, maxAmount = 100)
+@ReproductionController(minAmount = 20, maxAmount = 60)
 public class HorseFactory implements AnimalFactory {
     @Override
     public Animal create() {
-        return new Horse(400, 20, 4, 60);
+        return new Horse();
     }
 }

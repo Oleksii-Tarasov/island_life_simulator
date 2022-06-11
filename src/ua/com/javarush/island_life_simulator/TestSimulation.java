@@ -10,35 +10,17 @@ public class TestSimulation {
         ItemCreator itemCreator = new ItemCreator();
         LifeController lifeController = new LifeController();
 
+        /* создание острова */
         islandField.createIsland();
 
         /* создание животных */
         itemCreator.createAnimals();
 
-        /* размещение животных */
-        itemCreator.putAnimalsOnTheField();
         islandField.printIsland();
 
-        /* перемещение животных */
-        lifeController.movingAnimals();
-        islandField.printIsland();
-
-        /* уменьшаем насыщенность у животных */
+        /* стартуем дневной цикл жизни острова */
         lifeController.startDayCycle();
-        islandField.printIsland();
 
-        /* перемещение животных */
-        lifeController.movingAnimals();
-        islandField.printIsland();
-
-        System.out.println("__________");
-
-        /* уменьшаем насыщенность у животных */
-        lifeController.startDayCycle();
-        islandField.printIsland();
-
-        /* перемещение животных */
-        lifeController.movingAnimals();
         islandField.printIsland();
     }
 }

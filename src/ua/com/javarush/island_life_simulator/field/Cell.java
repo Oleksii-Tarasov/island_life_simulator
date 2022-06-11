@@ -24,10 +24,6 @@ public class Cell {
         return animalList;
     }
 
-    public void setAnimalList(List<Animal> animalList) {
-        this.animalList = animalList;
-    }
-
     private String getItemsForPrint() {
         StringBuilder itemsForPrint = new StringBuilder();
 

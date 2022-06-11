@@ -1,8 +1,7 @@
 package ua.com.javarush.island_life_simulator.field;
 
-import ua.com.javarush.island_life_simulator.services.ItemCreator;
-
-import static ua.com.javarush.island_life_simulator.constants.GameSettings.*;
+import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_HEIGHT;
+import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_WIDTH;
 
 public class GameField {
     public static Cell[][] islandField;
@@ -14,12 +13,6 @@ public class GameField {
                 islandField[y][x] = new Cell(new ItemPosition(y, x));
             }
         }
-    }
-
-    public void fillingIslandWithAnimals() {
-//        ItemCreator itemCreator = new ItemCreator();
-//        itemCreator.createAnimals();
-//        itemCreator.putAnimalsOnTheField();
     }
 
     public void printIsland() {

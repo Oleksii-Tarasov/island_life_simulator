@@ -1,35 +1,65 @@
 package ua.com.javarush.island_life_simulator.items.animals.carnivores;
 
 import ua.com.javarush.island_life_simulator.field.ItemPosition;
-import ua.com.javarush.island_life_simulator.items.animals.CarnivoreAnimal;
+import ua.com.javarush.island_life_simulator.items.animals.Animal;
 
-public class Eagle extends CarnivoreAnimal {
+public class Eagle extends Animal {
+    private final static double WEIGHT = 6;
+    private final static int MAX_AMOUNT_ON_CELL = 20;
+    private final static int SPEED = 3;
+    private final static double FULL_SATURATION = 1;
+    private final static double WEIGHT_LOSS_PER_DAY = 0.14;
+
     private double weight;
     private int maxAmountOnCell;
     private int speed;
     private double fullSaturation;
     private double currentSaturation;
-    private double weightLossPerDay = 5;
-    private ItemPosition animalPosition;
     private boolean alreadyWalked;
+    private ItemPosition animalPosition;
 
-    public Eagle(double weight, int maxAmountOnCell, int speed, double fullSaturation) {
-        this.weight = weight;
-        this.maxAmountOnCell = maxAmountOnCell;
-        this.speed = speed;
-        this.fullSaturation = fullSaturation;
-        this.currentSaturation = fullSaturation;
-        alreadyWalked = false;
+    public Eagle() {
+        this.weight = WEIGHT;
+        this.maxAmountOnCell = MAX_AMOUNT_ON_CELL;
+        this.speed = SPEED;
+        this.fullSaturation = FULL_SATURATION;
+        this.currentSaturation = FULL_SATURATION;
+        this.alreadyWalked = false;
     }
 
     @Override
-    public void reduceSaturation() {
-        this.currentSaturation = this.currentSaturation - weightLossPerDay;
+    public void setAnimalPosition(ItemPosition animalPosition) {
+        this.animalPosition = animalPosition;
+    }
+
+    @Override
+    public ItemPosition getAnimalPosition() {
+        return this.animalPosition;
+    }
+
+    @Override
+    public void setAlreadyWalked(boolean alreadyWalked) {
+        this.alreadyWalked = alreadyWalked;
+    }
+
+    @Override
+    public boolean isAlreadyWalked() {
+        return alreadyWalked;
     }
 
     @Override
     public double getCurrentSaturation() {
         return this.currentSaturation;
+    }
+
+    @Override
+    public double getFullSaturation() {
+        return fullSaturation;
+    }
+
+    @Override
+    public void reduceSaturation() {
+        this.currentSaturation = this.currentSaturation - WEIGHT_LOSS_PER_DAY;
     }
 
     @Override

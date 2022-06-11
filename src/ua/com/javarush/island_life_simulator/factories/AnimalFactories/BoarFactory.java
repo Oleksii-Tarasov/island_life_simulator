@@ -9,6 +9,6 @@ import ua.com.javarush.island_life_simulator.items.animals.herbivores.Boar;
 public class BoarFactory implements AnimalFactory {
     @Override
     public Animal create() {
-        return new Boar(400, 50, 2, 50);
+        return new Boar();
     }
 }
