@@ -5,14 +5,22 @@ import ua.com.javarush.island_life_simulator.field.ItemPosition;
 import java.util.List;
 
 public abstract class Animal {
-    private int weight;
+    private double weight;
     private int maxAmountOnCell;
     private int speed;
-    private int fullSaturation;
+    private double fullSaturation;
     private double currentSaturation;
     private double weightLossPerDay;
     private ItemPosition animalPosition;
     private boolean alreadyWalked;
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public int getMaxAmountOnCell() {
+        return maxAmountOnCell;
+    }
 
     public boolean isAlreadyWalked(){
         return this.alreadyWalked;
@@ -35,6 +43,10 @@ public abstract class Animal {
     }
 
     public abstract void reduceSaturation();
+
+    public void setCurrentSaturation(double currentSaturation) {
+        this.currentSaturation = currentSaturation;
+    }
 
     public double getCurrentSaturation() {
         return this.currentSaturation;

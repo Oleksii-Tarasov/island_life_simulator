@@ -2,8 +2,9 @@ package ua.com.javarush.island_life_simulator.items.animals.carnivores;
 
 import ua.com.javarush.island_life_simulator.field.ItemPosition;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
+import ua.com.javarush.island_life_simulator.items.animals.interfaces.Carnivores;
 
-public class Beer extends Animal {
+public class Beer extends Animal implements Carnivores {
     private final static double WEIGHT = 500;
     private final static int MAX_AMOUNT_ON_CELL = 5;
     private final static int SPEED = 2;
@@ -28,6 +29,16 @@ public class Beer extends Animal {
     }
 
     @Override
+    public double getWeight() {
+        return this.weight;
+    }
+
+    @Override
+    public int getMaxAmountOnCell() {
+        return this.maxAmountOnCell;
+    }
+
+    @Override
     public void setAnimalPosition(ItemPosition animalPosition) {
         this.animalPosition = animalPosition;
     }
@@ -45,6 +56,11 @@ public class Beer extends Animal {
     @Override
     public boolean isAlreadyWalked() {
         return alreadyWalked;
+    }
+
+    @Override
+    public void setCurrentSaturation(double currentSaturation) {
+        this.currentSaturation = currentSaturation;
     }
 
     @Override

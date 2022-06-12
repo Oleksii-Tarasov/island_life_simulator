@@ -1,9 +1,12 @@
 package ua.com.javarush.island_life_simulator.controllers;
 
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
+import ua.com.javarush.island_life_simulator.items.animals.interfaces.Herbivores;
+import ua.com.javarush.island_life_simulator.items.plants.Plant;
 import ua.com.javarush.island_life_simulator.services.ItemCreator;
 import ua.com.javarush.island_life_simulator.services.ItemMover;
 import ua.com.javarush.island_life_simulator.services.ItemRemover;
+import ua.com.javarush.island_life_simulator.services.ItemStatusChecker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +16,8 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 
 public class LifeCycleExecutor {
-    private final ItemMover itemMover = new ItemMover();
     private final ItemCreator itemCreator = new ItemCreator();
+    private final ItemMover itemMover = new ItemMover();
     private final ItemRemover itemRemover = new ItemRemover();
     private final ItemStatusChecker itemStatusChecker = new ItemStatusChecker();
 
@@ -34,42 +37,78 @@ public class LifeCycleExecutor {
         animalListFromCell.forEach(animal -> animal.setAlreadyWalked(false));
     }
 
-    public void reproduction(List<Animal> animalListFromCell, int y, int x) {
-        Map<Class<? extends Animal>, Long> numberOfClassesInList = animalListFromCell.stream()
+    public void reproduction(List<Animal> animalList, int y, int x) {
+        Map<Class<? extends Animal>, Long> numberOfClassesInList = animalList.stream()
                 .collect(groupingBy(Animal::getClass, Collectors.counting()));
 
         for (Map.Entry<Class<? extends Animal>, Long> animalClassFromMap : numberOfClassesInList.entrySet()) {
-            long counter = animalClassFromMap.getValue();
-            if (counter >= 2) {
-                Class<? extends Animal> animalClass = animalClassFromMap.getKey();
-                for (int i = 0; i < counter / 2; i++) {
+            Class<? extends Animal> animalClass = animalClassFromMap.getKey();
+            long animalQuantity = animalClassFromMap.getValue();
+            long animalPairQuantity = animalQuantity;
+
+            for (int i = 0; i < animalPairQuantity / 2; i++) {
+                if (itemStatusChecker.canReproduce(animalClass, animalQuantity)) {
                     itemCreator.createNewbornAnimal(animalClass, y, x);
+                    animalQuantity++;
                 }
             }
         }
     }
 
-    public void eat(List<Animal> animalListFromCell) {
+    public void eatOtherAnimals(List<Animal> animalList) {
         List<Animal> eatenAnimalList = new ArrayList<>();
 
-        for (int i = 0; i < animalListFromCell.size(); i++) {
-            String firstAnimal = animalListFromCell.get(i).getClass().getSimpleName();
-            for (int j = 0; j < animalListFromCell.size(); j++) {
-                Animal animal = animalListFromCell.get(j);
+        for (Animal attackingAnimal : animalList) {
+            String firstAnimal = attackingAnimal.getClass().getSimpleName();
+            for (Animal animalToEat : animalList) {
+                String secondAnimal = animalToEat.getClass().getSimpleName();
 
-                if (eatenAnimalList.contains(animal) || !(itemStatusChecker.isAnimalHungry(animal))) {
+                if (!itemStatusChecker.isHuntingConditionsGood(attackingAnimal, animalToEat, eatenAnimalList)) {
                     continue;
                 }
 
-                String secondAnimal = animal.getClass().getSimpleName();
                 String animalsPair = firstAnimal + secondAnimal;
-                boolean isEaten = itemStatusChecker.isEaten(animalsPair);
+                boolean isAnimalEaten = itemStatusChecker.willAnimalBeEaten(animalsPair);
 
-                if (isEaten) {
-                    eatenAnimalList.add(animalListFromCell.get(j));
+                if (isAnimalEaten) {
+                    saturationProcess(attackingAnimal, animalToEat);
+                    eatenAnimalList.add(animalToEat);
                 }
             }
         }
-        itemRemover.removeItems(animalListFromCell, eatenAnimalList);
+        itemRemover.removeAnimals(animalList, eatenAnimalList);
+    }
+
+    public void eatPlants(List<Animal> animalList, List<Plant> plantList) {
+        if (animalList.isEmpty() || plantList.isEmpty()) {
+            return;
+        }
+
+        List<Plant> eatenPlantList = new ArrayList<>();
+
+        for (Animal animal : animalList) {
+            for (Plant plant : plantList) {
+                if (animal instanceof Herbivores && itemStatusChecker.isAnimalHungry(animal)) {
+                    double animalCurrentSaturation = animal.getCurrentSaturation();
+                    animal.setCurrentSaturation(animalCurrentSaturation + plant.getWeight());
+                    eatenPlantList.add(plant);
+                }
+            }
+            itemRemover.removePlants(plantList, eatenPlantList);
+        }
+    }
+
+    private void saturationProcess(Animal attackingAnimal, Animal animalToEat) {
+        double animalWinnerFullSaturation = attackingAnimal.getFullSaturation();
+        double animalWinnerCurrentSaturation = attackingAnimal.getCurrentSaturation();
+        double weightOfTheEatenAnimal = animalToEat.getWeight();
+        double saturationAfterEating = animalWinnerCurrentSaturation + weightOfTheEatenAnimal;
+
+        if (saturationAfterEating > animalWinnerFullSaturation) {
+            attackingAnimal.setCurrentSaturation(animalWinnerFullSaturation);
+        }
+        else {
+            attackingAnimal.setCurrentSaturation(saturationAfterEating);
+        }
     }
 }

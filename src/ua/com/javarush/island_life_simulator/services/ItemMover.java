@@ -42,7 +42,7 @@ public class ItemMover {
             cellForAddingAnimal.addAnimalToList(animal);
         }
 
-        new ItemRemover().removeItems(animalList, listAnimalsForRemoving);
+        new ItemRemover().removeAnimals(animalList, listAnimalsForRemoving);
     }
 
     private ItemPosition calculateNewDestination(Animal animal) {

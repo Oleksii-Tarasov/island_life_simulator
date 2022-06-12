@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ReproductionController {
-    int minAmount();
-    int maxAmount();
+    int minAmount() default 10;
+    int maxAmount() default 1000;
 }

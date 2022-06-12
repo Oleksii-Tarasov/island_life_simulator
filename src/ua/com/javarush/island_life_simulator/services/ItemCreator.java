@@ -4,6 +4,7 @@ import ua.com.javarush.island_life_simulator.annotations.ReproductionController;
 import ua.com.javarush.island_life_simulator.factories.AnimalFactories.*;
 import ua.com.javarush.island_life_simulator.field.ItemPosition;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
+import ua.com.javarush.island_life_simulator.items.plants.Plant;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -36,4 +37,14 @@ public class ItemCreator {
             System.out.println(e);
         }
     }
+
+    public void createPlants(){
+        for (int i = 0; i < 100; i++) {
+            Plant plant = new Plant();
+            plant.setPlantPosition(new ItemPosition());
+
+            itemPlacer.putItemsOnTheField(plant);
+        }
+    }
+
 }

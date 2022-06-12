@@ -5,11 +5,9 @@ import ua.com.javarush.island_life_simulator.items.plants.Plant;
 
 import java.util.*;
 
-import static ua.com.javarush.island_life_simulator.constants.GameSettings.*;
-
 public class Cell {
     private List<Animal> animalList = new ArrayList<>();
-    private List<Plant> plantsList;
+    private List<Plant> plantList = new ArrayList<>();
     private final ItemPosition cellPosition;
 
     public Cell(ItemPosition cellPosition) {
@@ -24,37 +22,11 @@ public class Cell {
         return animalList;
     }
 
-    private String getItemsForPrint() {
-        StringBuilder itemsForPrint = new StringBuilder();
-
-        if (animalList.isEmpty()) {
-            return EMPTY_CELL;
-        }
-
-        return itemsForPrint.append(visualizeItems(animalList)).toString();
+    public void addPlantToList(Plant plant) {
+        this.plantList.add(plant);
     }
 
-    private String visualizeItems(List<? extends Animal> animalList) {
-        StringBuilder items = new StringBuilder();
-        List<String> listOfClasses = animalList.stream().map(Object::toString).toList();
-        Set<String> setOfClasses = new HashSet<>(listOfClasses);
-
-        for (String animal : setOfClasses) {
-            int countAnimal = Collections.frequency(listOfClasses, animal);
-            if (countAnimal == 1) {
-                items.append(animal);
-            }
-            else {
-                items.append(DELIMITER).append(animal).append("x").append(countAnimal).append(DELIMITER);
-            }
-
-        }
-
-        return items.toString();
-    }
-
-    @Override
-    public String toString() {
-        return OPEN_CELL + getItemsForPrint() + CLOSE_CELL;
+    public List<Plant> getPlantList() {
+        return plantList;
     }
 }

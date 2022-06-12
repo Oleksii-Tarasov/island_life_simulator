@@ -9,12 +9,12 @@ import java.util.Map;
 public final class GameSettings {
     private GameSettings(){}
 
-    public static final AnimalFactory[] animalFactories = new AnimalFactory[]{new BeerFactory(), new BoaFactory(), new EagleFactory(),
+    public static final AnimalFactory[] ANIMAL_FACTORIES = new AnimalFactory[]{new BeerFactory(), new BoaFactory(), new EagleFactory(),
             new FoxFactory(), new WolfFactory(), new BoarFactory(), new BuffaloFactory(), new CaterpillarFactory(),
             new DeerFactory(), new DuckFactory(), new GoatFactory(), new HorseFactory(), new MouseFactory(),
             new RabbitFactory(), new SheepFactory()};
 
-    public static final Map<String, Integer> chanceToEatSomeone = new HashMap<>() {{
+    public static final Map<String, Integer> CHANCE_TO_EAT_SOMEONE = new HashMap<>() {{
         put("WolfHorse", 10);
         put("WolfDeer", 15);
         put("WolfRabbit", 60);

@@ -16,11 +16,10 @@ public class TestSimulation {
         /* создание животных */
         itemCreator.createAnimals();
 
-        islandField.printIsland();
+        /* создание растений */
+        itemCreator.createPlants();
 
         /* стартуем дневной цикл жизни острова */
         lifeController.startDayCycle();
-
-        islandField.printIsland();
     }
 }
