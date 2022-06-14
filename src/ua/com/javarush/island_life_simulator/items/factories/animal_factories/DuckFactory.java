@@ -1,10 +1,10 @@
-package ua.com.javarush.island_life_simulator.factories.AnimalFactories;
+package ua.com.javarush.island_life_simulator.items.factories.animal_factories;
 
-import ua.com.javarush.island_life_simulator.annotations.ReproductionController;
+import ua.com.javarush.island_life_simulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
 import ua.com.javarush.island_life_simulator.items.animals.herbivores.Duck;
 
-@ReproductionController(minAmount = 200, maxAmount = 600)
+@NumberOfItemsOnField()
 public class DuckFactory implements AnimalFactory {
     @Override
     public Animal create() {

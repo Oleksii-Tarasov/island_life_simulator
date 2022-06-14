@@ -10,7 +10,7 @@ public class GameField {
         islandField = new Cell[ISLAND_HEIGHT][ISLAND_WIDTH];
         for (int y = 0; y < ISLAND_HEIGHT; y++) {
             for (int x = 0; x < ISLAND_WIDTH; x++) {
-                islandField[y][x] = new Cell(new ItemPosition(y, x));
+                islandField[y][x] = new Cell(new ItemPosition(x, y));
             }
         }
     }

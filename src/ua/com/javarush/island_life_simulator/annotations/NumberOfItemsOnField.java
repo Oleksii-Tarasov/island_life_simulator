@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ReproductionController {
-    int minAmount() default 10;
-    int maxAmount() default 1000;
+public @interface NumberOfItemsOnField {
+    int minAmount() default 100;
+    int maxAmount() default 250;
 }

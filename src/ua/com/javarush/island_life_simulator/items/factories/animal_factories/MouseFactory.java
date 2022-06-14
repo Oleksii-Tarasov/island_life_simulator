@@ -1,11 +1,10 @@
-package ua.com.javarush.island_life_simulator.factories.AnimalFactories;
+package ua.com.javarush.island_life_simulator.items.factories.animal_factories;
 
-import ua.com.javarush.island_life_simulator.annotations.ReproductionController;
+import ua.com.javarush.island_life_simulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
 import ua.com.javarush.island_life_simulator.items.animals.herbivores.Mouse;
 
-@ReproductionController(minAmount = 1, maxAmount = 10)
-//@ReproductionController(minAmount = 500, maxAmount = 1500)
+@NumberOfItemsOnField(minAmount = 500, maxAmount = 1000)
 public class MouseFactory implements AnimalFactory {
     @Override
     public Animal create() {

@@ -1,6 +1,7 @@
 package ua.com.javarush.island_life_simulator.services;
 
 import ua.com.javarush.island_life_simulator.field.Cell;
+import ua.com.javarush.island_life_simulator.items.BasicItem;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
 import ua.com.javarush.island_life_simulator.items.plants.Plant;
 
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.*;
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_WIDTH;
+import static ua.com.javarush.island_life_simulator.constants.PrintableFieldElements.*;
 import static ua.com.javarush.island_life_simulator.field.GameField.islandField;
 
 public class ItemPrinter {
@@ -21,38 +23,46 @@ public class ItemPrinter {
             }
             System.out.println();
         }
-        System.out.println("___________________");
+        System.out.println(FIELD_DELIMITER);
     }
 
     private String getItemForPrint(Cell cell){
         StringBuilder itemsForPrint = new StringBuilder();
         List<Animal> animalList = cell.getAnimalList();
         List<Plant> plantList = cell.getPlantList();
+        List<BasicItem> basicItemList;
 
         if (animalList.isEmpty() && plantList.isEmpty()) {
             return itemsForPrint.append(EMPTY_CELL).toString();
         }
 
         if (!animalList.isEmpty()) {
-            itemsForPrint.append(visualizeAnimal(animalList));
+            basicItemList = new ArrayList<>(animalList);
+            itemsForPrint.append(visualizeItem(basicItemList));
         }
 
         if (!plantList.isEmpty())
         {
-            itemsForPrint.append(plantList.get(0)).append("x").append(plantList.size());
+            basicItemList = new ArrayList<>(plantList);
+            itemsForPrint.append(visualizeItem(basicItemList));
         }
 
         return itemsForPrint.toString();
     }
 
-    private String visualizeAnimal(List<? extends Animal> animalList) {
+    private String visualizeItem(List<BasicItem> basicItemList) {
         StringBuilder items = new StringBuilder();
 
-        Map<String, Long> animalMap = animalList.stream()
-                .collect(groupingBy(Animal::toString, Collectors.counting()));
+        Map<String, Long> itemMap = basicItemList.stream()
+                .collect(groupingBy(BasicItem::toString, Collectors.counting()));
 
-        for(Map.Entry<String, Long> animal : animalMap.entrySet()) {
-            items.append(animal.getKey()).append("x").append(animal.getValue());
+        for(Map.Entry<String, Long> basicItem : itemMap.entrySet()) {
+            if (basicItem.getValue() == 1) {
+                items.append(basicItem.getKey()).append(DELIMITER);
+            }
+            else {
+                items.append(basicItem.getKey()).append("x").append(basicItem.getValue()).append(DELIMITER);
+            }
         }
 
         return items.toString();

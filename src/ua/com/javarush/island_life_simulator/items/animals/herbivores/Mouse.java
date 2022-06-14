@@ -2,9 +2,10 @@ package ua.com.javarush.island_life_simulator.items.animals.herbivores;
 
 import ua.com.javarush.island_life_simulator.field.ItemPosition;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
+import ua.com.javarush.island_life_simulator.items.animals.interfaces.Carnivores;
 import ua.com.javarush.island_life_simulator.items.animals.interfaces.Herbivores;
 
-public class Mouse extends Animal implements Herbivores {
+public class Mouse extends Animal implements Carnivores, Herbivores {
     private final static double WEIGHT = 0.05;
     private final static int MAX_AMOUNT_ON_CELL = 500;
     private final static int SPEED = 1;
@@ -39,12 +40,12 @@ public class Mouse extends Animal implements Herbivores {
     }
 
     @Override
-    public void setAnimalPosition(ItemPosition animalPosition) {
+    public void setItemPosition(ItemPosition animalPosition) {
         this.animalPosition = animalPosition;
     }
 
     @Override
-    public ItemPosition getAnimalPosition() {
+    public ItemPosition getItemPosition() {
         return this.animalPosition;
     }
 

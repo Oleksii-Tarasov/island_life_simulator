@@ -1,8 +1,9 @@
 package ua.com.javarush.island_life_simulator.items.plants;
 
 import ua.com.javarush.island_life_simulator.field.ItemPosition;
+import ua.com.javarush.island_life_simulator.items.BasicItem;
 
-public class Plant {
+public class Plant extends BasicItem {
     private final double WEIGHT = 1;
     private final int MAX_AMOUNT_ON_CELL = 200;
 
@@ -23,11 +24,11 @@ public class Plant {
         return maxAmountOnCell;
     }
 
-    public ItemPosition getPlantPosition() {
+    public ItemPosition getItemPosition() {
         return plantPosition;
     }
 
-    public void setPlantPosition(ItemPosition plantPosition) {
+    public void setItemPosition(ItemPosition plantPosition) {
         this.plantPosition = plantPosition;
     }
 

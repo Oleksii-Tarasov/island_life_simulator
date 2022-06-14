@@ -8,7 +8,7 @@ public class Caterpillar extends Animal implements Herbivores {
     private final static double WEIGHT = 0.01;
     private final static int MAX_AMOUNT_ON_CELL = 1000;
     private final static int SPEED = 0;
-    private final static double FULL_SATURATION = 0;
+    private final static double FULL_SATURATION = 1;
     private final static double WEIGHT_LOSS_PER_DAY = 0;
 
     private double weight;
@@ -39,12 +39,12 @@ public class Caterpillar extends Animal implements Herbivores {
     }
 
     @Override
-    public void setAnimalPosition(ItemPosition animalPosition) {
+    public void setItemPosition(ItemPosition animalPosition) {
         this.animalPosition = animalPosition;
     }
 
     @Override
-    public ItemPosition getAnimalPosition() {
+    public ItemPosition getItemPosition() {
         return this.animalPosition;
     }
 

@@ -5,9 +5,7 @@ import ua.com.javarush.island_life_simulator.field.ItemPosition;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_HEIGHT;
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_WIDTH;
@@ -16,41 +14,37 @@ import static ua.com.javarush.island_life_simulator.field.GameField.islandField;
 public class ItemMover {
     public void moveItems(List<Animal> animalList) {
         List<Animal> listAnimalsForRemoving = new ArrayList<>();
-        Map<Animal, ItemPosition> mapAnimalsForMoving = new HashMap<>();
 
         for (Animal animal : animalList) {
-            if (!animal.isAlreadyWalked()) {
-                ItemPosition currentItemPosition = animal.getAnimalPosition();
-                int x = currentItemPosition.getX();
-                int y = currentItemPosition.getY();
-                ItemPosition newItemPosition = calculateNewDestination(animal);
+            if (animal.isAlreadyWalked() || animal.getSpeed() == 0) {
+                continue;
+            }
 
-                if (checkingIfDestinationHasChanged(x, y, newItemPosition)) {
-                    mapAnimalsForMoving.put(animal, newItemPosition);
-                    listAnimalsForRemoving.add(animal);
+            ItemPosition currentItemPosition = animal.getItemPosition();
+            ItemPosition newItemPosition = calculateNewDestination(animal);
+
+            if (ItemConditionsChecker.hasDestinationChanged(currentItemPosition, newItemPosition) ) {
+                animal.setItemPosition(newItemPosition);
+                if (ItemConditionsChecker.canAddItemToCell(animal)) {
+                    Cell cellForAddingAnimal = islandField[newItemPosition.getY()][newItemPosition.getX()];
+                    cellForAddingAnimal.addAnimalToList(animal);
+                    animal.setAlreadyWalked(true);
                 }
+                else {
+                    animal.setItemPosition(currentItemPosition);
+                }
+                listAnimalsForRemoving.add(animal);
             }
         }
-
-        for (Map.Entry<Animal, ItemPosition> pair : mapAnimalsForMoving.entrySet()) {
-            Animal animal = pair.getKey();
-            ItemPosition newItemPosition = pair.getValue();
-            animal.setAnimalPosition(newItemPosition);
-            animal.setAlreadyWalked(true);
-
-            Cell cellForAddingAnimal = islandField[newItemPosition.getY()][newItemPosition.getX()];
-            cellForAddingAnimal.addAnimalToList(animal);
-        }
-
         new ItemRemover().removeAnimals(animalList, listAnimalsForRemoving);
     }
 
     private ItemPosition calculateNewDestination(Animal animal) {
         int speed = animal.getSpeed();
-        ItemPosition position = animal.getAnimalPosition();
+        ItemPosition position = new ItemPosition(animal.getItemPosition().getX(), animal.getItemPosition().getY());
 
         for (int i = 0; i < speed; i++) {
-            String direction = animal.chooseDirection();
+            String direction = chooseDirection();
             int x = position.getX();
             int y = position.getY();
 
@@ -80,7 +74,9 @@ public class ItemMover {
         return position;
     }
 
-    private boolean checkingIfDestinationHasChanged(int x, int y, ItemPosition newItemPosition) {
-        return (y != newItemPosition.getY() || x != newItemPosition.getX());
+    private String chooseDirection() {
+        List<String> directionsList = List.of("Left", "Right", "Up", "Down", "Stand");
+
+        return directionsList.get((int) (Math.random() * directionsList.size()));
     }
 }

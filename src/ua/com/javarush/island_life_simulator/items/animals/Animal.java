@@ -1,10 +1,11 @@
 package ua.com.javarush.island_life_simulator.items.animals;
 
 import ua.com.javarush.island_life_simulator.field.ItemPosition;
+import ua.com.javarush.island_life_simulator.items.BasicItem;
 
 import java.util.List;
 
-public abstract class Animal {
+public abstract class Animal extends BasicItem {
     private double weight;
     private int maxAmountOnCell;
     private int speed;
@@ -30,11 +31,11 @@ public abstract class Animal {
         this.alreadyWalked = alreadyWalked;
     }
 
-    public void setAnimalPosition(ItemPosition animalPosition) {
+    public void setItemPosition(ItemPosition animalPosition) {
         this.animalPosition = animalPosition;
     }
 
-    public ItemPosition getAnimalPosition() {
+    public ItemPosition getItemPosition() {
         return this.animalPosition;
     }
 
@@ -54,11 +55,5 @@ public abstract class Animal {
 
     public double getFullSaturation() {
         return fullSaturation;
-    }
-
-    public String chooseDirection() {
-        List<String> directionsList = List.of("Left", "Right", "Up", "Down", "Stand");
-
-        return directionsList.get((int) (Math.random() * directionsList.size()));
     }
 }

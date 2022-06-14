@@ -39,12 +39,12 @@ public class Rabbit extends Animal implements Herbivores {
     }
 
     @Override
-    public void setAnimalPosition(ItemPosition animalPosition) {
+    public void setItemPosition(ItemPosition animalPosition) {
         this.animalPosition = animalPosition;
     }
 
     @Override
-    public ItemPosition getAnimalPosition() {
+    public ItemPosition getItemPosition() {
         return this.animalPosition;
     }
 

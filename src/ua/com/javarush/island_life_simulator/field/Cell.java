@@ -14,6 +14,10 @@ public class Cell {
         this.cellPosition = cellPosition;
     }
 
+    public ItemPosition getCellPosition() {
+        return cellPosition;
+    }
+
     public void addAnimalToList(Animal animal) {
         this.animalList.add(animal);
     }
