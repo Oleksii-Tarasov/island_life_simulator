@@ -12,11 +12,13 @@ import static ua.com.javarush.island_life_simulator.constants.GameErrors.UNABLE_
 import static ua.com.javarush.island_life_simulator.constants.ItemSettings.ANIMAL_FACTORIES;
 
 public class ItemCreator {
-    private ItemPlacer itemPlacer;
+    private final ItemPlacer itemPlacer;
+    private final ItemConditionsChecker itemConditionsChecker;
 //    public static final AnimalFactory[] testFactory = new AnimalFactory[]{new BeerFactory(), new DeerFactory(), new MouseFactory(), new WolfFactory()};
 
-    public ItemCreator(ItemPlacer itemPlacer) {
+    public ItemCreator(ItemPlacer itemPlacer, ItemConditionsChecker itemConditionsChecker) {
         this.itemPlacer = itemPlacer;
+        this.itemConditionsChecker = itemConditionsChecker;
     }
 
     public void createAnimals(){
@@ -32,7 +34,7 @@ public class ItemCreator {
 
                 do {
                     animal.setItemPosition(new ItemPosition());
-                    if (ItemConditionsChecker.canAddItemToCell(animal)) {
+                    if (itemConditionsChecker.canAddItemToCell(animal)) {
                         isPositionFind = true;
                     }
                 } while (!isPositionFind);
@@ -60,7 +62,7 @@ public class ItemCreator {
 
             do {
                 plant.setItemPosition(new ItemPosition());
-                if (ItemConditionsChecker.canAddItemToCell(plant)) {
+                if (itemConditionsChecker.canAddItemToCell(plant)) {
                     isPositionFind = true;
                 }
             } while (!isPositionFind);

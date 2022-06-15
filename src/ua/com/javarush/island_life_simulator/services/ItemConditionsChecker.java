@@ -20,6 +20,12 @@ import static ua.com.javarush.island_life_simulator.constants.GameSettings.ONE_H
 import static ua.com.javarush.island_life_simulator.constants.ItemSettings.CHANCE_TO_EAT_SOMEONE;
 
 public class ItemConditionsChecker {
+    private final GameField gameField;
+
+    public ItemConditionsChecker(GameField gameField) {
+        this.gameField = gameField;
+    }
+
     public boolean isAnimalHungry(Animal animal) {
         return animal.getCurrentSaturation() < animal.getFullSaturation();
     }
@@ -37,7 +43,7 @@ public class ItemConditionsChecker {
         return haveWinner;
     }
 
-    public static boolean hasDestinationChanged(ItemPosition currentPosition, ItemPosition newItemPosition) {
+    public boolean hasDestinationChanged(ItemPosition currentPosition, ItemPosition newItemPosition) {
         return ((currentPosition.getX() != newItemPosition.getX()) || (currentPosition.getY() != newItemPosition.getY()));
     }
 
@@ -61,7 +67,7 @@ public class ItemConditionsChecker {
                 || !(attackingAnimal.getClass().getSimpleName()).equals(animalToEat.getClass().getSimpleName()));
     }
 
-    public static boolean canAddItemToCell(BasicItem item) {
+    public boolean canAddItemToCell(BasicItem item) {
         int maxAmountOnCell = item.getMaxAmountOnCell();
         List<BasicItem> basicItemList = getBasicItemList(item);
 
@@ -77,11 +83,11 @@ public class ItemConditionsChecker {
         return currentAmount < maxAmountOnCell;
     }
 
-    private static List<BasicItem> getBasicItemList(BasicItem basicItem) {
+    private List<BasicItem> getBasicItemList(BasicItem basicItem) {
         int x = basicItem.getItemPosition().getX();
         int y = basicItem.getItemPosition().getY();
 
-        Cell cell = GameField.islandField[y][x];
+        Cell cell = gameField.getCellFromField(y, x);
 
         if (basicItem instanceof Animal) {
             return new ArrayList<>(cell.getAnimalList());

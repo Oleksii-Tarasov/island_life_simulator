@@ -1,6 +1,7 @@
 package ua.com.javarush.island_life_simulator.services;
 
 import ua.com.javarush.island_life_simulator.field.Cell;
+import ua.com.javarush.island_life_simulator.field.GameField;
 import ua.com.javarush.island_life_simulator.field.ItemPosition;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
 
@@ -9,9 +10,16 @@ import java.util.List;
 
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_HEIGHT;
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_WIDTH;
-import static ua.com.javarush.island_life_simulator.field.GameField.islandField;
 
 public class ItemMover {
+    private final ItemConditionsChecker itemConditionsChecker;
+    private final GameField gameField;
+
+    public ItemMover(GameField gameField, ItemConditionsChecker itemConditionsChecker) {
+        this.itemConditionsChecker = itemConditionsChecker;
+        this.gameField = gameField;
+    }
+
     public void moveItems(List<Animal> animalList) {
         List<Animal> listAnimalsForRemoving = new ArrayList<>();
 
@@ -23,10 +31,10 @@ public class ItemMover {
             ItemPosition currentItemPosition = animal.getItemPosition();
             ItemPosition newItemPosition = calculateNewDestination(animal);
 
-            if (ItemConditionsChecker.hasDestinationChanged(currentItemPosition, newItemPosition) ) {
+            if (itemConditionsChecker.hasDestinationChanged(currentItemPosition, newItemPosition) ) {
                 animal.setItemPosition(newItemPosition);
-                if (ItemConditionsChecker.canAddItemToCell(animal)) {
-                    Cell cellForAddingAnimal = islandField[newItemPosition.getY()][newItemPosition.getX()];
+                if (itemConditionsChecker.canAddItemToCell(animal)) {
+                    Cell cellForAddingAnimal = gameField.getCellFromField(newItemPosition.getY(), newItemPosition.getX());
                     cellForAddingAnimal.addAnimalToList(animal);
                     animal.setAlreadyWalked(true);
                 }

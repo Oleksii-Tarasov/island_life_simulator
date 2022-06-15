@@ -1,6 +1,7 @@
 package ua.com.javarush.island_life_simulator.services;
 
 import ua.com.javarush.island_life_simulator.field.Cell;
+import ua.com.javarush.island_life_simulator.field.GameField;
 import ua.com.javarush.island_life_simulator.items.BasicItem;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
 import ua.com.javarush.island_life_simulator.items.plants.Plant;
@@ -12,14 +13,19 @@ import static java.util.stream.Collectors.groupingBy;
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.*;
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_WIDTH;
 import static ua.com.javarush.island_life_simulator.constants.PrintableFieldElements.*;
-import static ua.com.javarush.island_life_simulator.field.GameField.islandField;
 
 public class ItemPrinter {
+    private final GameField gameField;
+
+    public ItemPrinter(GameField gameField) {
+        this.gameField = gameField;
+    }
+
     public void printGameField() {
         for (int y = 0; y < ISLAND_HEIGHT; y++) {
             for (int x = 0; x < ISLAND_WIDTH; x++) {
-                Cell cell = islandField[y][x];
-                System.out.print(OPEN_CELL+ getItemForPrint(cell) + CLOSE_CELL);
+                Cell cell = gameField.getCellFromField(y, x);
+                System.out.print(OPEN_CELL + getItemForPrint(cell) + CLOSE_CELL);
             }
             System.out.println();
         }
@@ -64,7 +70,6 @@ public class ItemPrinter {
                 items.append(basicItem.getKey()).append("x").append(basicItem.getValue()).append(DELIMITER);
             }
         }
-
         return items.toString();
     }
 }
