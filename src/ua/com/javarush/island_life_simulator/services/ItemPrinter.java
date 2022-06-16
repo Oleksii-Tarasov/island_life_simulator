@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 import static ua.com.javarush.island_life_simulator.constants.GameSettings.*;
-import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_WIDTH;
+import static ua.com.javarush.island_life_simulator.constants.GameSettings.GAME_FIELD_WIDTH;
 import static ua.com.javarush.island_life_simulator.constants.PrintableFieldElements.*;
 
 public class ItemPrinter {
@@ -22,8 +22,8 @@ public class ItemPrinter {
     }
 
     public void printGameField() {
-        for (int y = 0; y < ISLAND_HEIGHT; y++) {
-            for (int x = 0; x < ISLAND_WIDTH; x++) {
+        for (int y = 0; y < GAME_FIELD_HEIGHT; y++) {
+            for (int x = 0; x < GAME_FIELD_WIDTH; x++) {
                 Cell cell = gameField.getCellFromField(y, x);
                 System.out.print(OPEN_CELL + getItemForPrint(cell) + CLOSE_CELL);
             }

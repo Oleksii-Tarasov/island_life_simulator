@@ -1,15 +1,15 @@
 package ua.com.javarush.island_life_simulator.field;
 
-import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_HEIGHT;
-import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_WIDTH;
+import static ua.com.javarush.island_life_simulator.constants.GameSettings.GAME_FIELD_HEIGHT;
+import static ua.com.javarush.island_life_simulator.constants.GameSettings.GAME_FIELD_WIDTH;
 
 public class ItemPosition {
     private int x;
     private int y;
 
     public ItemPosition() {
-        this.x = (int) (Math.random() * (ISLAND_WIDTH));
-        this.y = (int) (Math.random() * (ISLAND_HEIGHT));
+        this.x = (int) (Math.random() * (GAME_FIELD_WIDTH));
+        this.y = (int) (Math.random() * (GAME_FIELD_HEIGHT));
     }
 
     public ItemPosition(int x, int y) {

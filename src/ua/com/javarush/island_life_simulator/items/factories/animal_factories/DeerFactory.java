@@ -4,7 +4,7 @@ import ua.com.javarush.island_life_simulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
 import ua.com.javarush.island_life_simulator.items.animals.herbivores.Deer;
 
-@NumberOfItemsOnField()
+@NumberOfItemsOnField(minAmount = 1, maxAmount = 5)
 public class DeerFactory implements AnimalFactory {
     @Override
     public Animal create() {

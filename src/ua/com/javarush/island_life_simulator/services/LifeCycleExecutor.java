@@ -16,30 +16,16 @@ import static java.util.stream.Collectors.groupingBy;
 public class LifeCycleExecutor {
     private final ItemCreator itemCreator;
     private final ItemMover itemMover;
-    private final ItemRemover itemRemover;
     private final ItemConditionsChecker itemStatusChecker;
 
-    public LifeCycleExecutor(ItemCreator itemCreator, ItemMover itemMover, ItemRemover itemRemover, ItemConditionsChecker itemStatusChecker) {
+    public LifeCycleExecutor(ItemCreator itemCreator, ItemMover itemMover, ItemConditionsChecker itemStatusChecker) {
         this.itemCreator = itemCreator;
         this.itemMover = itemMover;
-        this.itemRemover = itemRemover;
         this.itemStatusChecker = itemStatusChecker;
-    }
-
-    public void reduceSaturation(List<Animal> animalList) {
-        animalList.forEach(Animal::reduceSaturation);
-    }
-
-    public void starvingToDeath(List<Animal> animalList) {
-        animalList.removeIf(animal -> animal.getCurrentSaturation() <= 0);
     }
 
     public void movingAnimals(List<Animal> animalList) {
         itemMover.moveItems(animalList);
-    }
-
-    public void resetWalkStatus(List<Animal> animalList) {
-        animalList.forEach(animal -> animal.setAlreadyWalked(false));
     }
 
     public void reproduction(Cell cell) {
@@ -87,7 +73,7 @@ public class LifeCycleExecutor {
                 }
             }
         }
-        itemRemover.removeAnimals(animalList, eatenAnimalList);
+        animalList.removeAll(eatenAnimalList);
     }
 
     public void eatPlants(List<Animal> animalList, List<Plant> plantList) {
@@ -105,7 +91,7 @@ public class LifeCycleExecutor {
                     eatenPlantList.add(plant);
                 }
             }
-            itemRemover.removePlants(plantList, eatenPlantList);
+            plantList.removeAll(eatenPlantList);
         }
     }
 

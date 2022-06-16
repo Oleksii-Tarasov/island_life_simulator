@@ -8,8 +8,8 @@ import ua.com.javarush.island_life_simulator.items.animals.Animal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_HEIGHT;
-import static ua.com.javarush.island_life_simulator.constants.GameSettings.ISLAND_WIDTH;
+import static ua.com.javarush.island_life_simulator.constants.GameSettings.GAME_FIELD_HEIGHT;
+import static ua.com.javarush.island_life_simulator.constants.GameSettings.GAME_FIELD_WIDTH;
 
 public class ItemMover {
     private final ItemConditionsChecker itemConditionsChecker;
@@ -44,7 +44,7 @@ public class ItemMover {
                 listAnimalsForRemoving.add(animal);
             }
         }
-        new ItemRemover().removeAnimals(animalList, listAnimalsForRemoving);
+        animalList.removeAll(listAnimalsForRemoving);
     }
 
     private ItemPosition calculateNewDestination(Animal animal) {
@@ -63,7 +63,7 @@ public class ItemMover {
                     }
                 }
                 case "Right" -> {
-                    if (x + 1 < ISLAND_WIDTH) {
+                    if (x + 1 < GAME_FIELD_WIDTH) {
                         position.setX(x + 1);
                     }
                 }
@@ -73,7 +73,7 @@ public class ItemMover {
                     }
                 }
                 case "Down" -> {
-                    if (y + 1 < ISLAND_HEIGHT) {
+                    if (y + 1 < GAME_FIELD_HEIGHT) {
                         position.setY(y + 1);
                     }
                 }
