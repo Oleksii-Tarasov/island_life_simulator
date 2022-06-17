@@ -1,5 +1,6 @@
 package ua.com.javarush.island_life_simulator.services;
 
+import ua.com.javarush.island_life_simulator.controllers.GameEventsController;
 import ua.com.javarush.island_life_simulator.field.Cell;
 import ua.com.javarush.island_life_simulator.field.ItemPosition;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
@@ -17,11 +18,13 @@ public class LifeCycleExecutor {
     private final ItemCreator itemCreator;
     private final ItemMover itemMover;
     private final ItemConditionsChecker itemStatusChecker;
+    private final GameEventsController gameEventsController;
 
-    public LifeCycleExecutor(ItemCreator itemCreator, ItemMover itemMover, ItemConditionsChecker itemStatusChecker) {
+    public LifeCycleExecutor(ItemCreator itemCreator, ItemMover itemMover, ItemConditionsChecker itemStatusChecker, GameEventsController gameEventsController) {
         this.itemCreator = itemCreator;
         this.itemMover = itemMover;
         this.itemStatusChecker = itemStatusChecker;
+        this.gameEventsController = gameEventsController;
     }
 
     public void movingAnimals(List<Animal> animalList) {
@@ -43,6 +46,7 @@ public class LifeCycleExecutor {
                 if (itemStatusChecker.canReproduce(animalClass, animalQuantity)) {
                     ItemPosition itemPosition = cell.getCellPosition();
                     itemCreator.createNewbornAnimal(animalClass, itemPosition);
+                    gameEventsController.countNewbornAnimals();
                     animalQuantity++;
                 }
                 else {
@@ -69,6 +73,7 @@ public class LifeCycleExecutor {
 
                 if (isAnimalEaten) {
                     saturationProcessForCarnivores(attackingAnimal, animalToEat);
+                    gameEventsController.countDeadAnimals();
                     eatenAnimalList.add(animalToEat);
                 }
             }
@@ -88,6 +93,7 @@ public class LifeCycleExecutor {
                 if (animal instanceof Herbivores && itemStatusChecker.isAnimalHungry(animal)) {
                     double animalCurrentSaturation = animal.getCurrentSaturation();
                     animal.setCurrentSaturation(animalCurrentSaturation + plant.getWeight());
+                    gameEventsController.countDeadPlants();
                     eatenPlantList.add(plant);
                 }
             }

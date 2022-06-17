@@ -1,6 +1,7 @@
 package ua.com.javarush.island_life_simulator.services;
 
 import ua.com.javarush.island_life_simulator.annotations.NumberOfItemsOnField;
+import ua.com.javarush.island_life_simulator.controllers.GameEventsController;
 import ua.com.javarush.island_life_simulator.field.ItemPosition;
 import ua.com.javarush.island_life_simulator.items.animals.Animal;
 import ua.com.javarush.island_life_simulator.items.factories.animal_factories.*;
@@ -13,12 +14,14 @@ import static ua.com.javarush.island_life_simulator.constants.GameErrors.UNABLE_
 public class ItemCreator {
     private final ItemPlacer itemPlacer;
     private final ItemConditionsChecker itemConditionsChecker;
+    private final GameEventsController gameEventsController;
     public static final AnimalFactory[] testFactory = new AnimalFactory[]{new BeerFactory(), new DeerFactory(), new MouseFactory(), new WolfFactory()
     };
 
-    public ItemCreator(ItemPlacer itemPlacer, ItemConditionsChecker itemConditionsChecker) {
+    public ItemCreator(ItemPlacer itemPlacer, ItemConditionsChecker itemConditionsChecker, GameEventsController gameEventsController) {
         this.itemPlacer = itemPlacer;
         this.itemConditionsChecker = itemConditionsChecker;
+        this.gameEventsController = gameEventsController;
     }
 
     public void createAnimals() {
@@ -35,6 +38,7 @@ public class ItemCreator {
                 do {
                     animal.setItemPosition(new ItemPosition());
                     if (itemConditionsChecker.canAddItemToCell(animal)) {
+                        gameEventsController.countAnimals();
                         isPositionFind = true;
                     }
                 } while (!isPositionFind);
@@ -62,6 +66,7 @@ public class ItemCreator {
             do {
                 plant.setItemPosition(new ItemPosition());
                 if (itemConditionsChecker.canAddItemToCell(plant)) {
+                    gameEventsController.countPlants();
                     isPositionFind = true;
                 }
             } while (!isPositionFind);

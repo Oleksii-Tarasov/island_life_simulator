@@ -1,5 +1,6 @@
 package ua.com.javarush.island_life_simulator.services;
 
+import ua.com.javarush.island_life_simulator.controllers.GameEventsController;
 import ua.com.javarush.island_life_simulator.field.Cell;
 import ua.com.javarush.island_life_simulator.field.GameField;
 import ua.com.javarush.island_life_simulator.items.BasicItem;
@@ -16,9 +17,10 @@ import static ua.com.javarush.island_life_simulator.constants.PrintableFieldElem
 
 public class ItemPrinter {
     private final GameField gameField;
+    private final GameEventsController gameEventsController;
 
-    public ItemPrinter(GameField gameField) {
-        this.gameField = gameField;
+    public ItemPrinter(GameField gameField, GameEventsController gameEventsController) {
+        this.gameField = gameField;this.gameEventsController = gameEventsController;
     }
 
     public void printGameField() {
@@ -71,5 +73,24 @@ public class ItemPrinter {
             }
         }
         return items.toString();
+    }
+
+    public void zeroDayInformer() {
+        int animalsNumber = gameEventsController.getAnimalsNumber();
+        int plantsNumber = gameEventsController.getPlantsNumber();
+
+        System.out.printf("On the first day of the creation of the World %d animals and %d plants were created. \n", animalsNumber, plantsNumber);
+        System.out.println(FIELD_DELIMITER);
+    }
+
+    public void dailyInformer() {
+        int daysNumber = gameEventsController.getDaysNumber();
+        int deadAnimalsNumber = gameEventsController.getDeadAnimalsNumber();
+        int deadPlantsNumber = gameEventsController.getDeadPlantsNumber();
+        int newbornAnimalsNumber = gameEventsController.getNewbornAnimalsNumber();
+        int plantsNumber = gameEventsController.getPlantsNumber();
+
+        System.out.printf("On the %d day %d animals and %d plants died.\n " +
+                "%d new animals were born and %d new plants grew.", daysNumber, deadAnimalsNumber, deadPlantsNumber, newbornAnimalsNumber, plantsNumber);
     }
 }
