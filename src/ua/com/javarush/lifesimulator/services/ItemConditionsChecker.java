@@ -1,29 +1,32 @@
 package ua.com.javarush.lifesimulator.services;
 
+import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
+import ua.com.javarush.lifesimulator.configuration.AnimalConfiguration;
 import ua.com.javarush.lifesimulator.field.Cell;
 import ua.com.javarush.lifesimulator.field.GameField;
 import ua.com.javarush.lifesimulator.field.ItemPosition;
-import ua.com.javarush.lifesimulator.items.BasicItem;
-import ua.com.javarush.lifesimulator.items.Animal;
 import ua.com.javarush.lifesimulator.interfaces.Carnivores;
+import ua.com.javarush.lifesimulator.interfaces.Herbivores;
+import ua.com.javarush.lifesimulator.items.Animal;
+import ua.com.javarush.lifesimulator.items.BasicItem;
+import ua.com.javarush.lifesimulator.items.Plant;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
-import static ua.com.javarush.lifesimulator.constants.GameErrors.SOMETHING_WENT_WRONG;
 import static ua.com.javarush.lifesimulator.constants.GameSettings.ONE_HUNDRED_PERCENT_CHANCE;
-import static ua.com.javarush.lifesimulator.constants.ItemSettings.CHANCE_TO_EAT_SOMEONE;
 
 public class ItemConditionsChecker {
     private final GameField gameField;
+    private final AnimalConfiguration animalConfiguration;
 
-    public ItemConditionsChecker(GameField gameField) {
+    public ItemConditionsChecker(GameField gameField, AnimalConfiguration animalConfiguration) {
         this.gameField = gameField;
+        this.animalConfiguration = animalConfiguration;
     }
 
     public boolean isAnimalHungry(Animal animal) {
@@ -32,14 +35,14 @@ public class ItemConditionsChecker {
 
     public boolean willAnimalBeEaten(String animalsPair) {
         boolean haveWinner = false;
-        for (Map.Entry<String, Integer> fightingAnimals : CHANCE_TO_EAT_SOMEONE.entrySet()) {
-            if (fightingAnimals.getKey().equals(animalsPair)) {
-                int chanceToEat = fightingAnimals.getValue();
-                int realResult = new Random().nextInt(ONE_HUNDRED_PERCENT_CHANCE);
-                haveWinner = realResult > (ONE_HUNDRED_PERCENT_CHANCE - chanceToEat);
-                break;
-            }
+        HashMap hashMap = animalConfiguration.getAnimalPairMap();
+
+        if (hashMap.containsKey(animalsPair)) {
+            int chanceToEat = (int) hashMap.get(animalsPair);
+            int realResult = (int) (Math.random() * ONE_HUNDRED_PERCENT_CHANCE);
+            haveWinner = realResult > (ONE_HUNDRED_PERCENT_CHANCE - chanceToEat);
         }
+
         return haveWinner;
     }
 
@@ -48,23 +51,21 @@ public class ItemConditionsChecker {
     }
 
     public boolean canReproduce(Class<? extends Animal> animalClass, long currentQuantity) {
-        int maxAmountOnCell = 0;
-        try {
-            Field fieldMaxAmountOnCell = animalClass.getDeclaredField("MAX_AMOUNT_ON_CELL");
-            fieldMaxAmountOnCell.setAccessible(true);
-            maxAmountOnCell = (int) fieldMaxAmountOnCell.get(animalClass);
-        }
-        catch (NoSuchFieldException | IllegalAccessException e) {
-            System.out.println(SOMETHING_WENT_WRONG);
-        }
+        NumberOfItemsOnField numberOfItemsOnField = animalClass.getAnnotation(NumberOfItemsOnField.class);
+        int maxAmountOnCell = numberOfItemsOnField.maxAmountOnCell();
 
         return currentQuantity < maxAmountOnCell;
     }
 
     public boolean isHuntingConditionsGood(Animal attackingAnimal, Animal animalToEat, List<Animal> eatenAnimalList) {
-        return ((attackingAnimal instanceof Carnivores)
-                || !(eatenAnimalList.contains(animalToEat))
-                || !(attackingAnimal.getClass().getSimpleName()).equals(animalToEat.getClass().getSimpleName()));
+        return (attackingAnimal instanceof Carnivores
+                && !eatenAnimalList.contains(attackingAnimal)
+                && !eatenAnimalList.contains(animalToEat)
+                && !attackingAnimal.getClass().getSimpleName().equals(animalToEat.getClass().getSimpleName()));
+    }
+
+    public boolean canEatPlants(Animal animal, Plant plant, List<Plant> eatenPlantList) {
+        return (animal instanceof Herbivores && !eatenPlantList.contains(plant));
     }
 
     public boolean canAddItemToCell(BasicItem item) {
@@ -91,8 +92,7 @@ public class ItemConditionsChecker {
 
         if (basicItem instanceof Animal) {
             return new ArrayList<>(cell.getAnimalList());
-        }
-        else  {
+        } else {
             return new ArrayList<>(cell.getPlantList());
         }
     }

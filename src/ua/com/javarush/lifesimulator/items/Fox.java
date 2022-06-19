@@ -6,32 +6,27 @@ import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 
 @NumberOfItemsOnField
 public class Fox extends Animal implements Carnivores {
-    private final static double WEIGHT = 8;
-    private final static int MAX_AMOUNT_ON_CELL = 30;
-    private final static int SPEED = 2;
-    private final static double FULL_SATURATION = 2;
-    private final static double WEIGHT_LOSS_PER_DAY = 0.2;
-
-    private double weight;
-    private int maxAmountOnCell;
-    private int speed;
-    private double fullSaturation;
+    private final double weight;
+    private final int maxAmountOnCell;
+    private final int speed;
+    private final double fullSaturation;
+    private final double weightLossPerDay;
     private double currentSaturation;
     private boolean alreadyWalked;
     private ItemPosition animalPosition;
 
-    public Fox() {
-        this.weight = WEIGHT;
-        this.maxAmountOnCell = MAX_AMOUNT_ON_CELL;
-        this.speed = SPEED;
-        this.fullSaturation = FULL_SATURATION;
-        this.currentSaturation = FULL_SATURATION;
-        this.alreadyWalked = false;
+    public Fox(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.weight = weight;
+        this.maxAmountOnCell = maxAmountOnCell;
+        this.speed = speed;
+        this.fullSaturation = fullSaturation;
+        this.currentSaturation = fullSaturation;
+        this.weightLossPerDay = weightLossPerDay;
     }
 
     @Override
     public Animal clone() {
-        return new Fox();
+        return new Fox(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override
@@ -76,7 +71,7 @@ public class Fox extends Animal implements Carnivores {
 
     @Override
     public void reduceSaturation() {
-        this.currentSaturation = this.currentSaturation - WEIGHT_LOSS_PER_DAY;
+        this.currentSaturation = this.currentSaturation - weightLossPerDay;
     }
 
     @Override

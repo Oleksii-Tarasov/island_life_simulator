@@ -6,31 +6,27 @@ import ua.com.javarush.lifesimulator.interfaces.Herbivores;
 
 @NumberOfItemsOnField
 public class Buffalo extends Animal implements Herbivores {
-    private final static double WEIGHT = 700;
-    private final static int MAX_AMOUNT_ON_CELL = 10;
-    private final static int SPEED = 3;
-    private final static double FULL_SATURATION = 100;
-    private final static double WEIGHT_LOSS_PER_DAY = 14;
-
-    private double weight;
-    private int maxAmountOnCell;
-    private int speed;
-    private double fullSaturation;
+    private final double weight;
+    private final int maxAmountOnCell;
+    private final int speed;
+    private final double fullSaturation;
+    private final double weightLossPerDay;
     private double currentSaturation;
     private boolean alreadyWalked;
     private ItemPosition animalPosition;
 
-    public Buffalo() {
-        this.weight = WEIGHT;
-        this.maxAmountOnCell = MAX_AMOUNT_ON_CELL;
-        this.speed = SPEED;
-        this.fullSaturation = FULL_SATURATION;
-        this.currentSaturation = FULL_SATURATION;
+    public Buffalo(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.weight = weight;
+        this.maxAmountOnCell = maxAmountOnCell;
+        this.speed = speed;
+        this.fullSaturation = fullSaturation;
+        this.currentSaturation = fullSaturation;
+        this.weightLossPerDay = weightLossPerDay;
     }
 
     @Override
     public Animal clone() {
-        return new Buffalo();
+        return new Buffalo(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override
@@ -75,12 +71,12 @@ public class Buffalo extends Animal implements Herbivores {
 
     @Override
     public double getFullSaturation() {
-        return fullSaturation;
+        return this.fullSaturation;
     }
 
     @Override
     public void reduceSaturation() {
-        this.currentSaturation = this.currentSaturation - WEIGHT_LOSS_PER_DAY;
+        this.currentSaturation = this.currentSaturation - weightLossPerDay;
     }
 
     @Override

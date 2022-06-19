@@ -1,9 +1,9 @@
 package ua.com.javarush.lifesimulator.items;
 
 import ua.com.javarush.lifesimulator.field.ItemPosition;
-import ua.com.javarush.lifesimulator.items.BasicItem;
+import ua.com.javarush.lifesimulator.interfaces.BasicItemCloneable;
 
-public abstract class Animal extends BasicItem implements Cloneable {
+public abstract class Animal extends BasicItem implements BasicItemCloneable {
     private double weight;
     private int maxAmountOnCell;
     private int speed;

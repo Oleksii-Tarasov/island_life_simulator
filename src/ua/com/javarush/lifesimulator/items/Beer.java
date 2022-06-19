@@ -5,32 +5,28 @@ import ua.com.javarush.lifesimulator.field.ItemPosition;
 import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 
 @NumberOfItemsOnField
-public class Beer extends Animal implements Carnivores, Cloneable {
-    private final static double WEIGHT = 500;
-    private final static int MAX_AMOUNT_ON_CELL = 5;
-    private final static int SPEED = 2;
-    private final static double FULL_SATURATION = 80;
-    private final static double WEIGHT_LOSS_PER_DAY = 11;
-
-    private double weight;
-    private int maxAmountOnCell;
-    private int speed;
-    private double fullSaturation;
+public class Beer extends Animal implements Carnivores {
+    private final double weight;
+    private final int maxAmountOnCell;
+    private final int speed;
+    private final double fullSaturation;
+    private final double weightLossPerDay;
     private double currentSaturation;
     private boolean alreadyWalked;
     private ItemPosition animalPosition;
 
-    public Beer() {
-        this.weight = WEIGHT;
-        this.maxAmountOnCell = MAX_AMOUNT_ON_CELL;
-        this.speed = SPEED;
-        this.fullSaturation = FULL_SATURATION;
-        this.currentSaturation = FULL_SATURATION;
+    public Beer(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.weight = weight;
+        this.maxAmountOnCell = maxAmountOnCell;
+        this.speed = speed;
+        this.fullSaturation = fullSaturation;
+        this.currentSaturation = fullSaturation;
+        this.weightLossPerDay = weightLossPerDay;
     }
 
     @Override
     public Animal clone() {
-        return new Beer();
+        return new Beer(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override
@@ -75,12 +71,12 @@ public class Beer extends Animal implements Carnivores, Cloneable {
 
     @Override
     public double getFullSaturation() {
-        return fullSaturation;
+        return this.fullSaturation;
     }
 
     @Override
     public void reduceSaturation() {
-        this.currentSaturation = this.currentSaturation - WEIGHT_LOSS_PER_DAY;
+        this.currentSaturation = this.currentSaturation - this.weightLossPerDay;
     }
 
     @Override

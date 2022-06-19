@@ -1,7 +1,6 @@
 package ua.com.javarush.lifesimulator.items;
 
 import ua.com.javarush.lifesimulator.field.ItemPosition;
-import ua.com.javarush.lifesimulator.items.BasicItem;
 
 public class Plant extends BasicItem {
     private final double WEIGHT = 1;

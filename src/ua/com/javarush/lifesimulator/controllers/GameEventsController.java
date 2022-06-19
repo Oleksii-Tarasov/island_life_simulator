@@ -8,6 +8,10 @@ public class GameEventsController {
     private int deadAnimalsNumber;
     private int deadPlantsNumber;
 
+    public GameEventsController() {
+        this.daysNumber = 1;
+    }
+
     public void countAnimals() {
         animalsNumber++;
     }
@@ -28,8 +32,8 @@ public class GameEventsController {
         deadPlantsNumber++;
     }
 
-    public void setDaysNumber(int daysNumber) {
-        this.daysNumber = daysNumber;
+    public void countDaysNumber() {
+        daysNumber++;
     }
 
     public int getDaysNumber() {

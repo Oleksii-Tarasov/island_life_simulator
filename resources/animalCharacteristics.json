@@ -1,0 +1,20 @@
+{
+  "animalCharacteristics": [
+    {
+      "weight": 500.0,
+      "maxAmountOnCell": 5,
+      "speed": 2,
+      "fullSaturation": 80.0,
+      "weightLossPerDay": 11.0,
+      "animalClass" : "Beer"
+    },
+    {
+      "weight": 200.0,
+      "maxAmountOnCell": 20,
+      "speed": 4,
+      "fullSaturation": 50.0,
+      "weightLossPerDay": 7.0,
+      "animalClass" : "Deer"
+    }
+  ]
+}

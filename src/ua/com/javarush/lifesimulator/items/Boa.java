@@ -6,31 +6,27 @@ import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 
 @NumberOfItemsOnField()
 public class Boa extends Animal implements Carnivores {
-    private final static double WEIGHT = 15;
-    private final static int MAX_AMOUNT_ON_CELL = 30;
-    private final static int SPEED = 1;
-    private final static double FULL_SATURATION = 3;
-    private final static double WEIGHT_LOSS_PER_DAY = 0.4;
-
-    private double weight;
-    private int maxAmountOnCell;
-    private int speed;
-    private double fullSaturation;
+    private final double weight;
+    private final int maxAmountOnCell;
+    private final int speed;
+    private final double fullSaturation;
+    private final double weightLossPerDay;
     private double currentSaturation;
     private boolean alreadyWalked;
     private ItemPosition animalPosition;
 
-    public Boa() {
-        this.weight = WEIGHT;
-        this.maxAmountOnCell = MAX_AMOUNT_ON_CELL;
-        this.speed = SPEED;
-        this.fullSaturation = FULL_SATURATION;
-        this.currentSaturation = FULL_SATURATION;
+    public Boa(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.weight = weight;
+        this.maxAmountOnCell = maxAmountOnCell;
+        this.speed = speed;
+        this.fullSaturation = fullSaturation;
+        this.currentSaturation = fullSaturation;
+        this.weightLossPerDay = weightLossPerDay;
     }
 
     @Override
     public Animal clone() {
-        return new Boa();
+        return new Boa(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override
@@ -75,12 +71,12 @@ public class Boa extends Animal implements Carnivores {
 
     @Override
     public double getFullSaturation() {
-        return fullSaturation;
+        return this.fullSaturation;
     }
 
     @Override
     public void reduceSaturation() {
-        this.currentSaturation = this.currentSaturation - WEIGHT_LOSS_PER_DAY;
+        this.currentSaturation = this.currentSaturation - weightLossPerDay;
     }
 
     @Override

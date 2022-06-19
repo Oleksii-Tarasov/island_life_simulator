@@ -9,5 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NumberOfItemsOnField {
     int minAmount() default 1;
-    int maxAmount() default 5;
+    int maxAmount() default 15;
+    int maxAmountOnCell() default 5;
 }

@@ -1,5 +1,6 @@
 package ua.com.javarush.lifesimulator.controllers;
 
+import ua.com.javarush.lifesimulator.configuration.AnimalConfiguration;
 import ua.com.javarush.lifesimulator.field.Cell;
 import ua.com.javarush.lifesimulator.field.GameField;
 import ua.com.javarush.lifesimulator.items.Animal;
@@ -11,12 +12,13 @@ import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_HE
 import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_WIDTH;
 
 public class LifeController {
+    private final AnimalConfiguration animalConfiguration = new AnimalConfiguration();
     private final GameField gameField = new GameField();
     private final GameEventsController gameEventsController = new GameEventsController();
-    private final ItemConditionsChecker itemConditionsChecker = new ItemConditionsChecker(gameField);
+    private final ItemConditionsChecker itemConditionsChecker = new ItemConditionsChecker(gameField, animalConfiguration);
     private final ItemPrinter itemPrinter = new ItemPrinter(gameField, gameEventsController);
     private final ItemPlacer itemPlacer = new ItemPlacer(gameField);
-    private final ItemCreator itemCreator = new ItemCreator(itemPlacer, itemConditionsChecker, gameEventsController);
+    private final ItemCreator itemCreator = new ItemCreator(animalConfiguration, itemPlacer, itemConditionsChecker, gameEventsController);
     private final ItemMover itemMover = new ItemMover(gameField, itemConditionsChecker);
     private final ItemUpdater itemUpdater = new ItemUpdater(gameField, itemCreator, gameEventsController);
     private final LifeCycleExecutor lifeCycleExecutor = new LifeCycleExecutor(itemCreator, itemMover, itemConditionsChecker, gameEventsController);
@@ -33,6 +35,7 @@ public class LifeController {
 
     public void startDailyCycle() {
         gameEventsController.resetDailyEvents();
+        gameEventsController.countDaysNumber();
         itemUpdater.dailyWorldUpdate();
         executeDailyPhase();
 

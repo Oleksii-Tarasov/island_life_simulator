@@ -4,7 +4,6 @@ import ua.com.javarush.lifesimulator.controllers.GameEventsController;
 import ua.com.javarush.lifesimulator.field.Cell;
 import ua.com.javarush.lifesimulator.field.ItemPosition;
 import ua.com.javarush.lifesimulator.items.Animal;
-import ua.com.javarush.lifesimulator.interfaces.Herbivores;
 import ua.com.javarush.lifesimulator.items.Plant;
 
 import java.util.ArrayList;
@@ -64,7 +63,8 @@ public class LifeCycleExecutor {
             for (Animal animalToEat : animalList) {
                 String secondAnimal = animalToEat.getClass().getSimpleName();
 
-                if (!itemStatusChecker.isHuntingConditionsGood(attackingAnimal, animalToEat, eatenAnimalList)) {
+                if (!(itemStatusChecker.isHuntingConditionsGood(attackingAnimal, animalToEat, eatenAnimalList))
+                        || !(itemStatusChecker.isAnimalHungry(attackingAnimal))) {
                     continue;
                 }
 
@@ -90,15 +90,21 @@ public class LifeCycleExecutor {
 
         for (Animal animal : animalList) {
             for (Plant plant : plantList) {
-                if (animal instanceof Herbivores && itemStatusChecker.isAnimalHungry(animal)) {
-                    double animalCurrentSaturation = animal.getCurrentSaturation();
-                    animal.setCurrentSaturation(animalCurrentSaturation + plant.getWeight());
-                    gameEventsController.countDeadPlants();
-                    eatenPlantList.add(plant);
+                if (!(itemStatusChecker.canEatPlants(animal, plant, eatenPlantList)) || !(itemStatusChecker.isAnimalHungry(animal))) {
+                    continue;
                 }
+
+                saturationProcessForHerbivores(animal, plant);
+                gameEventsController.countDeadPlants();
+                eatenPlantList.add(plant);
             }
             plantList.removeAll(eatenPlantList);
         }
+    }
+
+    private void saturationProcessForHerbivores(Animal animal, Plant plant) {
+        double animalCurrentSaturation = animal.getCurrentSaturation();
+        animal.setCurrentSaturation(animalCurrentSaturation + plant.getWeight());
     }
 
     private void saturationProcessForCarnivores(Animal attackingAnimal, Animal animalToEat) {

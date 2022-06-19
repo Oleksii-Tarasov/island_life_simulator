@@ -6,32 +6,27 @@ import ua.com.javarush.lifesimulator.interfaces.Herbivores;
 
 @NumberOfItemsOnField
 public class Horse extends Animal implements Herbivores {
-    private final static double WEIGHT = 400;
-    private final static int MAX_AMOUNT_ON_CELL = 20;
-    private final static int SPEED = 4;
-    private final static double FULL_SATURATION = 60;
-    private final static double WEIGHT_LOSS_PER_DAY = 8;
-
     private double weight;
     private int maxAmountOnCell;
     private int speed;
     private double fullSaturation;
+    private double weightLossPerDay;
     private double currentSaturation;
     private boolean alreadyWalked;
     private ItemPosition animalPosition;
 
-    public Horse() {
-        this.weight = WEIGHT;
-        this.maxAmountOnCell = MAX_AMOUNT_ON_CELL;
-        this.speed = SPEED;
-        this.fullSaturation = FULL_SATURATION;
-        this.currentSaturation = FULL_SATURATION;
-        this.alreadyWalked = false;
+    public Horse(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.weight = weight;
+        this.maxAmountOnCell = maxAmountOnCell;
+        this.speed = speed;
+        this.fullSaturation = fullSaturation;
+        this.currentSaturation = fullSaturation;
+        this.weightLossPerDay = weightLossPerDay;
     }
 
     @Override
     public Animal clone() {
-        return new Horse();
+        return new Horse(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override
@@ -81,7 +76,7 @@ public class Horse extends Animal implements Herbivores {
 
     @Override
     public void reduceSaturation() {
-        this.currentSaturation = this.currentSaturation - WEIGHT_LOSS_PER_DAY;
+        this.currentSaturation = this.currentSaturation - weightLossPerDay;
     }
 
     @Override

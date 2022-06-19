@@ -3,15 +3,17 @@ package ua.com.javarush.lifesimulator.services;
 import ua.com.javarush.lifesimulator.controllers.GameEventsController;
 import ua.com.javarush.lifesimulator.field.Cell;
 import ua.com.javarush.lifesimulator.field.GameField;
-import ua.com.javarush.lifesimulator.items.BasicItem;
 import ua.com.javarush.lifesimulator.items.Animal;
+import ua.com.javarush.lifesimulator.items.BasicItem;
 import ua.com.javarush.lifesimulator.items.Plant;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
-import static ua.com.javarush.lifesimulator.constants.GameSettings.*;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_HEIGHT;
 import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_WIDTH;
 import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.*;
 
@@ -76,10 +78,11 @@ public class ItemPrinter {
     }
 
     public void zeroDayInformer() {
+        int dayNumber = gameEventsController.getDaysNumber();
         int animalsNumber = gameEventsController.getAnimalsNumber();
         int plantsNumber = gameEventsController.getPlantsNumber();
 
-        System.out.printf("On the first day of the creation of the World %d animals and %d plants were created. \n", animalsNumber, plantsNumber);
+        System.out.printf("On the %d day of the creation of the World %d animals and %d plants were created. \n", dayNumber, animalsNumber, plantsNumber);
         System.out.println(FIELD_DELIMITER);
     }
 
@@ -88,9 +91,8 @@ public class ItemPrinter {
         int deadAnimalsNumber = gameEventsController.getDeadAnimalsNumber();
         int deadPlantsNumber = gameEventsController.getDeadPlantsNumber();
         int newbornAnimalsNumber = gameEventsController.getNewbornAnimalsNumber();
-        int plantsNumber = gameEventsController.getPlantsNumber();
 
         System.out.printf("On the %d day %d animals and %d plants died.\n " +
-                "%d new animals were born.", daysNumber, deadAnimalsNumber, deadPlantsNumber, newbornAnimalsNumber, plantsNumber);
+                "%d new animals were born.", daysNumber, deadAnimalsNumber, deadPlantsNumber, newbornAnimalsNumber);
     }
 }
