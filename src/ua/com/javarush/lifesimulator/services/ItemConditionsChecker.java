@@ -11,18 +11,16 @@ import ua.com.javarush.lifesimulator.items.Animal;
 import ua.com.javarush.lifesimulator.items.BasicItem;
 import ua.com.javarush.lifesimulator.items.Plant;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
-import static ua.com.javarush.lifesimulator.constants.GameSettings.ONE_HUNDRED_PERCENT_CHANCE;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.*;
 
 public class ItemConditionsChecker {
     private final GameField gameField;
     private final AnimalConfiguration animalConfiguration;
+    private final Random chance = new Random();
 
     public ItemConditionsChecker(GameField gameField, AnimalConfiguration animalConfiguration) {
         this.gameField = gameField;
@@ -54,7 +52,7 @@ public class ItemConditionsChecker {
         NumberOfItemsOnField numberOfItemsOnField = animalClass.getAnnotation(NumberOfItemsOnField.class);
         int maxAmountOnCell = numberOfItemsOnField.maxAmountOnCell();
 
-        return currentQuantity < maxAmountOnCell;
+        return ((currentQuantity < maxAmountOnCell));
     }
 
     public boolean isHuntingConditionsGood(Animal attackingAnimal, Animal animalToEat, List<Animal> eatenAnimalList) {
@@ -95,5 +93,9 @@ public class ItemConditionsChecker {
         } else {
             return new ArrayList<>(cell.getPlantList());
         }
+    }
+
+    public boolean isWorldAlive(int numberOfLocationsWithoutAnimals) {
+        return numberOfLocationsWithoutAnimals < GAME_FIELD_HEIGHT * GAME_FIELD_WIDTH;
     }
 }

@@ -33,7 +33,7 @@ public class ItemPrinter {
             }
             System.out.println();
         }
-        System.out.println(FIELD_DELIMITER);
+//        System.out.println(FIELD_DELIMITER);
     }
 
     private String getItemForPrint(Cell cell){
@@ -82,8 +82,7 @@ public class ItemPrinter {
         int animalsNumber = gameEventsController.getAnimalsNumber();
         int plantsNumber = gameEventsController.getPlantsNumber();
 
-        System.out.printf("On the %d day of the creation of the World %d animals and %d plants were created. \n", dayNumber, animalsNumber, plantsNumber);
-        System.out.println(FIELD_DELIMITER);
+        System.out.printf("On the %d day of the creation of the World %d animals and %d plants were created: \n", dayNumber, animalsNumber, (plantsNumber * 2));
     }
 
     public void dailyInformer() {
@@ -92,7 +91,9 @@ public class ItemPrinter {
         int deadPlantsNumber = gameEventsController.getDeadPlantsNumber();
         int newbornAnimalsNumber = gameEventsController.getNewbornAnimalsNumber();
 
-        System.out.printf("On the %d day %d animals and %d plants died.\n " +
-                "%d new animals were born.", daysNumber, deadAnimalsNumber, deadPlantsNumber, newbornAnimalsNumber);
+        System.out.println(FIELD_DELIMITER);
+        System.out.printf("On the %d day %d animals and %d plants died.\n" +
+                "%d new animals were born.\n", daysNumber, deadAnimalsNumber, deadPlantsNumber, newbornAnimalsNumber);
+        System.out.println(FIELD_DELIMITER);
     }
 }

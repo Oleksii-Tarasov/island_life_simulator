@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_PROCESS_CLASS;
 
@@ -46,7 +47,7 @@ public class ItemCreator {
                 do {
                     newAnimal.setItemPosition(new ItemPosition());
                     if (itemConditionsChecker.canAddItemToCell(newAnimal)) {
-                        gameEventsController.countAnimals();
+                        gameEventsController.countingAnimals();
                         isPositionFind = true;
                     }
                 } while (!isPositionFind);
@@ -95,14 +96,14 @@ public class ItemCreator {
     }
 
     public void createPlants() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2000; i++) {
             Plant plant = new Plant();
             boolean isPositionFind = false;
 
             do {
                 plant.setItemPosition(new ItemPosition());
                 if (itemConditionsChecker.canAddItemToCell(plant)) {
-                    gameEventsController.countPlants();
+                    gameEventsController.countingPlants();
                     isPositionFind = true;
                 }
             } while (!isPositionFind);

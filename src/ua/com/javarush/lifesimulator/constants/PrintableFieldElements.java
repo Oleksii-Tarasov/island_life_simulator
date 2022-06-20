@@ -7,5 +7,5 @@ public final class PrintableFieldElements {
     public static final String EMPTY_CELL = "  ";
     public static  final String CLOSE_CELL = "] ";
     public static final String DELIMITER = " ";
-    public static final String FIELD_DELIMITER = "________________________________";
+    public static final String FIELD_DELIMITER = "______________________________________________";
 }

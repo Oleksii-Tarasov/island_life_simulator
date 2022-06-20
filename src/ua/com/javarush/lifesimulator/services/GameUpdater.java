@@ -7,15 +7,14 @@ import ua.com.javarush.lifesimulator.items.Animal;
 
 import java.util.List;
 
-import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_HEIGHT;
-import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_WIDTH;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.*;
 
-public class ItemUpdater {
+public class GameUpdater {
     private final GameField gameField;
     private final GameEventsController gameEventsController;
     private final ItemCreator itemCreator;
 
-    public ItemUpdater(GameField gameField, ItemCreator itemCreator, GameEventsController gameEventsController) {
+    public GameUpdater(GameField gameField, ItemCreator itemCreator, GameEventsController gameEventsController) {
         this.gameField = gameField;
         this.itemCreator = itemCreator;
         this.gameEventsController = gameEventsController;
@@ -28,7 +27,7 @@ public class ItemUpdater {
                 Cell cell = gameField.getCellFromField(y, x);
                 List<Animal> animalList = cell.getAnimalList();
 
-                if(animalList.isEmpty()) {
+                if (animalList.isEmpty()) {
                     continue;
                 }
 
@@ -37,7 +36,10 @@ public class ItemUpdater {
                 resetWalkStatus(animalList);
             }
         }
-        createNewPlants();
+
+        if (gameEventsController.getDaysNumber() < CATACLYSM_DAY) {
+            createNewPlants();
+        }
     }
 
     public void reduceSaturation(List<Animal> animalList) {
@@ -45,7 +47,7 @@ public class ItemUpdater {
     }
 
     public void starvingToDeath(List<Animal> animalList) {
-        animalList.stream().filter(animal -> animal.getCurrentSaturation() <= 0).forEach(animal -> gameEventsController.countDeadAnimals());
+        animalList.stream().filter(animal -> animal.getCurrentSaturation() <= 0).forEach(animal -> gameEventsController.countingDeadAnimals());
         animalList.removeIf(animal -> animal.getCurrentSaturation() <= 0);
     }
 

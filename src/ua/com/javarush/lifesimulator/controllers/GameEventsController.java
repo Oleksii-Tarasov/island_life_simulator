@@ -7,32 +7,33 @@ public class GameEventsController {
     private int newbornAnimalsNumber;
     private int deadAnimalsNumber;
     private int deadPlantsNumber;
+    private int numberOfLocationsWithoutAnimals;
 
     public GameEventsController() {
         this.daysNumber = 1;
     }
 
-    public void countAnimals() {
+    public void countingAnimals() {
         animalsNumber++;
     }
 
-    public void countPlants() {
+    public void countingPlants() {
         plantsNumber++;
     }
 
-    public void countNewbornAnimals() {
+    public void countingNewbornAnimals() {
         newbornAnimalsNumber++;
     }
 
-    public void countDeadAnimals() {
+    public void countingDeadAnimals() {
         deadAnimalsNumber++;
     }
 
-    public void countDeadPlants() {
+    public void countingDeadPlants() {
         deadPlantsNumber++;
     }
 
-    public void countDaysNumber() {
+    public void countingDays() {
         daysNumber++;
     }
 
@@ -60,10 +61,19 @@ public class GameEventsController {
         return deadPlantsNumber;
     }
 
+    public void countingLocationsWithoutAnimals() {
+        numberOfLocationsWithoutAnimals++;
+    }
+
+    public int getNumberOfLocationsWithoutAnimals() {
+        return numberOfLocationsWithoutAnimals;
+    }
+
     public void resetDailyEvents() {
         plantsNumber = 0;
         newbornAnimalsNumber = 0;
         deadAnimalsNumber = 0;
         deadPlantsNumber = 0;
+        numberOfLocationsWithoutAnimals = 0;
     }
 }

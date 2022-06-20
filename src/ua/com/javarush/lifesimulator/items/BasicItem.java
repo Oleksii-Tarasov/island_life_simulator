@@ -4,6 +4,7 @@ import ua.com.javarush.lifesimulator.field.ItemPosition;
 
 public abstract class BasicItem {
     private int MaxAmountOnCell;
+    private double weight;
     private ItemPosition itemPosition;
 
     public ItemPosition getItemPosition() {
@@ -16,5 +17,9 @@ public abstract class BasicItem {
 
     public int getMaxAmountOnCell() {
         return MaxAmountOnCell;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 }

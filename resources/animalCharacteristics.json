@@ -5,16 +5,120 @@
       "maxAmountOnCell": 5,
       "speed": 2,
       "fullSaturation": 80.0,
-      "weightLossPerDay": 11.0,
+      "weightLossPerDay": 6.0,
       "animalClass" : "Beer"
     },
     {
-      "weight": 200.0,
+      "weight": 300.0,
       "maxAmountOnCell": 20,
       "speed": 4,
       "fullSaturation": 50.0,
-      "weightLossPerDay": 7.0,
+      "weightLossPerDay": 4.0,
       "animalClass" : "Deer"
+    },
+    {
+      "weight": 50.0,
+      "maxAmountOnCell": 30,
+      "speed": 3,
+      "fullSaturation": 8.0,
+      "weightLossPerDay": 0.7,
+      "animalClass" : "Wolf"
+    },
+    {
+      "weight": 15.0,
+      "maxAmountOnCell": 30,
+      "speed": 1,
+      "fullSaturation": 3.0,
+      "weightLossPerDay": 0.2,
+      "animalClass" : "Boa"
+    },
+    {
+      "weight": 8.0,
+      "maxAmountOnCell": 30,
+      "speed": 2,
+      "fullSaturation": 2.0,
+      "weightLossPerDay": 0.1,
+      "animalClass" : "Fox"
+    },
+    {
+      "weight": 6.0,
+      "maxAmountOnCell": 20,
+      "speed": 3,
+      "fullSaturation": 1.0,
+      "weightLossPerDay": 0.1,
+      "animalClass" : "Eagle"
+    },
+    {
+      "weight": 400.0,
+      "maxAmountOnCell": 20,
+      "speed": 4,
+      "fullSaturation": 60.0,
+      "weightLossPerDay": 4.0,
+      "animalClass" : "Horse"
+    },
+    {
+      "weight": 2.0,
+      "maxAmountOnCell": 150,
+      "speed": 2,
+      "fullSaturation": 0.45,
+      "weightLossPerDay": 0.03,
+      "animalClass" : "Rabbit"
+    },
+    {
+      "weight": 0.01,
+      "maxAmountOnCell": 1000,
+      "speed": 0,
+      "fullSaturation": 0.1,
+      "weightLossPerDay": 0.03,
+      "animalClass" : "Caterpillar"
+    },
+    {
+      "weight": 0.05,
+      "maxAmountOnCell": 500,
+      "speed": 1,
+      "fullSaturation": 0.001,
+      "weightLossPerDay": 0.0001,
+      "animalClass" : "Mouse"
+    },
+    {
+      "weight": 60.0,
+      "maxAmountOnCell": 140,
+      "speed": 3,
+      "fullSaturation": 10.0,
+      "weightLossPerDay": 0.7,
+      "animalClass" : "Goat"
+    },
+    {
+      "weight": 70.0,
+      "maxAmountOnCell": 140,
+      "speed": 3,
+      "fullSaturation": 15.0,
+      "weightLossPerDay": 1.1,
+      "animalClass" : "Sheep"
+    },
+    {
+      "weight": 400.0,
+      "maxAmountOnCell": 50,
+      "speed": 2,
+      "fullSaturation": 50.0,
+      "weightLossPerDay": 3.5,
+      "animalClass" : "Boar"
+    },
+    {
+      "weight": 700.0,
+      "maxAmountOnCell": 10,
+      "speed": 3,
+      "fullSaturation": 100.0,
+      "weightLossPerDay": 7.0,
+      "animalClass" : "Buffalo"
+    },
+    {
+      "weight": 1.0,
+      "maxAmountOnCell": 200,
+      "speed": 4,
+      "fullSaturation": 0.15,
+      "weightLossPerDay": 0.03,
+      "animalClass" : "Duck"
     }
   ]
 }

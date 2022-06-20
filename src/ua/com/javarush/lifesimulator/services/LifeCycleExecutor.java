@@ -4,6 +4,7 @@ import ua.com.javarush.lifesimulator.controllers.GameEventsController;
 import ua.com.javarush.lifesimulator.field.Cell;
 import ua.com.javarush.lifesimulator.field.ItemPosition;
 import ua.com.javarush.lifesimulator.items.Animal;
+import ua.com.javarush.lifesimulator.items.BasicItem;
 import ua.com.javarush.lifesimulator.items.Plant;
 
 import java.util.ArrayList;
@@ -42,15 +43,13 @@ public class LifeCycleExecutor {
 
             long animalPairQuantity = animalQuantity;
             for (int i = 0; i < animalPairQuantity / 2; i++) {
-                if (itemStatusChecker.canReproduce(animalClass, animalQuantity)) {
-                    ItemPosition itemPosition = cell.getCellPosition();
-                    itemCreator.createNewbornAnimal(animalClass, itemPosition);
-                    gameEventsController.countNewbornAnimals();
-                    animalQuantity++;
-                }
-                else {
+                if (!itemStatusChecker.canReproduce(animalClass, animalQuantity)) {
                     break;
                 }
+                ItemPosition itemPosition = cell.getCellPosition();
+                itemCreator.createNewbornAnimal(animalClass, itemPosition);
+                gameEventsController.countingNewbornAnimals();
+                animalQuantity++;
             }
         }
     }
@@ -72,8 +71,8 @@ public class LifeCycleExecutor {
                 boolean isAnimalEaten = itemStatusChecker.willAnimalBeEaten(animalsPair);
 
                 if (isAnimalEaten) {
-                    saturationProcessForCarnivores(attackingAnimal, animalToEat);
-                    gameEventsController.countDeadAnimals();
+                    saturationProcess(attackingAnimal, animalToEat);
+                    gameEventsController.countingDeadAnimals();
                     eatenAnimalList.add(animalToEat);
                 }
             }
@@ -94,30 +93,24 @@ public class LifeCycleExecutor {
                     continue;
                 }
 
-                saturationProcessForHerbivores(animal, plant);
-                gameEventsController.countDeadPlants();
+                saturationProcess(animal, plant);
+                gameEventsController.countingDeadPlants();
                 eatenPlantList.add(plant);
             }
             plantList.removeAll(eatenPlantList);
         }
     }
 
-    private void saturationProcessForHerbivores(Animal animal, Plant plant) {
+    private void saturationProcess(Animal animal, BasicItem item) {
+        double animalFullSaturation = animal.getFullSaturation();
         double animalCurrentSaturation = animal.getCurrentSaturation();
-        animal.setCurrentSaturation(animalCurrentSaturation + plant.getWeight());
-    }
+        double saturationAfterEating = animalCurrentSaturation + item.getWeight();
 
-    private void saturationProcessForCarnivores(Animal attackingAnimal, Animal animalToEat) {
-        double animalWinnerFullSaturation = attackingAnimal.getFullSaturation();
-        double animalWinnerCurrentSaturation = attackingAnimal.getCurrentSaturation();
-        double weightOfTheEatenAnimal = animalToEat.getWeight();
-        double saturationAfterEating = animalWinnerCurrentSaturation + weightOfTheEatenAnimal;
-
-        if (saturationAfterEating > animalWinnerFullSaturation) {
-            attackingAnimal.setCurrentSaturation(animalWinnerFullSaturation);
+        if (saturationAfterEating > animalFullSaturation) {
+            animal.setCurrentSaturation(animalFullSaturation);
         }
         else {
-            attackingAnimal.setCurrentSaturation(saturationAfterEating);
+            animal.setCurrentSaturation(saturationAfterEating);
         }
     }
 }

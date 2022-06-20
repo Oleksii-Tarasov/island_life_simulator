@@ -8,8 +8,7 @@ import ua.com.javarush.lifesimulator.services.*;
 
 import java.util.List;
 
-import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_HEIGHT;
-import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_WIDTH;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.*;
 
 public class LifeController {
     private final AnimalConfiguration animalConfiguration = new AnimalConfiguration();
@@ -20,27 +19,32 @@ public class LifeController {
     private final ItemPlacer itemPlacer = new ItemPlacer(gameField);
     private final ItemCreator itemCreator = new ItemCreator(animalConfiguration, itemPlacer, itemConditionsChecker, gameEventsController);
     private final ItemMover itemMover = new ItemMover(gameField, itemConditionsChecker);
-    private final ItemUpdater itemUpdater = new ItemUpdater(gameField, itemCreator, gameEventsController);
+    private final GameUpdater gameUpdater = new GameUpdater(gameField, itemCreator, gameEventsController);
     private final LifeCycleExecutor lifeCycleExecutor = new LifeCycleExecutor(itemCreator, itemMover, itemConditionsChecker, gameEventsController);
-
+    private boolean isWorldAlive;
 
     public void startZeroDay() {
         gameField.createIsland();
         itemCreator.createAnimals();
         itemCreator.createPlants();
+        isWorldAlive = true;
 
         itemPrinter.zeroDayInformer();
         itemPrinter.printGameField();
     }
 
     public void startDailyCycle() {
-        gameEventsController.resetDailyEvents();
-        gameEventsController.countDaysNumber();
-        itemUpdater.dailyWorldUpdate();
-        executeDailyPhase();
+        while (isWorldAlive) {
+            gameEventsController.resetDailyEvents();
+            gameEventsController.countingDays();
+            gameUpdater.dailyWorldUpdate();
+            executeDailyPhase();
 
-        itemPrinter.printGameField();
-        itemPrinter.dailyInformer();
+            itemPrinter.printGameField();
+            itemPrinter.dailyInformer();
+
+            isWorldAlive = itemConditionsChecker.isWorldAlive(gameEventsController.getNumberOfLocationsWithoutAnimals());
+        }
     }
 
     private void executeDailyPhase() {
@@ -50,13 +54,16 @@ public class LifeController {
                 List<Animal> animalList = cell.getAnimalList();
 
                 if (animalList.isEmpty()) {
+                    gameEventsController.countingLocationsWithoutAnimals();
                     continue;
                 }
 
                 lifeCycleExecutor.movingAnimals(animalList);
                 lifeCycleExecutor.eatPlants(animalList, cell.getPlantList());
                 lifeCycleExecutor.eatAnimals(animalList);
-                lifeCycleExecutor.reproduction(cell);
+                if (gameEventsController.getDaysNumber() < CATACLYSM_DAY) {
+                    lifeCycleExecutor.reproduction(cell);
+                }
             }
         }
     }
