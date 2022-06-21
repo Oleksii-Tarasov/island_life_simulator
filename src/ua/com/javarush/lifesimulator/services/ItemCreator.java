@@ -1,32 +1,32 @@
 package ua.com.javarush.lifesimulator.services;
 
 import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
-import ua.com.javarush.lifesimulator.controllers.GameController;
 import ua.com.javarush.lifesimulator.controllers.GameEventsController;
-import ua.com.javarush.lifesimulator.controllers.Utility;
 import ua.com.javarush.lifesimulator.factories.AnimalFactory;
-import ua.com.javarush.lifesimulator.field.Cell;
-import ua.com.javarush.lifesimulator.field.ItemPosition;
-import ua.com.javarush.lifesimulator.items.GameBoard;
 import ua.com.javarush.lifesimulator.items.animals.Animal;
+import ua.com.javarush.lifesimulator.items.board.Cell;
+import ua.com.javarush.lifesimulator.items.board.GameBoard;
+import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 import ua.com.javarush.lifesimulator.items.plants.Plant;
 
 import java.util.List;
 
+import static ua.com.javarush.lifesimulator.constants.GameConstants.PLANTS_MAX_AMOUNT;
+
 public class ItemCreator {
     ItemPlacer itemPlacer = new ItemPlacer();
     private final Utility utility;
-    private final ItemConditionsChecker itemConditionsChecker;
+    private final ConditionsChecker itemConditionsChecker;
     private final GameEventsController gameEventsController;
 
-    public ItemCreator(GameEventsController gameEventsController, ItemConditionsChecker itemConditionsChecker, Utility utility) {
+    public ItemCreator(GameEventsController gameEventsController, ConditionsChecker itemConditionsChecker, Utility utility) {
         this.gameEventsController = gameEventsController;
         this.itemConditionsChecker = itemConditionsChecker;
         this.utility = utility;
     }
 
     public void createAnimals(GameBoard gameBoard) {
-        List<Animal> animalList = utility.getAnimalListFromConfigurations();
+        List<Animal> animalList = utility.getListWithAllAnimals();
 
         for (Animal animal : animalList) {
             AnimalFactory animalFactory = new AnimalFactory(animal);
@@ -40,9 +40,9 @@ public class ItemCreator {
                 boolean isPositionFind = false;
 
                 do {
-                    newAnimal.setItemPosition(new ItemPosition());
+                    newAnimal.setItemPosition(new ItemPosition(gameBoard));
                     if (itemConditionsChecker.canAddItemToCell(gameBoard, newAnimal)) {
-                        gameEventsController.countingAnimals();
+                        gameEventsController.countingNewbornAnimals();
                         isPositionFind = true;
                     }
                 } while (!isPositionFind);
@@ -52,27 +52,27 @@ public class ItemCreator {
         }
     }
 
-//    public void createNewbornAnimal(Class<? extends Animal> animalClass, ItemPosition itemPosition) {
-//        List<Animal> allAnimalsList = getAnimalList();
-//
-//        for (Animal animal : allAnimalsList) {
-//            if (animal.getClass().equals(animalClass)) {
-//                Animal newAnimal = new AnimalFactory(animal).makeClone();
-//                newAnimal.setItemPosition(itemPosition);
-//                itemPlacer.putItemOnTheField(newAnimal);
-//            }
-//        }
-//    }
+    public void createNewbornAnimal(Class<? extends Animal> animalClass, ItemPosition itemPosition, GameBoard gameBoard) {
+        List<Animal> allAnimalsList = utility.getListWithAllAnimals();
+
+        for (Animal animal : allAnimalsList) {
+            if (animal.getClass().equals(animalClass)) {
+                Animal newAnimal = new AnimalFactory(animal).makeClone();
+                newAnimal.setItemPosition(itemPosition);
+                itemPlacer.putItemOnTheField(gameBoard, newAnimal);
+                gameEventsController.countingNewbornAnimals();
+            }
+        }
+    }
 
     public void createPlants(GameBoard gameBoard) {
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < PLANTS_MAX_AMOUNT; i++) {
             Plant plant = new Plant();
             boolean isPositionFind = false;
 
             do {
-                plant.setItemPosition(new ItemPosition());
+                plant.setItemPosition(new ItemPosition(gameBoard));
                 if (itemConditionsChecker.canAddItemToCell(gameBoard, plant)) {
-                    gameEventsController.countingPlants();
                     isPositionFind = true;
                 }
             } while (!isPositionFind);

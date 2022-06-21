@@ -1,4 +1,4 @@
-package ua.com.javarush.lifesimulator.field;
+package ua.com.javarush.lifesimulator.items.board;
 
 import ua.com.javarush.lifesimulator.items.animals.Animal;
 import ua.com.javarush.lifesimulator.items.plants.Plant;
@@ -6,10 +6,9 @@ import ua.com.javarush.lifesimulator.items.plants.Plant;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Cell {
     private List<Animal> animalList = new ArrayList<>();
-    private List<Plant> plantList = new ArrayList<Plant>();
+    private List<Plant> plantList = new ArrayList<>();
     private final ItemPosition cellPosition;
 
     public Cell(ItemPosition cellPosition) {

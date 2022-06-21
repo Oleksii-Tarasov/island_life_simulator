@@ -1,23 +1,9 @@
 package ua.com.javarush.lifesimulator.services;
 
-import ua.com.javarush.lifesimulator.controllers.GameController;
 import ua.com.javarush.lifesimulator.controllers.GameEventsController;
-import ua.com.javarush.lifesimulator.controllers.Utility;
-import ua.com.javarush.lifesimulator.field.Cell;
-import ua.com.javarush.lifesimulator.field.GameField;
-import ua.com.javarush.lifesimulator.items.GameBoard;
-import ua.com.javarush.lifesimulator.items.animals.Animal;
-import ua.com.javarush.lifesimulator.items.BasicItem;
-import ua.com.javarush.lifesimulator.items.plants.Plant;
+import ua.com.javarush.lifesimulator.items.board.Cell;
+import ua.com.javarush.lifesimulator.items.board.GameBoard;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.groupingBy;
-import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_HEIGHT;
-import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_WIDTH;
 import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.*;
 
 public class ItemPrinter {
@@ -41,16 +27,12 @@ public class ItemPrinter {
 
     public void dailyInformer() {
         int daysNumber = gameEventsController.getDaysNumber();
-        int allAnimalsNumber = gameEventsController.getAllAnimalsNumber();
-        int allPlantsNumber = gameEventsController.getAllPlantsNumber();
-
+        int newbornAnimalsNumber = gameEventsController.getNewbornAnimalsNumber();
         int deadAnimalsNumber = gameEventsController.getDeadAnimalsNumber();
-        int deadPlantsNumber = gameEventsController.getDeadPlantsNumber();
-        int animalsNumber = gameEventsController.getAnimalsNumber();
+        int allAnimalsNumber = gameEventsController.getAllAnimalsNumber();
 
-        System.out.printf("On the %d day in the World %d new animals were born.\n" +
-                "%d animals and %d plants died.\n" +
-                "At all in the World %d animals and %d plants.\n", daysNumber, animalsNumber, deadAnimalsNumber, deadPlantsNumber, allAnimalsNumber, allPlantsNumber);
+        System.out.printf("On the %d day in the World %d new animals were born.\n" + "%d animals died.\n" +
+                "At all in the World %d animals.\n", daysNumber, newbornAnimalsNumber, deadAnimalsNumber, allAnimalsNumber);
         System.out.println(FIELD_DELIMITER);
     }
 }

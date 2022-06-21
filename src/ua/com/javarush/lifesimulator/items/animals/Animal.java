@@ -1,8 +1,8 @@
 package ua.com.javarush.lifesimulator.items.animals;
 
-import ua.com.javarush.lifesimulator.field.ItemPosition;
 import ua.com.javarush.lifesimulator.interfaces.BasicItemCloneable;
 import ua.com.javarush.lifesimulator.items.BasicItem;
+import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 
 public abstract class Animal extends BasicItem implements BasicItemCloneable {
     private double weight;
@@ -24,11 +24,11 @@ public abstract class Animal extends BasicItem implements BasicItemCloneable {
         return maxAmountOnCell;
     }
 
-    public boolean isAlreadyWalked(){
+    public boolean isAlreadyWalked() {
         return this.alreadyWalked;
     }
 
-    public void setAlreadyWalked(boolean alreadyWalked){
+    public void setAlreadyWalked(boolean alreadyWalked) {
         this.alreadyWalked = alreadyWalked;
     }
 

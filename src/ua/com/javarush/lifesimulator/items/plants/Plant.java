@@ -1,6 +1,6 @@
 package ua.com.javarush.lifesimulator.items.plants;
 
-import ua.com.javarush.lifesimulator.field.ItemPosition;
+import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 import ua.com.javarush.lifesimulator.items.BasicItem;
 
 public class Plant extends BasicItem {

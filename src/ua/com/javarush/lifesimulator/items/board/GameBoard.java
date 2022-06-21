@@ -1,6 +1,4 @@
-package ua.com.javarush.lifesimulator.items;
-
-import ua.com.javarush.lifesimulator.field.Cell;
+package ua.com.javarush.lifesimulator.items.board;
 
 public class GameBoard {
     private final Cell[][] gameBoard;
@@ -12,10 +10,6 @@ public class GameBoard {
         this.width = width;
         this.height = height;
     }
-
-//    public Cell[][] getGameBoard() {
-//        return gameBoard;
-//    }
 
     public int getWidth() {
         return width;
@@ -29,7 +23,7 @@ public class GameBoard {
         return gameBoard[y][x];
     }
 
-    public void setCell(Cell cell , int y, int x) {
+    public void setCell(Cell cell, int y, int x) {
         gameBoard[y][x] = cell;
     }
 }

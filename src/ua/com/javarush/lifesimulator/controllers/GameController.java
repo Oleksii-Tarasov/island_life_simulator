@@ -1,22 +1,23 @@
 package ua.com.javarush.lifesimulator.controllers;
 
-import ua.com.javarush.lifesimulator.items.GameBoard;
-//import ua.com.javarush.lifesimulator.services.ItemConditionsChecker;
-import ua.com.javarush.lifesimulator.services.GameUpdater;
-import ua.com.javarush.lifesimulator.services.ItemConditionsChecker;
-import ua.com.javarush.lifesimulator.services.ItemCreator;
-import ua.com.javarush.lifesimulator.services.ItemPrinter;
+import ua.com.javarush.lifesimulator.items.animals.Animal;
+import ua.com.javarush.lifesimulator.items.board.Cell;
+import ua.com.javarush.lifesimulator.items.board.GameBoard;
+import ua.com.javarush.lifesimulator.items.plants.Plant;
+import ua.com.javarush.lifesimulator.services.*;
 
-import static ua.com.javarush.lifesimulator.constants.GameSettings.CATACLYSM_DAY;
+import java.util.List;
 
 public class GameController {
     private GameBoard gameBoard;
     private final Utility utility = new Utility();
-    GameEventsController gameEventsController = new GameEventsController();
-    ItemConditionsChecker itemConditionsChecker = new ItemConditionsChecker(utility);
-    ItemCreator itemCreator = new ItemCreator(gameEventsController, itemConditionsChecker, utility);
-    GameUpdater gameUpdater = new GameUpdater(gameEventsController, itemCreator);
-    ItemPrinter itemPrinter = new ItemPrinter(gameEventsController, utility);
+    private final GameEventsController gameEventsController = new GameEventsController();
+    private final ConditionsChecker itemConditionsChecker = new ConditionsChecker(utility);
+    private final ItemCreator itemCreator = new ItemCreator(gameEventsController, itemConditionsChecker, utility);
+    private final WorldUpdater gameUpdater = new WorldUpdater(gameEventsController, itemCreator);
+    private final ItemMover itemMover = new ItemMover(itemConditionsChecker);
+    private final ItemPrinter itemPrinter = new ItemPrinter(gameEventsController, utility);
+    LifeProcessHandler lifeProcessHandler = new LifeProcessHandler(itemCreator, itemConditionsChecker, gameEventsController);
 
     public void createGameBoard() {
         int width = 10;
@@ -46,7 +47,40 @@ public class GameController {
         gameUpdater.dailyWorldUpdate(gameBoard);
     }
 
-    public void executeDailyPhase() {
+    public void executeDayPhases() {
+        for (int y = 0; y < gameBoard.getHeight(); y++) {
+            for (int x = 0; x < gameBoard.getWidth(); x++) {
+                Cell cell = gameBoard.getCell(y, x);
+                List<Animal> animalList = cell.getAnimalList();
 
+                if (animalList.isEmpty()) {
+                    gameEventsController.countingLocationsWithoutAnimals();
+                    continue;
+                }
+
+                move(animalList);
+                eat(animalList, cell.getPlantList());
+                if (!gameEventsController.isCataclysmCome()) {
+                    reproduction(cell);
+                }
+            }
+        }
+    }
+
+    private void move(List<Animal> animalList) {
+        itemMover.moveAnimals(gameBoard, animalList);
+    }
+
+    private void eat(List<Animal> animalList, List<Plant> plantList) {
+        lifeProcessHandler.eatAnimals(animalList);
+        lifeProcessHandler.eatPlants(animalList, plantList);
+    }
+
+    private void reproduction(Cell cell) {
+        lifeProcessHandler.reproduction(gameBoard, cell);
+    }
+
+    public boolean isGameOver() {
+        return itemConditionsChecker.isWorldAlive(gameBoard, gameEventsController.getNumberOfLocationsWithoutAnimals());
     }
 }

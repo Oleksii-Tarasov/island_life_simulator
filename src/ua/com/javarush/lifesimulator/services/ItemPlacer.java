@@ -1,9 +1,9 @@
 package ua.com.javarush.lifesimulator.services;
 
-import ua.com.javarush.lifesimulator.field.Cell;
 import ua.com.javarush.lifesimulator.items.BasicItem;
-import ua.com.javarush.lifesimulator.items.GameBoard;
 import ua.com.javarush.lifesimulator.items.animals.Animal;
+import ua.com.javarush.lifesimulator.items.board.Cell;
+import ua.com.javarush.lifesimulator.items.board.GameBoard;
 import ua.com.javarush.lifesimulator.items.plants.Plant;
 
 public class ItemPlacer {

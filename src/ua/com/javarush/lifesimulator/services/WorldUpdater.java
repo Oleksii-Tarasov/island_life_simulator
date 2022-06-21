@@ -1,17 +1,17 @@
 package ua.com.javarush.lifesimulator.services;
 
 import ua.com.javarush.lifesimulator.controllers.GameEventsController;
-import ua.com.javarush.lifesimulator.field.Cell;
-import ua.com.javarush.lifesimulator.items.GameBoard;
 import ua.com.javarush.lifesimulator.items.animals.Animal;
+import ua.com.javarush.lifesimulator.items.board.Cell;
+import ua.com.javarush.lifesimulator.items.board.GameBoard;
 
 import java.util.List;
 
-public class GameUpdater {
+public class WorldUpdater {
     private final GameEventsController gameEventsController;
     private final ItemCreator itemCreator;
 
-    public GameUpdater(GameEventsController gameEventsController, ItemCreator itemCreator) {
+    public WorldUpdater(GameEventsController gameEventsController, ItemCreator itemCreator) {
         this.gameEventsController = gameEventsController;
         this.itemCreator = itemCreator;
     }

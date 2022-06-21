@@ -7,6 +7,5 @@ public class Main {
         System.out.println("*** Island Life Simulator ***");
         LifeController lifeController = new LifeController();
         lifeController.startZeroDay();
-//        lifeController.startDailyCycle();
     }
 }

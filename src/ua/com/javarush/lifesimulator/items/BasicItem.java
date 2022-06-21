@@ -1,6 +1,6 @@
 package ua.com.javarush.lifesimulator.items;
 
-import ua.com.javarush.lifesimulator.field.ItemPosition;
+import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 
 public abstract class BasicItem {
     private int MaxAmountOnCell;

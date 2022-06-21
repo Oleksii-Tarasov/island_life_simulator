@@ -1,15 +1,12 @@
-package ua.com.javarush.lifesimulator.field;
-
-import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_HEIGHT;
-import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_FIELD_WIDTH;
+package ua.com.javarush.lifesimulator.items.board;
 
 public class ItemPosition {
     private int x;
     private int y;
 
-    public ItemPosition() {
-        this.x = (int) (Math.random() * (GAME_FIELD_WIDTH));
-        this.y = (int) (Math.random() * (GAME_FIELD_HEIGHT));
+    public ItemPosition(GameBoard gameBoard) {
+        this.x = (int) (Math.random() * (gameBoard.getWidth()));
+        this.y = (int) (Math.random() * (gameBoard.getHeight()));
     }
 
     public ItemPosition(int x, int y) {

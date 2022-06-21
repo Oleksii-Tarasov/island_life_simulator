@@ -1,15 +1,16 @@
-package ua.com.javarush.lifesimulator.controllers;
+package ua.com.javarush.lifesimulator.services;
 
-import ua.com.javarush.lifesimulator.configuration.AnimalConfiguration;
-import ua.com.javarush.lifesimulator.field.Cell;
+import ua.com.javarush.lifesimulator.configuration.AnimalConfigurations;
 import ua.com.javarush.lifesimulator.items.BasicItem;
-import ua.com.javarush.lifesimulator.items.GameBoard;
 import ua.com.javarush.lifesimulator.items.animals.Animal;
+import ua.com.javarush.lifesimulator.items.board.Cell;
+import ua.com.javarush.lifesimulator.items.board.GameBoard;
 import ua.com.javarush.lifesimulator.items.plants.Plant;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,9 +21,9 @@ import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.DEL
 import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.EMPTY_CELL;
 
 public class Utility {
-    private final AnimalConfiguration animalConfiguration = new AnimalConfiguration();
+    private final AnimalConfigurations animalConfiguration = new AnimalConfigurations();
 
-    public List<Animal> getAnimalListFromConfigurations() {
+    public List<Animal> getListWithAllAnimals() {
         List<Animal> animalList = new ArrayList<>();
         Map<Class<?>, List<Number>> animalCharacteristicsMap = animalConfiguration.getAnimalCharacteristicsMap();
 
@@ -48,6 +49,10 @@ public class Utility {
         return animalList;
     }
 
+    public HashMap getAnimalPairMap() {
+        return animalConfiguration.getAnimalChanceToEatMap();
+    }
+
     public List<BasicItem> getBasicItemListFromCell(GameBoard gameBoard, BasicItem basicItem) {
         int x = basicItem.getItemPosition().getX();
         int y = basicItem.getItemPosition().getY();
@@ -61,7 +66,7 @@ public class Utility {
         }
     }
 
-    public String getItemForPrint(Cell cell){
+    public String getItemForPrint(Cell cell) {
         StringBuilder itemsForPrint = new StringBuilder();
         List<Animal> animalList = cell.getAnimalList();
         List<Plant> plantList = cell.getPlantList();
@@ -76,8 +81,7 @@ public class Utility {
             itemsForPrint.append(visualizeItemForPrint(basicItemList));
         }
 
-        if (!plantList.isEmpty())
-        {
+        if (!plantList.isEmpty()) {
             basicItemList = new ArrayList<>(plantList);
             itemsForPrint.append(visualizeItemForPrint(basicItemList));
         }
@@ -91,11 +95,10 @@ public class Utility {
         Map<String, Long> itemMap = basicItemList.stream()
                 .collect(groupingBy(BasicItem::toString, Collectors.counting()));
 
-        for(Map.Entry<String, Long> basicItem : itemMap.entrySet()) {
+        for (Map.Entry<String, Long> basicItem : itemMap.entrySet()) {
             if (basicItem.getValue() == 1) {
                 items.append(basicItem.getKey()).append(DELIMITER);
-            }
-            else {
+            } else {
                 items.append(basicItem.getKey()).append("x").append(basicItem.getValue()).append(DELIMITER);
             }
         }

@@ -11,13 +11,13 @@ import java.util.Map;
 import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_LOAD_CONFIGURATION_FILE;
 import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_PROCESS_CLASS;
 
-public class AnimalConfiguration {
+public class AnimalConfigurations {
     private static final String ANIMALS_PATH_CLASS = "ua.com.javarush.lifesimulator.items.animals.";
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final File animalPairFile = new File("resources/chanceToEatAnimal.json");
     private final File animalCharacteristicFile = new File("resources/animalCharacteristics.json");
 
-    public HashMap getAnimalPairMap() {
+    public HashMap getAnimalChanceToEatMap() {
         HashMap animalPairMap = new HashMap();
         try {
             animalPairMap = objectMapper.readValue(animalPairFile, HashMap.class);
@@ -28,9 +28,9 @@ public class AnimalConfiguration {
     }
 
     public Map<Class<?>, List<Number>> getAnimalCharacteristicsMap() {
-        Settings animalSettings = null;
+        ItemSettings animalSettings = null;
         try {
-            animalSettings = objectMapper.readValue(animalCharacteristicFile, Settings.class);
+            animalSettings = objectMapper.readValue(animalCharacteristicFile, ItemSettings.class);
         } catch (IOException e) {
             System.out.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + e.getMessage());
         }
