@@ -1,22 +1,21 @@
-package ua.com.javarush.lifesimulator.items;
+package ua.com.javarush.lifesimulator.items.animals;
 
 import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.field.ItemPosition;
-import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 import ua.com.javarush.lifesimulator.interfaces.Herbivores;
 
 @NumberOfItemsOnField
-public class Mouse extends Animal implements Carnivores, Herbivores {
-    private final double weight;
-    private final int maxAmountOnCell;
-    private final int speed;
-    private final double fullSaturation;
-    private final double weightLossPerDay;
+public class Horse extends Animal implements Herbivores {
+    private double weight;
+    private int maxAmountOnCell;
+    private int speed;
+    private double fullSaturation;
+    private double weightLossPerDay;
     private double currentSaturation;
     private boolean alreadyWalked;
     private ItemPosition animalPosition;
 
-    public Mouse(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Horse(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -27,7 +26,7 @@ public class Mouse extends Animal implements Carnivores, Herbivores {
 
     @Override
     public Animal clone() {
-        return new Mouse(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Horse(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override
@@ -87,6 +86,6 @@ public class Mouse extends Animal implements Carnivores, Herbivores {
 
     @Override
     public String toString() {
-        return "\uD83D\uDC01";
+        return "\uD83D\uDC0E";
     }
 }

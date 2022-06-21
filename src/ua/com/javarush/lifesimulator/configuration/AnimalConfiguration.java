@@ -12,7 +12,7 @@ import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_LOAD_
 import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_PROCESS_CLASS;
 
 public class AnimalConfiguration {
-    private static final String ANIMALS_PATH_CLASS = "ua.com.javarush.lifesimulator.items.";
+    private static final String ANIMALS_PATH_CLASS = "ua.com.javarush.lifesimulator.items.animals.";
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final File animalPairFile = new File("resources/chanceToEatAnimal.json");
     private final File animalCharacteristicFile = new File("resources/animalCharacteristics.json");

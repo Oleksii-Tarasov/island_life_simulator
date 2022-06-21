@@ -1,7 +1,8 @@
-package ua.com.javarush.lifesimulator.items;
+package ua.com.javarush.lifesimulator.items.animals;
 
 import ua.com.javarush.lifesimulator.field.ItemPosition;
 import ua.com.javarush.lifesimulator.interfaces.BasicItemCloneable;
+import ua.com.javarush.lifesimulator.items.BasicItem;
 
 public abstract class Animal extends BasicItem implements BasicItemCloneable {
     private double weight;

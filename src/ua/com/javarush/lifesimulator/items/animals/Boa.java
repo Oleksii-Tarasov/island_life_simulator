@@ -1,11 +1,11 @@
-package ua.com.javarush.lifesimulator.items;
+package ua.com.javarush.lifesimulator.items.animals;
 
 import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.field.ItemPosition;
 import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 
-@NumberOfItemsOnField
-public class Fox extends Animal implements Carnivores {
+@NumberOfItemsOnField()
+public class Boa extends Animal implements Carnivores {
     private final double weight;
     private final int maxAmountOnCell;
     private final int speed;
@@ -15,7 +15,7 @@ public class Fox extends Animal implements Carnivores {
     private boolean alreadyWalked;
     private ItemPosition animalPosition;
 
-    public Fox(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Boa(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -26,7 +26,7 @@ public class Fox extends Animal implements Carnivores {
 
     @Override
     public Animal clone() {
-        return new Fox(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Boa(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override
@@ -60,13 +60,18 @@ public class Fox extends Animal implements Carnivores {
     }
 
     @Override
+    public void setCurrentSaturation(double currentSaturation) {
+        this.currentSaturation = currentSaturation;
+    }
+
+    @Override
     public double getCurrentSaturation() {
         return this.currentSaturation;
     }
 
     @Override
     public double getFullSaturation() {
-        return fullSaturation;
+        return this.fullSaturation;
     }
 
     @Override
@@ -81,6 +86,6 @@ public class Fox extends Animal implements Carnivores {
 
     @Override
     public String toString() {
-        return "\uD83E\uDD8A";
+        return "\uD83D\uDC0D";
     }
 }

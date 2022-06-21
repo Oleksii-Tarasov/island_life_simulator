@@ -2,29 +2,25 @@ package ua.com.javarush.lifesimulator.services;
 
 import ua.com.javarush.lifesimulator.controllers.GameEventsController;
 import ua.com.javarush.lifesimulator.field.Cell;
-import ua.com.javarush.lifesimulator.field.GameField;
-import ua.com.javarush.lifesimulator.items.Animal;
+import ua.com.javarush.lifesimulator.items.GameBoard;
+import ua.com.javarush.lifesimulator.items.animals.Animal;
 
 import java.util.List;
 
-import static ua.com.javarush.lifesimulator.constants.GameSettings.*;
-
 public class GameUpdater {
-    private final GameField gameField;
     private final GameEventsController gameEventsController;
     private final ItemCreator itemCreator;
 
-    public GameUpdater(GameField gameField, ItemCreator itemCreator, GameEventsController gameEventsController) {
-        this.gameField = gameField;
-        this.itemCreator = itemCreator;
+    public GameUpdater(GameEventsController gameEventsController, ItemCreator itemCreator) {
         this.gameEventsController = gameEventsController;
+        this.itemCreator = itemCreator;
     }
 
-    public void dailyWorldUpdate() {
+    public void dailyWorldUpdate(GameBoard gameBoard) {
 
-        for (int y = 0; y < GAME_FIELD_HEIGHT; y++) {
-            for (int x = 0; x < GAME_FIELD_WIDTH; x++) {
-                Cell cell = gameField.getCellFromField(y, x);
+        for (int y = 0; y < gameBoard.getHeight(); y++) {
+            for (int x = 0; x < gameBoard.getWidth(); x++) {
+                Cell cell = gameBoard.getCell(y, x);
                 List<Animal> animalList = cell.getAnimalList();
 
                 if (animalList.isEmpty()) {
@@ -37,8 +33,8 @@ public class GameUpdater {
             }
         }
 
-        if (gameEventsController.getDaysNumber() < CATACLYSM_DAY) {
-            createNewPlants();
+        if (!gameEventsController.isCataclysmCome()) {
+            createNewPlants(gameBoard);
         }
     }
 
@@ -55,7 +51,7 @@ public class GameUpdater {
         animalList.forEach(animal -> animal.setAlreadyWalked(false));
     }
 
-    public void createNewPlants() {
-        itemCreator.createPlants();
+    public void createNewPlants(GameBoard gameBoard) {
+        itemCreator.createPlants(gameBoard);
     }
 }

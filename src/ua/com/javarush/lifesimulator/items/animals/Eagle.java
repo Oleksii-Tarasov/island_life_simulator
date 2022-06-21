@@ -1,11 +1,11 @@
-package ua.com.javarush.lifesimulator.items;
+package ua.com.javarush.lifesimulator.items.animals;
 
 import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.field.ItemPosition;
 import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 
 @NumberOfItemsOnField
-public class Beer extends Animal implements Carnivores {
+public class Eagle extends Animal implements Carnivores {
     private final double weight;
     private final int maxAmountOnCell;
     private final int speed;
@@ -15,7 +15,7 @@ public class Beer extends Animal implements Carnivores {
     private boolean alreadyWalked;
     private ItemPosition animalPosition;
 
-    public Beer(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Eagle(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -26,7 +26,7 @@ public class Beer extends Animal implements Carnivores {
 
     @Override
     public Animal clone() {
-        return new Beer(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Eagle(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override
@@ -71,12 +71,12 @@ public class Beer extends Animal implements Carnivores {
 
     @Override
     public double getFullSaturation() {
-        return this.fullSaturation;
+        return fullSaturation;
     }
 
     @Override
     public void reduceSaturation() {
-        this.currentSaturation = this.currentSaturation - this.weightLossPerDay;
+        this.currentSaturation = this.currentSaturation - weightLossPerDay;
     }
 
     @Override
@@ -86,6 +86,6 @@ public class Beer extends Animal implements Carnivores {
 
     @Override
     public String toString() {
-        return "\uD83D\uDC3B";
+        return "\uD83E\uDD85";
     }
 }

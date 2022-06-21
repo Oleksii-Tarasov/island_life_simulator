@@ -1,22 +1,16 @@
 package ua.com.javarush.lifesimulator.services;
 
 import ua.com.javarush.lifesimulator.field.Cell;
-import ua.com.javarush.lifesimulator.field.GameField;
 import ua.com.javarush.lifesimulator.items.BasicItem;
-import ua.com.javarush.lifesimulator.items.Animal;
-import ua.com.javarush.lifesimulator.items.Plant;
+import ua.com.javarush.lifesimulator.items.GameBoard;
+import ua.com.javarush.lifesimulator.items.animals.Animal;
+import ua.com.javarush.lifesimulator.items.plants.Plant;
 
 public class ItemPlacer {
-    private final GameField gameField;
-
-    public ItemPlacer(GameField gameField) {
-        this.gameField = gameField;
-    }
-
-    public void putItemOnTheField(BasicItem item) {
+    public void putItemOnTheField(GameBoard gameBoard, BasicItem item) {
         int x = item.getItemPosition().getX();
         int y = item.getItemPosition().getY();
-        Cell cell = gameField.getCellFromField(y, x);
+        Cell cell = gameBoard.getCell(y, x);
 
         if (item instanceof Animal animal) {
             cell.addAnimalToList(animal);

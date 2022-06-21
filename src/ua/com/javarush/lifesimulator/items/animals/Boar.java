@@ -1,11 +1,12 @@
-package ua.com.javarush.lifesimulator.items;
+package ua.com.javarush.lifesimulator.items.animals;
 
 import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.field.ItemPosition;
+import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 import ua.com.javarush.lifesimulator.interfaces.Herbivores;
 
 @NumberOfItemsOnField
-public class Buffalo extends Animal implements Herbivores {
+public class Boar extends Animal implements Carnivores, Herbivores {
     private final double weight;
     private final int maxAmountOnCell;
     private final int speed;
@@ -15,7 +16,7 @@ public class Buffalo extends Animal implements Herbivores {
     private boolean alreadyWalked;
     private ItemPosition animalPosition;
 
-    public Buffalo(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Boar(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -26,7 +27,7 @@ public class Buffalo extends Animal implements Herbivores {
 
     @Override
     public Animal clone() {
-        return new Buffalo(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Boar(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override
@@ -86,6 +87,6 @@ public class Buffalo extends Animal implements Herbivores {
 
     @Override
     public String toString() {
-        return "\uD83D\uDC03";
+        return "\uD83D\uDC17";
     }
 }

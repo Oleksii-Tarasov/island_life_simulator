@@ -1,7 +1,7 @@
 package ua.com.javarush.lifesimulator.field;
 
-import ua.com.javarush.lifesimulator.items.Animal;
-import ua.com.javarush.lifesimulator.items.Plant;
+import ua.com.javarush.lifesimulator.items.animals.Animal;
+import ua.com.javarush.lifesimulator.items.plants.Plant;
 
 import java.util.ArrayList;
 import java.util.List;

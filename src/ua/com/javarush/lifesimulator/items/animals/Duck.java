@@ -1,11 +1,12 @@
-package ua.com.javarush.lifesimulator.items;
+package ua.com.javarush.lifesimulator.items.animals;
 
 import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.field.ItemPosition;
+import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 import ua.com.javarush.lifesimulator.interfaces.Herbivores;
 
 @NumberOfItemsOnField
-public class Deer extends Animal implements Herbivores {
+public class Duck extends Animal implements Carnivores, Herbivores {
     private final double weight;
     private final int maxAmountOnCell;
     private final int speed;
@@ -15,7 +16,7 @@ public class Deer extends Animal implements Herbivores {
     private boolean alreadyWalked;
     private ItemPosition animalPosition;
 
-    public Deer(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Duck(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -26,7 +27,7 @@ public class Deer extends Animal implements Herbivores {
 
     @Override
     public Animal clone() {
-        return new Deer(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Duck(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override
@@ -71,12 +72,12 @@ public class Deer extends Animal implements Herbivores {
 
     @Override
     public double getFullSaturation() {
-        return this.fullSaturation;
+        return fullSaturation;
     }
 
     @Override
     public void reduceSaturation() {
-        this.currentSaturation = this.currentSaturation - this.weightLossPerDay;
+        this.currentSaturation = this.currentSaturation - weightLossPerDay;
     }
 
     @Override
@@ -86,6 +87,6 @@ public class Deer extends Animal implements Herbivores {
 
     @Override
     public String toString() {
-        return "\uD83E\uDD8C";
+        return "\uD83E\uDD86";
     }
 }

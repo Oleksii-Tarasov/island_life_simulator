@@ -1,6 +1,6 @@
 package ua.com.javarush.lifesimulator.factories;
 
-import ua.com.javarush.lifesimulator.items.Animal;
+import ua.com.javarush.lifesimulator.items.animals.Animal;
 
 public class AnimalFactory {
     Animal animal;
