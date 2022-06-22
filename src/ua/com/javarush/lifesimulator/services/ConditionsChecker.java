@@ -52,7 +52,6 @@ public class ConditionsChecker {
         return (animal instanceof Herbivores && !eatenPlantList.contains(plant));
     }
 
-    //
     public boolean hasDestinationChanged(ItemPosition currentPosition, ItemPosition newItemPosition) {
         return ((currentPosition.getX() != newItemPosition.getX()) || (currentPosition.getY() != newItemPosition.getY()));
     }

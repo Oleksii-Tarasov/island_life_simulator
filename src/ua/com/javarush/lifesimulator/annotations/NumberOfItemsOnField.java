@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 public @interface NumberOfItemsOnField {
     int minAmount() default 100;
     int maxAmount() default 500;
-    int maxAmountOnCell() default 5;
+    int maxAmountOnCell() default 10;
 }

@@ -6,14 +6,6 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 
 @NumberOfItemsOnField
 public class Deer extends Animal implements Herbivores {
-    private final double weight;
-    private final int maxAmountOnCell;
-    private final int speed;
-    private final double fullSaturation;
-    private final double weightLossPerDay;
-    private double currentSaturation;
-    private boolean alreadyWalked;
-    private ItemPosition animalPosition;
 
     public Deer(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
         this.weight = weight;
@@ -27,61 +19,6 @@ public class Deer extends Animal implements Herbivores {
     @Override
     public Animal clone() {
         return new Deer(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
-    }
-
-    @Override
-    public double getWeight() {
-        return this.weight;
-    }
-
-    @Override
-    public int getMaxAmountOnCell() {
-        return this.maxAmountOnCell;
-    }
-
-    @Override
-    public void setItemPosition(ItemPosition animalPosition) {
-        this.animalPosition = animalPosition;
-    }
-
-    @Override
-    public ItemPosition getItemPosition() {
-        return this.animalPosition;
-    }
-
-    @Override
-    public void setAlreadyWalked(boolean alreadyWalked) {
-        this.alreadyWalked = alreadyWalked;
-    }
-
-    @Override
-    public boolean isAlreadyWalked() {
-        return alreadyWalked;
-    }
-
-    @Override
-    public void setCurrentSaturation(double currentSaturation) {
-        this.currentSaturation = currentSaturation;
-    }
-
-    @Override
-    public double getCurrentSaturation() {
-        return this.currentSaturation;
-    }
-
-    @Override
-    public double getFullSaturation() {
-        return this.fullSaturation;
-    }
-
-    @Override
-    public void reduceSaturation() {
-        this.currentSaturation = this.currentSaturation - this.weightLossPerDay;
-    }
-
-    @Override
-    public int getSpeed() {
-        return this.speed;
     }
 
     @Override

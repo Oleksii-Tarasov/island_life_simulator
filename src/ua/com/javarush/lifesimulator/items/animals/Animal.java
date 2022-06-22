@@ -5,14 +5,14 @@ import ua.com.javarush.lifesimulator.items.BasicItem;
 import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 
 public abstract class Animal extends BasicItem implements BasicItemCloneable {
-    private double weight;
-    private int maxAmountOnCell;
-    private int speed;
-    private double fullSaturation;
-    private double currentSaturation;
-    private double weightLossPerDay;
-    private ItemPosition animalPosition;
-    private boolean alreadyWalked;
+    protected double weight;
+    protected int maxAmountOnCell;
+    protected int speed;
+    protected double fullSaturation;
+    protected double currentSaturation;
+    protected double weightLossPerDay;
+    protected ItemPosition animalPosition;
+    protected boolean alreadyWalked;
 
     public abstract Animal clone();
 
@@ -44,7 +44,9 @@ public abstract class Animal extends BasicItem implements BasicItemCloneable {
         return this.speed;
     }
 
-    public abstract void reduceSaturation();
+    public void reduceSaturation() {
+        this.currentSaturation = this.currentSaturation - this.weightLossPerDay;
+    }
 
     public void setCurrentSaturation(double currentSaturation) {
         this.currentSaturation = currentSaturation;
