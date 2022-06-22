@@ -3,17 +3,14 @@ package ua.com.javarush.lifesimulator.services;
 import ua.com.javarush.lifesimulator.controllers.GameEventsController;
 import ua.com.javarush.lifesimulator.items.BasicItem;
 import ua.com.javarush.lifesimulator.items.animals.Animal;
-import ua.com.javarush.lifesimulator.items.board.Cell;
 import ua.com.javarush.lifesimulator.items.board.GameBoard;
-import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 import ua.com.javarush.lifesimulator.items.plants.Plant;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.groupingBy;
 
 public class LifeProcessHandler {
     private final ItemCreator itemCreator;
@@ -85,24 +82,25 @@ public class LifeProcessHandler {
         }
     }
 
-    public void reproduction(GameBoard gameBoard, Cell cell) {
-        List<Animal> animalList = cell.getAnimalList();
+    public void reproduction(GameBoard gameBoard, List<Animal> animalList) {
+        Map<Animal, Long> numberOfEachAnimals = animalList.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-        Map<Class<? extends Animal>, Long> numberOfAnimalClasses = animalList.stream()
-                .collect(groupingBy(Animal::getClass, Collectors.counting()));
+        for (Map.Entry<Animal, Long> animals : numberOfEachAnimals.entrySet()) {
+            long animalsNumber = animals.getValue();
 
-        for (Map.Entry<Class<? extends Animal>, Long> pair : numberOfAnimalClasses.entrySet()) {
-            Class<? extends Animal> animalClass = pair.getKey();
-            long animalQuantity = pair.getValue();
+            if (animalsNumber < 2) {
+                continue;
+            }
 
-            long animalPairQuantity = animalQuantity;
-            for (int i = 0; i < animalPairQuantity / 2; i++) {
-                if (!conditionsChecker.canReproduce(animalClass, animalQuantity)) {
+            Animal animal = animals.getKey();
+
+            for (int i = 0; i < animalsNumber / 2; i++) {
+                if (!conditionsChecker.canAddItemToCell(gameBoard, animal)) {
                     break;
                 }
-                ItemPosition itemPosition = cell.getCellPosition();
-                itemCreator.createNewbornAnimal(animalClass, itemPosition, gameBoard);
-                animalQuantity++;
+
+                itemCreator.createNewbornAnimal(gameBoard, animal);
             }
         }
     }

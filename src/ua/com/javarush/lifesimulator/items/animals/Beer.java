@@ -2,12 +2,12 @@ package ua.com.javarush.lifesimulator.items.animals;
 
 import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.interfaces.Carnivores;
-import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 
-@NumberOfItemsOnField(maxAmountOnCell = 5)
+@NumberOfItemsOnField
 public class Beer extends Animal implements Carnivores {
 
-    public Beer(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Beer(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -18,7 +18,7 @@ public class Beer extends Animal implements Carnivores {
 
     @Override
     public Animal clone() {
-        return new Beer(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Beer(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override

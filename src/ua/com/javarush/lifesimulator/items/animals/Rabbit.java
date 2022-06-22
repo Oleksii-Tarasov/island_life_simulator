@@ -7,7 +7,8 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 @NumberOfItemsOnField
 public class Rabbit extends Animal implements Herbivores {
 
-    public Rabbit(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Rabbit(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -18,7 +19,7 @@ public class Rabbit extends Animal implements Herbivores {
 
     @Override
     public Animal clone() {
-        return new Rabbit(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Rabbit(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package ua.com.javarush.lifesimulator.services;
 
-import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 import ua.com.javarush.lifesimulator.interfaces.Herbivores;
 import ua.com.javarush.lifesimulator.items.BasicItem;
@@ -37,7 +36,7 @@ public class ConditionsChecker {
 
     public boolean willAnimalBeEaten(String animalsPair) {
         boolean haveWinner = false;
-        HashMap hashMap = utility.getAnimalPairMap();
+        HashMap hashMap = utility.getAnimalChanceToEatMap();
 
         if (hashMap.containsKey(animalsPair)) {
             int chanceToEat = (int) hashMap.get(animalsPair);
@@ -56,11 +55,10 @@ public class ConditionsChecker {
         return ((currentPosition.getX() != newItemPosition.getX()) || (currentPosition.getY() != newItemPosition.getY()));
     }
 
-    public boolean canReproduce(Class<? extends Animal> animalClass, long currentQuantity) {
-        NumberOfItemsOnField numberOfItemsOnField = animalClass.getAnnotation(NumberOfItemsOnField.class);
-        int maxAmountOnCell = numberOfItemsOnField.maxAmountOnCell();
+    public boolean canReproduce(Animal animal, long currentAnimalNumber) {
+        int maxAmountOnCell = animal.getMaxAmountOnCell();
 
-        return ((currentQuantity < maxAmountOnCell));
+        return ((currentAnimalNumber < maxAmountOnCell));
     }
 
     public boolean canAddItemToCell(GameBoard gameBoard, BasicItem item) {

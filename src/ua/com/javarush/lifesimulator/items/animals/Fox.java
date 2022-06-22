@@ -7,7 +7,8 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 @NumberOfItemsOnField
 public class Fox extends Animal implements Carnivores {
 
-    public Fox(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Fox(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -18,7 +19,7 @@ public class Fox extends Animal implements Carnivores {
 
     @Override
     public Animal clone() {
-        return new Fox(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Fox(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override

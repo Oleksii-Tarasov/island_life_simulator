@@ -7,7 +7,8 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 @NumberOfItemsOnField
 public class Buffalo extends Animal implements Herbivores {
 
-    public Buffalo(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Buffalo(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -18,7 +19,7 @@ public class Buffalo extends Animal implements Herbivores {
 
     @Override
     public Animal clone() {
-        return new Buffalo(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Buffalo(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override

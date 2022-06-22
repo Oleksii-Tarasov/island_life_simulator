@@ -26,7 +26,7 @@ public class ItemCreator {
     }
 
     public void createAnimals(GameBoard gameBoard) {
-        List<Animal> animalList = utility.getListWithAllAnimals();
+        List<Animal> animalList = utility.getListWithAllTypesOfAnimals();
 
         for (Animal animal : animalList) {
             AnimalFactory animalFactory = new AnimalFactory(animal);
@@ -52,17 +52,11 @@ public class ItemCreator {
         }
     }
 
-    public void createNewbornAnimal(Class<? extends Animal> animalClass, ItemPosition itemPosition, GameBoard gameBoard) {
-        List<Animal> allAnimalsList = utility.getListWithAllAnimals();
-
-        for (Animal animal : allAnimalsList) {
-            if (animal.getClass().equals(animalClass)) {
-                Animal newAnimal = new AnimalFactory(animal).makeClone();
-                newAnimal.setItemPosition(itemPosition);
-                itemPlacer.putItemOnTheField(gameBoard, newAnimal);
-                gameEventsController.countingNewbornAnimals();
-            }
-        }
+    public void createNewbornAnimal(GameBoard gameBoard, Animal animal) {
+        ItemPosition currentItemPosition = animal.getItemPosition();
+        Animal newBornAnimal = new AnimalFactory(animal).makeClone();
+        newBornAnimal.setItemPosition(currentItemPosition);
+        itemPlacer.putItemOnTheField(gameBoard,newBornAnimal);
     }
 
     public void createPlants(GameBoard gameBoard) {

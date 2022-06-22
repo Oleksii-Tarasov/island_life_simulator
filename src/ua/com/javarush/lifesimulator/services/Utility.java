@@ -1,6 +1,7 @@
 package ua.com.javarush.lifesimulator.services;
 
 import ua.com.javarush.lifesimulator.configuration.AnimalConfigurations;
+import ua.com.javarush.lifesimulator.configuration.Characteristics;
 import ua.com.javarush.lifesimulator.items.BasicItem;
 import ua.com.javarush.lifesimulator.items.animals.Animal;
 import ua.com.javarush.lifesimulator.items.board.Cell;
@@ -23,22 +24,22 @@ import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.EMP
 public class Utility {
     private final AnimalConfigurations animalConfiguration = new AnimalConfigurations();
 
-    public List<Animal> getListWithAllAnimals() {
+    public List<Animal> getListWithAllTypesOfAnimals() {
         List<Animal> animalList = new ArrayList<>();
-        Map<Class<?>, List<Number>> animalCharacteristicsMap = animalConfiguration.getAnimalCharacteristicsMap();
+        Map<Class<?>, Characteristics> animalCharacteristicsMap = animalConfiguration.getAnimalCharacteristicsMap();
 
-        for (Map.Entry<Class<?>, List<Number>> animalCharacteristic : animalCharacteristicsMap.entrySet()) {
-            List<Number> characteristicList = new ArrayList<>(animalCharacteristic.getValue());
-            double weight = (double) characteristicList.get(0);
-            int maxAmountOnCell = (int) characteristicList.get(1);
-            int speed = (int) characteristicList.get(2);
-            double fullSaturation = (double) characteristicList.get(3);
-            double weightLossPerDay = (double) characteristicList.get(4);
+        for (Map.Entry<Class<?>, Characteristics> animalCharacteristic : animalCharacteristicsMap.entrySet()) {
             Class<?> animalClass = animalCharacteristic.getKey();
+            String animalType = animalCharacteristic.getValue().getAnimalType();
+            double weight = animalCharacteristic.getValue().getWeight();
+            int maxAmountOnCell = animalCharacteristic.getValue().getMaxAmountOnCell();
+            int speed = animalCharacteristic.getValue().getSpeed();
+            double fullSaturation = animalCharacteristic.getValue().getFullSaturation();
+            double weightLossPerDay = animalCharacteristic.getValue().getWeightLossPerDay();
 
             try {
-                Constructor<?> animalConstructor = animalClass.getConstructor(double.class, int.class, int.class, double.class, double.class);
-                Animal animal = (Animal) animalConstructor.newInstance(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+                Constructor<?> animalConstructor = animalClass.getConstructor(String.class, double.class, int.class, int.class, double.class, double.class);
+                Animal animal = (Animal) animalConstructor.newInstance(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
                 animalList.add(animal);
 
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
@@ -49,7 +50,7 @@ public class Utility {
         return animalList;
     }
 
-    public HashMap getAnimalPairMap() {
+    public HashMap getAnimalChanceToEatMap() {
         return animalConfiguration.getAnimalChanceToEatMap();
     }
 

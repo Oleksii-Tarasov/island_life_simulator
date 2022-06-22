@@ -4,7 +4,11 @@ import ua.com.javarush.lifesimulator.interfaces.BasicItemCloneable;
 import ua.com.javarush.lifesimulator.items.BasicItem;
 import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 
+import java.util.Objects;
+
 public abstract class Animal extends BasicItem implements BasicItemCloneable {
+    protected String animalType;
+
     protected double weight;
     protected int maxAmountOnCell;
     protected int speed;
@@ -58,5 +62,18 @@ public abstract class Animal extends BasicItem implements BasicItemCloneable {
 
     public double getFullSaturation() {
         return fullSaturation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return Objects.equals(animalType, animal.animalType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(animalType);
     }
 }

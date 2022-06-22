@@ -7,7 +7,8 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 @NumberOfItemsOnField
 public class Deer extends Animal implements Herbivores {
 
-    public Deer(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Deer(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -18,7 +19,7 @@ public class Deer extends Animal implements Herbivores {
 
     @Override
     public Animal clone() {
-        return new Deer(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Deer(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override

@@ -8,7 +8,8 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 @NumberOfItemsOnField
 public class Mouse extends Animal implements Carnivores, Herbivores {
 
-    public Mouse(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Mouse(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -19,7 +20,7 @@ public class Mouse extends Animal implements Carnivores, Herbivores {
 
     @Override
     public Animal clone() {
-        return new Mouse(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Mouse(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override

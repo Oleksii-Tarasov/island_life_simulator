@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_LOAD_CONFIGURATION_FILE;
@@ -18,16 +17,16 @@ public class AnimalConfigurations {
     private final File animalCharacteristicFile = new File("resources/animalCharacteristics.json");
 
     public HashMap getAnimalChanceToEatMap() {
-        HashMap animalPairMap = new HashMap();
+        HashMap animalChanceToEatMap = new HashMap();
         try {
-            animalPairMap = objectMapper.readValue(animalPairFile, HashMap.class);
+            animalChanceToEatMap = objectMapper.readValue(animalPairFile, HashMap.class);
         } catch (IOException e) {
             System.out.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + e.getMessage());
         }
-        return animalPairMap;
+        return animalChanceToEatMap;
     }
 
-    public Map<Class<?>, List<Number>> getAnimalCharacteristicsMap() {
+    public Map<Class<?>, Characteristics> getAnimalCharacteristicsMap() {
         ItemSettings animalSettings = null;
         try {
             animalSettings = objectMapper.readValue(animalCharacteristicFile, ItemSettings.class);
@@ -35,25 +34,18 @@ public class AnimalConfigurations {
             System.out.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + e.getMessage());
         }
 
-        Map<Class<?>, List<Number>> animalCharacteristicMap = new HashMap<>();
+        Map<Class<?>, Characteristics> animalCharacteristicsMap = new HashMap<>();
 
-        for (AnimalCharacteristics animalCharacteristic : animalSettings.getAnimalCharacteristics()) {
-            double weight = animalCharacteristic.getWeight();
-            int maxAmountOnCell = animalCharacteristic.getMaxAmountOnCell();
-            int speed = animalCharacteristic.getSpeed();
-            double fullSaturation = animalCharacteristic.getFullSaturation();
-            double weightLossPerDay = animalCharacteristic.getWeightLossPerDay();
-            String animalClass = animalCharacteristic.getAnimalClass();
-
-            List<Number> characteristicList = List.of(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        for (AnimalCharacteristics ac : animalSettings.getAnimalCharacteristics()) {
+            Characteristics characteristics = new Characteristics(ac.getAnimalClass(), ac.getWeight(), ac.getMaxAmountOnCell(), ac.getSpeed(), ac.getFullSaturation(), ac.getWeightLossPerDay());
 
             try {
-                Class<?> aClass = ClassLoader.getSystemClassLoader().loadClass(ANIMALS_PATH_CLASS + animalClass);
-                animalCharacteristicMap.put(aClass, characteristicList);
+                Class<?> aClass = ClassLoader.getSystemClassLoader().loadClass(ANIMALS_PATH_CLASS + ac.getAnimalClass());
+                animalCharacteristicsMap.put(aClass, characteristics);
             } catch (ClassNotFoundException e) {
                 System.out.println(UNABLE_TO_PROCESS_CLASS + e.getMessage());
             }
         }
-        return animalCharacteristicMap;
+        return animalCharacteristicsMap;
     }
 }

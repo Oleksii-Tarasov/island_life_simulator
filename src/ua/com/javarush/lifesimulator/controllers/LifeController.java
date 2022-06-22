@@ -21,6 +21,12 @@ public class LifeController {
             gameController.executeDayPhases();
             gameController.printGame();
 
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             isWorldAlive = gameController.isGameOver();
         }
     }

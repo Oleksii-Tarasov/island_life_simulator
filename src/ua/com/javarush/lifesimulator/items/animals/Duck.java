@@ -8,7 +8,8 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 @NumberOfItemsOnField
 public class Duck extends Animal implements Carnivores, Herbivores {
 
-    public Duck(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Duck(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -19,7 +20,7 @@ public class Duck extends Animal implements Carnivores, Herbivores {
 
     @Override
     public Animal clone() {
-        return new Duck(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Duck(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override

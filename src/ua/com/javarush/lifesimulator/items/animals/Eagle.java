@@ -7,7 +7,8 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 @NumberOfItemsOnField
 public class Eagle extends Animal implements Carnivores {
 
-    public Eagle(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Eagle(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -18,7 +19,7 @@ public class Eagle extends Animal implements Carnivores {
 
     @Override
     public Animal clone() {
-        return new Eagle(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Eagle(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override

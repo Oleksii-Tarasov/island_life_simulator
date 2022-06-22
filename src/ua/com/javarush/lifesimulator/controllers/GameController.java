@@ -3,7 +3,6 @@ package ua.com.javarush.lifesimulator.controllers;
 import ua.com.javarush.lifesimulator.items.animals.Animal;
 import ua.com.javarush.lifesimulator.items.board.Cell;
 import ua.com.javarush.lifesimulator.items.board.GameBoard;
-import ua.com.javarush.lifesimulator.items.plants.Plant;
 import ua.com.javarush.lifesimulator.services.*;
 
 import java.util.List;
@@ -58,26 +57,14 @@ public class GameController {
                     continue;
                 }
 
-                move(animalList);
-                eat(animalList, cell.getPlantList());
+                itemMover.moveAnimals(gameBoard, animalList);
+                lifeProcessHandler.eatPlants(animalList, cell.getPlantList());
+                lifeProcessHandler.eatAnimals(animalList);
                 if (!gameEventsController.isCataclysmCome()) {
-                    reproduction(cell);
+                    lifeProcessHandler.reproduction(gameBoard, animalList);
                 }
             }
         }
-    }
-
-    private void move(List<Animal> animalList) {
-        itemMover.moveAnimals(gameBoard, animalList);
-    }
-
-    private void eat(List<Animal> animalList, List<Plant> plantList) {
-        lifeProcessHandler.eatAnimals(animalList);
-        lifeProcessHandler.eatPlants(animalList, plantList);
-    }
-
-    private void reproduction(Cell cell) {
-        lifeProcessHandler.reproduction(gameBoard, cell);
     }
 
     public boolean isGameOver() {

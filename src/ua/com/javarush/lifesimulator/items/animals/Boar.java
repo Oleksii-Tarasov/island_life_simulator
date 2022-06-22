@@ -8,7 +8,8 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 @NumberOfItemsOnField
 public class Boar extends Animal implements Carnivores, Herbivores {
 
-    public Boar(double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Boar(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+        this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
@@ -19,7 +20,7 @@ public class Boar extends Animal implements Carnivores, Herbivores {
 
     @Override
     public Animal clone() {
-        return new Boar(weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+        return new Boar(animalType,weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
     }
 
     @Override
