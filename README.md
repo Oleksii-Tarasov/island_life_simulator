@@ -69,8 +69,8 @@ The package `services` contains the class:
 ___
 ###Examples of a game screen.
 
-![](images/Screenshot 1.jpg)
+![](images/Screenshot%201.jpg)
 
 End of the game example:
 
-![](images/Screenshot 2.jpg)
+![](images/Screenshot%202.jpg)
