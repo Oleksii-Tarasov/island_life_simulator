@@ -7,24 +7,25 @@ import ua.com.javarush.lifesimulator.items.board.GameBoard;
 import ua.com.javarush.lifesimulator.items.plants.Plant;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class LifeProcessHandler {
+public class LifeHandler {
     private final ItemCreator itemCreator;
     private final ConditionsChecker conditionsChecker;
     private final GameEventsController gameEventsController;
 
-    public LifeProcessHandler(ItemCreator itemCreator, ConditionsChecker conditionsChecker, GameEventsController gameEventsController) {
+    public LifeHandler(ItemCreator itemCreator, ConditionsChecker conditionsChecker, GameEventsController gameEventsController) {
         this.itemCreator = itemCreator;
         this.conditionsChecker = conditionsChecker;
         this.gameEventsController = gameEventsController;
     }
 
     public void eatAnimals(List<Animal> animalList) {
-        List<Animal> eatenAnimalList = new ArrayList<>();
+        List<Animal> eatenAnimalList = Collections.synchronizedList(new ArrayList<>());
 
         for (Animal attackingAnimal : animalList) {
             String firstAnimal = attackingAnimal.getAnimalType();
@@ -54,7 +55,7 @@ public class LifeProcessHandler {
             return;
         }
 
-        List<Plant> eatenPlantList = new ArrayList<>();
+        List<Plant> eatenPlantList = Collections.synchronizedList(new ArrayList<>());
 
         for (Animal animal : animalList) {
             for (Plant plant : plantList) {

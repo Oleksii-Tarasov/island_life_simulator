@@ -2,7 +2,6 @@ package ua.com.javarush.lifesimulator.items.animals;
 
 import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.interfaces.Herbivores;
-import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 
 @NumberOfItemsOnField
 public class Caterpillar extends Animal implements Herbivores {

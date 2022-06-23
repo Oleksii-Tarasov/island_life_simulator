@@ -1,6 +1,6 @@
 package ua.com.javarush.lifesimulator.services;
 
-import ua.com.javarush.lifesimulator.configuration.AnimalConfigurations;
+import ua.com.javarush.lifesimulator.configuration.ItemsConfigurations;
 import ua.com.javarush.lifesimulator.configuration.Characteristics;
 import ua.com.javarush.lifesimulator.items.BasicItem;
 import ua.com.javarush.lifesimulator.items.animals.Animal;
@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
 import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
-import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_PROCESS_CLASS;
+import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_CREATE_ITEM;
 import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.DELIMITER;
 import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.EMPTY_CELL;
 
 public class Utility {
-    private final AnimalConfigurations animalConfiguration = new AnimalConfigurations();
+    private final ItemsConfigurations animalConfiguration = new ItemsConfigurations();
 
     public List<Animal> getListWithAllTypesOfAnimals() {
         List<Animal> animalList = new ArrayList<>();
@@ -46,7 +46,8 @@ public class Utility {
                 animalList.add(animal);
 
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-                System.out.println(UNABLE_TO_PROCESS_CLASS + e.getMessage());
+                System.err.println(UNABLE_TO_CREATE_ITEM + animalClass.getSimpleName());
+                System.exit(1);
             }
         }
 
@@ -85,11 +86,9 @@ public class Utility {
             itemsForPrint.append(visualizeItemForPrint(basicItemList));
         }
 
-//        if (!plantList.isEmpty()) {
-//            basicItemList = new ArrayList<>(plantList);
-//            itemsForPrint.append(visualizeItemForPrint(basicItemList));
-//            itemsForPrint.append(plantList.get(0).getIcon()).append(DELIMITER);
-//        }
+        if (!plantList.isEmpty()) {
+            itemsForPrint.append(plantList.get(0).getIcon()).append(DELIMITER);
+        }
 
         return itemsForPrint.toString();
     }

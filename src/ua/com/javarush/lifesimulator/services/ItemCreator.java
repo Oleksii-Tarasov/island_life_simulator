@@ -14,12 +14,13 @@ import java.util.List;
 import static ua.com.javarush.lifesimulator.constants.GameConstants.*;
 
 public class ItemCreator {
-    ItemPlacer itemPlacer = new ItemPlacer();
+    private final ItemPlacer itemPlacer;
     private final Utility utility;
     private final ConditionsChecker itemConditionsChecker;
     private final GameEventsController gameEventsController;
 
-    public ItemCreator(GameEventsController gameEventsController, ConditionsChecker itemConditionsChecker, Utility utility) {
+    public ItemCreator(ItemPlacer itemPlacer, GameEventsController gameEventsController, ConditionsChecker itemConditionsChecker, Utility utility) {
+        this.itemPlacer = itemPlacer;
         this.gameEventsController = gameEventsController;
         this.itemConditionsChecker = itemConditionsChecker;
         this.utility = utility;
@@ -56,7 +57,7 @@ public class ItemCreator {
         ItemPosition currentItemPosition = animal.getItemPosition();
         Animal newBornAnimal = new AnimalFactory(animal).makeClone();
         newBornAnimal.setItemPosition(currentItemPosition);
-        itemPlacer.putItemOnTheField(gameBoard,newBornAnimal);
+        itemPlacer.putItemOnTheField(gameBoard, newBornAnimal);
     }
 
     public void createPlants(GameBoard gameBoard) {
@@ -88,18 +89,4 @@ public class ItemCreator {
 
         return gameBoard;
     }
-
-//    public GameBoard createBoard(int width, int height) {
-//        Cell[][] newBoard = new Cell[height][width];
-//        GameBoard gameBoard = new GameBoard(newBoard, width, height);
-//
-//        for (int y = 0; y < height; y++) {
-//            for (int x = 0; x < width; x++) {
-//                Cell cell = new Cell(new ItemPosition(x, y));
-//                gameBoard.setCell(cell, y, x);
-//            }
-//        }
-//
-//        return gameBoard;
-//    }
 }

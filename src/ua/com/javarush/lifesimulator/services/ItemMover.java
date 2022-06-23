@@ -1,49 +1,48 @@
 package ua.com.javarush.lifesimulator.services;
 
 import ua.com.javarush.lifesimulator.items.animals.Animal;
-import ua.com.javarush.lifesimulator.items.board.Cell;
 import ua.com.javarush.lifesimulator.items.board.GameBoard;
 import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
 import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
 
-
 public class ItemMover {
     private final ConditionsChecker itemConditionsChecker;
+    private final ItemPlacer itemPlacer;
 
-    public ItemMover(ConditionsChecker itemConditionsChecker) {
+    public ItemMover(ItemPlacer itemPlacer, ConditionsChecker itemConditionsChecker) {
+        this.itemPlacer = itemPlacer;
         this.itemConditionsChecker = itemConditionsChecker;
     }
 
     public void moveAnimals(GameBoard gameBoard, List<Animal> animalList) {
-        List<Animal> listAnimalsForRemoving = new ArrayList<>();
+        List<Animal> movingAnimalList = Collections.synchronizedList(new ArrayList<>(animalList));
 
-        for (Animal animal : animalList) {
+        for (Animal animal : movingAnimalList) {
             if (itemConditionsChecker.cantMove(animal)) {
                 continue;
             }
 
-            ItemPosition currentItemPosition = animal.getItemPosition();
-            ItemPosition newItemPosition = calculateNewDestination(animal);
+            ItemPosition currentAnimalPosition = animal.getItemPosition();
+            ItemPosition newAnimalPosition = calculateNewDestination(animal);
 
-            if (itemConditionsChecker.hasDestinationChanged(currentItemPosition, newItemPosition)) {
-                animal.setItemPosition(newItemPosition);
+            if (itemConditionsChecker.hasDestinationChanged(currentAnimalPosition, newAnimalPosition)) {
+                animal.setItemPosition(newAnimalPosition);
+
                 if (itemConditionsChecker.canAddItemToCell(gameBoard, animal)) {
-                    Cell cellForAddingAnimal = gameBoard.getCell(newItemPosition.getY(), newItemPosition.getX());
-                    cellForAddingAnimal.addAnimalToList(animal);
+                    itemPlacer.putItemOnTheField(gameBoard, animal);
                     animal.setAlreadyWalked(true);
+                    animalList.remove(animal);
                 } else {
-                    animal.setItemPosition(currentItemPosition);
+                    animal.setItemPosition(currentAnimalPosition);
                 }
-                listAnimalsForRemoving.add(animal);
             }
         }
-
-        animalList.removeAll(listAnimalsForRemoving);
     }
 
     private ItemPosition calculateNewDestination(Animal animal) {

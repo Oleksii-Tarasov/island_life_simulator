@@ -3,7 +3,6 @@ package ua.com.javarush.lifesimulator.items.animals;
 import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 import ua.com.javarush.lifesimulator.interfaces.Herbivores;
-import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 
 @NumberOfItemsOnField
 public class Duck extends Animal implements Carnivores, Herbivores {

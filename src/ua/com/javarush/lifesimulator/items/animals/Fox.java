@@ -2,7 +2,6 @@ package ua.com.javarush.lifesimulator.items.animals;
 
 import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.interfaces.Carnivores;
-import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 
 @NumberOfItemsOnField
 public class Fox extends Animal implements Carnivores {

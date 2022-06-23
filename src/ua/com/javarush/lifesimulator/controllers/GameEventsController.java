@@ -1,7 +1,6 @@
 package ua.com.javarush.lifesimulator.controllers;
 
 import static ua.com.javarush.lifesimulator.constants.GameConstants.CATACLYSM_DAY;
-import static ua.com.javarush.lifesimulator.constants.GameConstants.FIRST_DAY_IN_THE_WORLD;
 
 public class GameEventsController {
     private int daysNumber;
@@ -55,7 +54,6 @@ public class GameEventsController {
 
     public void setAllAnimalsNumber(int allAnimalsNumber) {
         this.allAnimalsNumber = allAnimalsNumber;
-
     }
 
     public void updateDailyEvents() {

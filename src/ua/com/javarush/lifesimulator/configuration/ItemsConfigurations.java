@@ -7,22 +7,22 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_LOAD_CLASS;
 import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_LOAD_CONFIGURATION_FILE;
-import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_PROCESS_CLASS;
 
-public class AnimalConfigurations {
+public class ItemsConfigurations {
     private static final String ANIMALS_PATH_CLASS = "ua.com.javarush.lifesimulator.items.animals.";
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final File gameSettingsFile = new File("resources/gameSettings.json");
-    private final File animalChanceToEatFile = new File("resources/chanceToEatAnimal.json");
-    private final File animalCharacteristicFile = new File("resources/animalCharacteristics.json");
+    private final File animalChanceToEatFile = new File("src/resources/chanceToEatAnimal.json");
+    private final File animalCharacteristicFile = new File("src/resources/animalCharacteristics.json");
 
     public HashMap getAnimalChanceToEatMap() {
         HashMap animalChanceToEatMap = new HashMap();
         try {
             animalChanceToEatMap = objectMapper.readValue(animalChanceToEatFile, HashMap.class);
         } catch (IOException e) {
-            System.out.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + e.getMessage());
+            System.err.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + animalChanceToEatFile);
+            System.exit(1);
         }
         return animalChanceToEatMap;
     }
@@ -32,7 +32,8 @@ public class AnimalConfigurations {
         try {
             animalSettings = objectMapper.readValue(animalCharacteristicFile, ItemSettings.class);
         } catch (IOException e) {
-            System.out.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + e.getMessage());
+            System.err.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + animalCharacteristicFile);
+            System.exit(1);
         }
 
         Map<Class<?>, Characteristics> animalCharacteristicsMap = new HashMap<>();
@@ -44,7 +45,8 @@ public class AnimalConfigurations {
                 Class<?> aClass = ClassLoader.getSystemClassLoader().loadClass(ANIMALS_PATH_CLASS + ac.getAnimalClass());
                 animalCharacteristicsMap.put(aClass, characteristics);
             } catch (ClassNotFoundException e) {
-                System.out.println(UNABLE_TO_PROCESS_CLASS + e.getMessage());
+                System.err.println(UNABLE_TO_LOAD_CLASS + ac.getAnimalClass());
+                System.exit(1);
             }
         }
 

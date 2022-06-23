@@ -30,7 +30,7 @@ public class WorldUpdater {
                     continue;
                 }
 
-//                reduceSaturation(animalList);
+                reduceSaturation(animalList);
                 starvingToDeath(animalList);
                 resetWalkStatus(animalList);
             }

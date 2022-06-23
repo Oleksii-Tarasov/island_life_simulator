@@ -4,11 +4,12 @@ import ua.com.javarush.lifesimulator.items.animals.Animal;
 import ua.com.javarush.lifesimulator.items.plants.Plant;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Cell {
-    private List<Animal> animalList = new ArrayList<>();
-    private List<Plant> plantList = new ArrayList<>();
+    private final List<Animal> animalList = Collections.synchronizedList(new ArrayList<>());
+    private final List<Plant> plantList = Collections.synchronizedList(new ArrayList<>()) ;
     private final ItemPosition cellPosition;
 
     public Cell(ItemPosition cellPosition) {

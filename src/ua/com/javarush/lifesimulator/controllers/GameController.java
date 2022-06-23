@@ -14,12 +14,13 @@ public class GameController {
     private GameBoard gameBoard;
     private final Utility utility = new Utility();
     private final GameEventsController gameEventsController = new GameEventsController();
-    private final ConditionsChecker itemConditionsChecker = new ConditionsChecker(utility);
-    private final ItemCreator itemCreator = new ItemCreator(gameEventsController, itemConditionsChecker, utility);
+    private final ConditionsChecker conditionsChecker = new ConditionsChecker(utility);
+    private final ItemPlacer itemPlacer = new ItemPlacer();
+    private final ItemCreator itemCreator = new ItemCreator(itemPlacer, gameEventsController, conditionsChecker, utility);
     private final WorldUpdater gameUpdater = new WorldUpdater(gameEventsController, itemCreator);
-    private final ItemMover itemMover = new ItemMover(itemConditionsChecker);
+    private final ItemMover itemMover = new ItemMover(itemPlacer, conditionsChecker);
     private final ItemPrinter itemPrinter = new ItemPrinter(gameEventsController, utility);
-    LifeProcessHandler lifeProcessHandler = new LifeProcessHandler(itemCreator, itemConditionsChecker, gameEventsController);
+    LifeHandler lifeProcessHandler = new LifeHandler(itemCreator, conditionsChecker, gameEventsController);
 
     public void createGameBoard() {
         gameBoard = itemCreator.createBoard();
@@ -58,10 +59,10 @@ public class GameController {
                 }
 
                 itemMover.moveAnimals(gameBoard, animalList);
-//                lifeProcessHandler.eatPlants(animalList, cell.getPlantList());
-//                lifeProcessHandler.eatAnimals(animalList);
+                lifeProcessHandler.eatPlants(animalList, cell.getPlantList());
+                lifeProcessHandler.eatAnimals(animalList);
                 if (!gameEventsController.isCataclysmCome()) {
-//                    lifeProcessHandler.reproduction(gameBoard, animalList);
+                    lifeProcessHandler.reproduction(gameBoard, animalList);
                 }
             }
         }
@@ -73,6 +74,6 @@ public class GameController {
     }
 
     public boolean isGameOver() {
-        return itemConditionsChecker.isWorldAlive(gameEventsController.getNumberOfLocationsWithoutAnimals());
+        return conditionsChecker.isWorldAlive(gameEventsController.getNumberOfLocationsWithoutAnimals());
     }
 }

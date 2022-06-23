@@ -17,17 +17,17 @@ public class LifeController {
         boolean isWorldAlive = true;
 
         while (isWorldAlive) {
-            gameController.updateGameEvents();
-            gameController.updateGameWorld();
-            gameController.executeDayPhases();
-            gameController.compileWorldStatistics();
-            gameController.printGame();
-
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            gameController.updateGameEvents();
+            gameController.updateGameWorld();
+            gameController.executeDayPhases();
+            gameController.compileWorldStatistics();
+            gameController.printGame();
 
             isWorldAlive = gameController.isGameOver();
         }
