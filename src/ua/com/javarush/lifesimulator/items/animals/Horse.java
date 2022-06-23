@@ -7,7 +7,7 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 @NumberOfItemsOnField
 public class Horse extends Animal implements Herbivores {
 
-    public Horse(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Horse(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay, String icon) {
         this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
@@ -15,15 +15,11 @@ public class Horse extends Animal implements Herbivores {
         this.fullSaturation = fullSaturation;
         this.currentSaturation = fullSaturation;
         this.weightLossPerDay = weightLossPerDay;
+        this.icon = icon;
     }
 
     @Override
     public Animal clone() {
-        return new Horse(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
-    }
-
-    @Override
-    public String toString() {
-        return "\uD83D\uDC0E";
+        return new Horse(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay, icon);
     }
 }

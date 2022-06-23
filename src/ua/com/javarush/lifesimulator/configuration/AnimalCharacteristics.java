@@ -7,6 +7,7 @@ public class AnimalCharacteristics {
     private double fullSaturation;
     private double weightLossPerDay;
     private String animalClass;
+    private String icon;
 
     public AnimalCharacteristics() {
     }
@@ -49,5 +50,9 @@ public class AnimalCharacteristics {
 
     public String getAnimalClass() {
         return animalClass;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 }

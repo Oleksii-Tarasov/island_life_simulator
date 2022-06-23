@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
-import static ua.com.javarush.lifesimulator.constants.GameConstants.ONE_HUNDRED_PERCENT_CHANCE;
+import static ua.com.javarush.lifesimulator.constants.GameConstants.*;
 
 public class ConditionsChecker {
     private final Utility utility;
@@ -81,7 +81,7 @@ public class ConditionsChecker {
         return (animal.isAlreadyWalked() || animal.getSpeed() == 0);
     }
 
-    public boolean isWorldAlive(GameBoard gameBoard, int numberOfLocationsWithoutAnimals) {
-        return numberOfLocationsWithoutAnimals < (gameBoard.getHeight() * gameBoard.getWidth());
+    public boolean isWorldAlive(int numberOfLocationsWithoutAnimals) {
+        return numberOfLocationsWithoutAnimals < (GAME_BOARD_HEIGHT * GAME_BOARD_WIDTH);
     }
 }

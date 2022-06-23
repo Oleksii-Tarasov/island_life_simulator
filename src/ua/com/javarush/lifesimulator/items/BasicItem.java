@@ -6,6 +6,7 @@ public abstract class BasicItem {
     protected int MaxAmountOnCell;
     protected double weight;
     protected ItemPosition itemPosition;
+    protected String icon;
 
     public ItemPosition getItemPosition() {
         return itemPosition;
@@ -21,5 +22,9 @@ public abstract class BasicItem {
 
     public double getWeight() {
         return weight;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 }

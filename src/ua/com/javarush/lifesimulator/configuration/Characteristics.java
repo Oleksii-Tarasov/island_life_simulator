@@ -7,14 +7,16 @@ public class Characteristics {
     private final int speed;
     private final double fullSaturation;
     private final double weightLossPerDay;
+    private final String icon;
 
-    public Characteristics(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Characteristics(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay, String icon) {
         this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
         this.speed = speed;
         this.fullSaturation = fullSaturation;
         this.weightLossPerDay = weightLossPerDay;
+        this.icon = icon;
     }
 
     public String getAnimalType() {
@@ -39,5 +41,9 @@ public class Characteristics {
 
     public double getWeightLossPerDay() {
         return weightLossPerDay;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 }

@@ -6,14 +6,17 @@ import ua.com.javarush.lifesimulator.items.BasicItem;
 public class Plant extends BasicItem {
     private final double WEIGHT = 1;
     private final int MAX_AMOUNT_ON_CELL = 200;
+    private final String ICON = "\uD83C\uDF3F";
 
     private double weight;
     private int maxAmountOnCell;
-    ItemPosition plantPosition;
+    private String icon;
+    private ItemPosition plantPosition;
 
     public Plant() {
         this.weight = WEIGHT;
         this.maxAmountOnCell = MAX_AMOUNT_ON_CELL;
+        this.icon = ICON;
     }
 
     public double getWeight() {
@@ -32,7 +35,8 @@ public class Plant extends BasicItem {
         this.plantPosition = plantPosition;
     }
 
-    public String toString() {
-        return "\uD83C\uDF3F";
+    @Override
+    public String getIcon() {
+        return icon;
     }
 }

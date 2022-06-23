@@ -7,6 +7,7 @@ public class LifeController {
         gameController.createGameBoard();
         gameController.createAnimals();
         gameController.createPlants();
+        gameController.compileWorldStatistics();
         gameController.printGame();
 
         startDailyCycle();
@@ -19,6 +20,7 @@ public class LifeController {
             gameController.updateGameEvents();
             gameController.updateGameWorld();
             gameController.executeDayPhases();
+            gameController.compileWorldStatistics();
             gameController.printGame();
 
             try {

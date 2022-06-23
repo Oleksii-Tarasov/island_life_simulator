@@ -5,15 +5,17 @@
       "maxAmountOnCell": 5,
       "speed": 2,
       "fullSaturation": 80.0,
-      "weightLossPerDay": 6.0,
-      "animalClass" : "Beer"
+      "weightLossPerDay": 5.0,
+      "icon" : "\uD83D\uDC3B",
+      "animalClass" : "Bear"
     },
     {
       "weight": 300.0,
       "maxAmountOnCell": 20,
       "speed": 4,
       "fullSaturation": 50.0,
-      "weightLossPerDay": 4.0,
+      "weightLossPerDay": 3.0,
+      "icon" : "\uD83E\uDD8C",
       "animalClass" : "Deer"
     },
     {
@@ -22,6 +24,7 @@
       "speed": 3,
       "fullSaturation": 8.0,
       "weightLossPerDay": 0.7,
+      "icon" : "\uD83D\uDC3A",
       "animalClass" : "Wolf"
     },
     {
@@ -30,6 +33,7 @@
       "speed": 1,
       "fullSaturation": 3.0,
       "weightLossPerDay": 0.2,
+      "icon" : "\uD83D\uDC0D",
       "animalClass" : "Boa"
     },
     {
@@ -38,6 +42,7 @@
       "speed": 2,
       "fullSaturation": 2.0,
       "weightLossPerDay": 0.1,
+      "icon" : "\uD83E\uDD8A",
       "animalClass" : "Fox"
     },
     {
@@ -45,7 +50,8 @@
       "maxAmountOnCell": 20,
       "speed": 3,
       "fullSaturation": 1.0,
-      "weightLossPerDay": 0.1,
+      "weightLossPerDay": 0.07,
+      "icon" : "\uD83E\uDD85",
       "animalClass" : "Eagle"
     },
     {
@@ -54,6 +60,7 @@
       "speed": 4,
       "fullSaturation": 60.0,
       "weightLossPerDay": 4.0,
+      "icon" : "\uD83D\uDC0E",
       "animalClass" : "Horse"
     },
     {
@@ -62,6 +69,7 @@
       "speed": 2,
       "fullSaturation": 0.45,
       "weightLossPerDay": 0.03,
+      "icon" : "\uD83D\uDC07",
       "animalClass" : "Rabbit"
     },
     {
@@ -69,15 +77,17 @@
       "maxAmountOnCell": 1000,
       "speed": 0,
       "fullSaturation": 0.1,
-      "weightLossPerDay": 0.03,
+      "weightLossPerDay": 0.007,
+      "icon" : "\uD83D\uDC1B",
       "animalClass" : "Caterpillar"
     },
     {
       "weight": 0.05,
       "maxAmountOnCell": 500,
       "speed": 1,
-      "fullSaturation": 0.001,
-      "weightLossPerDay": 0.0001,
+      "fullSaturation": 0.01,
+      "weightLossPerDay": 0.0007,
+      "icon" : "\uD83D\uDC01",
       "animalClass" : "Mouse"
     },
     {
@@ -86,6 +96,7 @@
       "speed": 3,
       "fullSaturation": 10.0,
       "weightLossPerDay": 0.7,
+      "icon" : "\uD83D\uDC10",
       "animalClass" : "Goat"
     },
     {
@@ -94,6 +105,7 @@
       "speed": 3,
       "fullSaturation": 15.0,
       "weightLossPerDay": 1.1,
+      "icon" : "\uD83D\uDC11",
       "animalClass" : "Sheep"
     },
     {
@@ -102,6 +114,7 @@
       "speed": 2,
       "fullSaturation": 50.0,
       "weightLossPerDay": 3.5,
+      "icon" : "\uD83D\uDC17",
       "animalClass" : "Boar"
     },
     {
@@ -109,7 +122,8 @@
       "maxAmountOnCell": 10,
       "speed": 3,
       "fullSaturation": 100.0,
-      "weightLossPerDay": 7.0,
+      "weightLossPerDay": 7.1,
+      "icon" : "\uD83D\uDC03",
       "animalClass" : "Buffalo"
     },
     {
@@ -117,7 +131,8 @@
       "maxAmountOnCell": 200,
       "speed": 4,
       "fullSaturation": 0.15,
-      "weightLossPerDay": 0.03,
+      "weightLossPerDay": 0.01,
+      "icon" : "\uD83E\uDD86",
       "animalClass" : "Duck"
     }
   ]

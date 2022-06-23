@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
+import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
+import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
 import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_PROCESS_CLASS;
 import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.DELIMITER;
 import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.EMPTY_CELL;
@@ -36,10 +38,11 @@ public class Utility {
             int speed = animalCharacteristic.getValue().getSpeed();
             double fullSaturation = animalCharacteristic.getValue().getFullSaturation();
             double weightLossPerDay = animalCharacteristic.getValue().getWeightLossPerDay();
+            String icon = animalCharacteristic.getValue().getIcon();
 
             try {
-                Constructor<?> animalConstructor = animalClass.getConstructor(String.class, double.class, int.class, int.class, double.class, double.class);
-                Animal animal = (Animal) animalConstructor.newInstance(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
+                Constructor<?> animalConstructor = animalClass.getConstructor(String.class, double.class, int.class, int.class, double.class, double.class, String.class);
+                Animal animal = (Animal) animalConstructor.newInstance(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay, icon);
                 animalList.add(animal);
 
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
@@ -82,10 +85,11 @@ public class Utility {
             itemsForPrint.append(visualizeItemForPrint(basicItemList));
         }
 
-        if (!plantList.isEmpty()) {
-            basicItemList = new ArrayList<>(plantList);
-            itemsForPrint.append(visualizeItemForPrint(basicItemList));
-        }
+//        if (!plantList.isEmpty()) {
+//            basicItemList = new ArrayList<>(plantList);
+//            itemsForPrint.append(visualizeItemForPrint(basicItemList));
+//            itemsForPrint.append(plantList.get(0).getIcon()).append(DELIMITER);
+//        }
 
         return itemsForPrint.toString();
     }
@@ -94,7 +98,7 @@ public class Utility {
         StringBuilder items = new StringBuilder();
 
         Map<String, Long> itemMap = basicItemList.stream()
-                .collect(groupingBy(BasicItem::toString, Collectors.counting()));
+                .collect(groupingBy(BasicItem::getIcon, Collectors.counting()));
 
         for (Map.Entry<String, Long> basicItem : itemMap.entrySet()) {
             if (basicItem.getValue() == 1) {
@@ -104,5 +108,19 @@ public class Utility {
             }
         }
         return items.toString();
+    }
+
+    public Integer getAllAnimalsNumberInTheWorld(GameBoard gameBoard) {
+        int result = 0;
+
+        for (int y = 0; y < GAME_BOARD_HEIGHT; y++) {
+            for (int x = 0; x < GAME_BOARD_WIDTH; x++) {
+                Cell cell = gameBoard.getCell(y, x);
+                List<Animal> animalList = cell.getAnimalList();
+
+                result += animalList.size();
+            }
+        }
+        return result;
     }
 }

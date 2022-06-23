@@ -27,9 +27,9 @@ public class LifeProcessHandler {
         List<Animal> eatenAnimalList = new ArrayList<>();
 
         for (Animal attackingAnimal : animalList) {
-            String firstAnimal = attackingAnimal.getClass().getSimpleName();
+            String firstAnimal = attackingAnimal.getAnimalType();
             for (Animal animalToEat : animalList) {
-                String secondAnimal = animalToEat.getClass().getSimpleName();
+                String secondAnimal = animalToEat.getAnimalType();
 
                 if (!(conditionsChecker.isAnimalHungry(attackingAnimal)) ||
                         !(conditionsChecker.isHuntingConditionsGood(attackingAnimal, animalToEat, eatenAnimalList))) {
@@ -41,11 +41,11 @@ public class LifeProcessHandler {
 
                 if (isAnimalEaten) {
                     saturationProcess(attackingAnimal, animalToEat);
-                    gameEventsController.countingDeadAnimals();
                     eatenAnimalList.add(animalToEat);
                 }
             }
         }
+        eatenAnimalList.forEach(animal -> gameEventsController.countingDeadAnimals());
         animalList.removeAll(eatenAnimalList);
     }
 
@@ -101,6 +101,7 @@ public class LifeProcessHandler {
                 }
 
                 itemCreator.createNewbornAnimal(gameBoard, animal);
+                gameEventsController.countingNewbornAnimals();
             }
         }
     }

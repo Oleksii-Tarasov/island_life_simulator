@@ -2,12 +2,11 @@ package ua.com.javarush.lifesimulator.items.animals;
 
 import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.interfaces.Carnivores;
-import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 
 @NumberOfItemsOnField
 public class Eagle extends Animal implements Carnivores {
 
-    public Eagle(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Eagle(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay, String icon) {
         this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
@@ -15,15 +14,11 @@ public class Eagle extends Animal implements Carnivores {
         this.fullSaturation = fullSaturation;
         this.currentSaturation = fullSaturation;
         this.weightLossPerDay = weightLossPerDay;
+        this.icon = icon;
     }
 
     @Override
     public Animal clone() {
-        return new Eagle(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
-    }
-
-    @Override
-    public String toString() {
-        return "\uD83E\uDD85";
+        return new Eagle(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay, icon);
     }
 }

@@ -6,7 +6,7 @@ import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 @NumberOfItemsOnField
 public class Wolf extends Animal implements Carnivores {
 
-    public Wolf(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Wolf(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay, String icon) {
         this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
@@ -14,15 +14,11 @@ public class Wolf extends Animal implements Carnivores {
         this.fullSaturation = fullSaturation;
         this.currentSaturation = fullSaturation;
         this.weightLossPerDay = weightLossPerDay;
+        this.icon = icon;
     }
 
     @Override
     public Animal clone() {
-        return new Wolf(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
-    }
-
-    @Override
-    public String toString() {
-        return "\uD83D\uDC3A";
+        return new Wolf(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay, icon);
     }
 }

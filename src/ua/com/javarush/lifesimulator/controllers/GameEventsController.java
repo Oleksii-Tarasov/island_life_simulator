@@ -5,13 +5,12 @@ import static ua.com.javarush.lifesimulator.constants.GameConstants.FIRST_DAY_IN
 
 public class GameEventsController {
     private int daysNumber;
-    private int allAnimalsNumber;
     private int newbornAnimalsNumber;
     private int deadAnimalsNumber;
     private int numberOfLocationsWithoutAnimals;
+    private int allAnimalsNumber;
 
     public GameEventsController() {
-        this.daysNumber = FIRST_DAY_IN_THE_WORLD;
     }
 
     public void countingNewbornAnimals() {
@@ -38,10 +37,6 @@ public class GameEventsController {
         return deadAnimalsNumber;
     }
 
-    public int getAllAnimalsNumber() {
-        return allAnimalsNumber = allAnimalsNumber + newbornAnimalsNumber - deadAnimalsNumber;
-    }
-
     public void countingLocationsWithoutAnimals() {
         numberOfLocationsWithoutAnimals++;
     }
@@ -52,6 +47,15 @@ public class GameEventsController {
 
     public boolean isCataclysmCome() {
         return getDaysNumber() >= CATACLYSM_DAY;
+    }
+
+    public int getAllAnimalsNumber() {
+        return allAnimalsNumber;
+    }
+
+    public void setAllAnimalsNumber(int allAnimalsNumber) {
+        this.allAnimalsNumber = allAnimalsNumber;
+
     }
 
     public void updateDailyEvents() {

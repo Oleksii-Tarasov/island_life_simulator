@@ -8,6 +8,9 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
+import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
+
 
 public class ItemMover {
     private final ConditionsChecker itemConditionsChecker;
@@ -25,7 +28,7 @@ public class ItemMover {
             }
 
             ItemPosition currentItemPosition = animal.getItemPosition();
-            ItemPosition newItemPosition = calculateNewDestination(gameBoard, animal);
+            ItemPosition newItemPosition = calculateNewDestination(animal);
 
             if (itemConditionsChecker.hasDestinationChanged(currentItemPosition, newItemPosition)) {
                 animal.setItemPosition(newItemPosition);
@@ -39,15 +42,17 @@ public class ItemMover {
                 listAnimalsForRemoving.add(animal);
             }
         }
+
         animalList.removeAll(listAnimalsForRemoving);
     }
 
-    private ItemPosition calculateNewDestination(GameBoard gameBoard, Animal animal) {
+    private ItemPosition calculateNewDestination(Animal animal) {
         int speed = animal.getSpeed();
         ItemPosition position = new ItemPosition(animal.getItemPosition().getX(), animal.getItemPosition().getY());
 
         for (int i = 0; i < speed; i++) {
             String direction = chooseDirection();
+
             int x = position.getX();
             int y = position.getY();
 
@@ -58,7 +63,7 @@ public class ItemMover {
                     }
                 }
                 case "Right" -> {
-                    if (x + 1 < gameBoard.getWidth()) {
+                    if (x + 1 < GAME_BOARD_WIDTH) {
                         position.setX(x + 1);
                     }
                 }
@@ -68,7 +73,7 @@ public class ItemMover {
                     }
                 }
                 case "Down" -> {
-                    if (y + 1 < gameBoard.getHeight()) {
+                    if (y + 1 < GAME_BOARD_HEIGHT) {
                         position.setY(y + 1);
                     }
                 }

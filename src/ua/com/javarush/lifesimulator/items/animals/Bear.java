@@ -4,9 +4,9 @@ import ua.com.javarush.lifesimulator.annotations.NumberOfItemsOnField;
 import ua.com.javarush.lifesimulator.interfaces.Carnivores;
 
 @NumberOfItemsOnField
-public class Beer extends Animal implements Carnivores {
+public class Bear extends Animal implements Carnivores {
 
-    public Beer(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay) {
+    public Bear(String animalType, double weight, int maxAmountOnCell, int speed, double fullSaturation, double weightLossPerDay, String icon) {
         this.animalType = animalType;
         this.weight = weight;
         this.maxAmountOnCell = maxAmountOnCell;
@@ -14,15 +14,11 @@ public class Beer extends Animal implements Carnivores {
         this.fullSaturation = fullSaturation;
         this.currentSaturation = fullSaturation;
         this.weightLossPerDay = weightLossPerDay;
+        this.icon = icon;
     }
 
     @Override
     public Animal clone() {
-        return new Beer(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay);
-    }
-
-    @Override
-    public String toString() {
-        return "\uD83D\uDC3B";
+        return new Bear(animalType, weight, maxAmountOnCell, speed, fullSaturation, weightLossPerDay, icon);
     }
 }

@@ -8,7 +8,6 @@ import java.util.Objects;
 
 public abstract class Animal extends BasicItem implements BasicItemCloneable {
     protected String animalType;
-
     protected double weight;
     protected int maxAmountOnCell;
     protected int speed;
@@ -17,6 +16,7 @@ public abstract class Animal extends BasicItem implements BasicItemCloneable {
     protected double weightLossPerDay;
     protected ItemPosition animalPosition;
     protected boolean alreadyWalked;
+    protected String icon;
 
     public abstract Animal clone();
 
@@ -62,6 +62,22 @@ public abstract class Animal extends BasicItem implements BasicItemCloneable {
 
     public double getFullSaturation() {
         return fullSaturation;
+    }
+
+    public double getWeightLossPerDay() {
+        return weightLossPerDay;
+    }
+
+    public ItemPosition getAnimalPosition() {
+        return animalPosition;
+    }
+
+    public String getAnimalType() {
+        return animalType;
+    }
+
+    public String getIcon() {
+        return icon;
     }
 
     @Override

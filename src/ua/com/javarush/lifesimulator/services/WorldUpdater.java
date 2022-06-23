@@ -7,6 +7,9 @@ import ua.com.javarush.lifesimulator.items.board.GameBoard;
 
 import java.util.List;
 
+import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
+import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
+
 public class WorldUpdater {
     private final GameEventsController gameEventsController;
     private final ItemCreator itemCreator;
@@ -18,8 +21,8 @@ public class WorldUpdater {
 
     public void dailyWorldUpdate(GameBoard gameBoard) {
 
-        for (int y = 0; y < gameBoard.getHeight(); y++) {
-            for (int x = 0; x < gameBoard.getWidth(); x++) {
+        for (int y = 0; y < GAME_BOARD_HEIGHT; y++) {
+            for (int x = 0; x < GAME_BOARD_WIDTH; x++) {
                 Cell cell = gameBoard.getCell(y, x);
                 List<Animal> animalList = cell.getAnimalList();
 
@@ -27,7 +30,7 @@ public class WorldUpdater {
                     continue;
                 }
 
-                reduceSaturation(animalList);
+//                reduceSaturation(animalList);
                 starvingToDeath(animalList);
                 resetWalkStatus(animalList);
             }

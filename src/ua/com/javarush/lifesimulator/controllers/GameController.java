@@ -7,6 +7,9 @@ import ua.com.javarush.lifesimulator.services.*;
 
 import java.util.List;
 
+import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
+import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
+
 public class GameController {
     private GameBoard gameBoard;
     private final Utility utility = new Utility();
@@ -19,9 +22,7 @@ public class GameController {
     LifeProcessHandler lifeProcessHandler = new LifeProcessHandler(itemCreator, itemConditionsChecker, gameEventsController);
 
     public void createGameBoard() {
-        int width = 10;
-        int height = 100;
-        gameBoard = itemCreator.createBoard(width, height);
+        gameBoard = itemCreator.createBoard();
     }
 
     public void createAnimals() {
@@ -39,7 +40,6 @@ public class GameController {
 
     public void updateGameEvents() {
         gameEventsController.updateDailyEvents();
-        gameEventsController.countingDays();
     }
 
     public void updateGameWorld() {
@@ -47,8 +47,8 @@ public class GameController {
     }
 
     public void executeDayPhases() {
-        for (int y = 0; y < gameBoard.getHeight(); y++) {
-            for (int x = 0; x < gameBoard.getWidth(); x++) {
+        for (int y = 0; y < GAME_BOARD_HEIGHT; y++) {
+            for (int x = 0; x < GAME_BOARD_WIDTH; x++) {
                 Cell cell = gameBoard.getCell(y, x);
                 List<Animal> animalList = cell.getAnimalList();
 
@@ -58,16 +58,21 @@ public class GameController {
                 }
 
                 itemMover.moveAnimals(gameBoard, animalList);
-                lifeProcessHandler.eatPlants(animalList, cell.getPlantList());
-                lifeProcessHandler.eatAnimals(animalList);
+//                lifeProcessHandler.eatPlants(animalList, cell.getPlantList());
+//                lifeProcessHandler.eatAnimals(animalList);
                 if (!gameEventsController.isCataclysmCome()) {
-                    lifeProcessHandler.reproduction(gameBoard, animalList);
+//                    lifeProcessHandler.reproduction(gameBoard, animalList);
                 }
             }
         }
     }
 
+    public void compileWorldStatistics() {
+        gameEventsController.countingDays();
+        gameEventsController.setAllAnimalsNumber(utility.getAllAnimalsNumberInTheWorld(gameBoard));
+    }
+
     public boolean isGameOver() {
-        return itemConditionsChecker.isWorldAlive(gameBoard, gameEventsController.getNumberOfLocationsWithoutAnimals());
+        return itemConditionsChecker.isWorldAlive(gameEventsController.getNumberOfLocationsWithoutAnimals());
     }
 }

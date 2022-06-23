@@ -11,7 +11,7 @@ import ua.com.javarush.lifesimulator.items.plants.Plant;
 
 import java.util.List;
 
-import static ua.com.javarush.lifesimulator.constants.GameConstants.PLANTS_MAX_AMOUNT;
+import static ua.com.javarush.lifesimulator.constants.GameConstants.*;
 
 public class ItemCreator {
     ItemPlacer itemPlacer = new ItemPlacer();
@@ -40,7 +40,7 @@ public class ItemCreator {
                 boolean isPositionFind = false;
 
                 do {
-                    newAnimal.setItemPosition(new ItemPosition(gameBoard));
+                    newAnimal.setItemPosition(new ItemPosition());
                     if (itemConditionsChecker.canAddItemToCell(gameBoard, newAnimal)) {
                         gameEventsController.countingNewbornAnimals();
                         isPositionFind = true;
@@ -65,7 +65,7 @@ public class ItemCreator {
             boolean isPositionFind = false;
 
             do {
-                plant.setItemPosition(new ItemPosition(gameBoard));
+                plant.setItemPosition(new ItemPosition());
                 if (itemConditionsChecker.canAddItemToCell(gameBoard, plant)) {
                     isPositionFind = true;
                 }
@@ -75,12 +75,12 @@ public class ItemCreator {
         }
     }
 
-    public GameBoard createBoard(int width, int height) {
-        Cell[][] newBoard = new Cell[height][width];
-        GameBoard gameBoard = new GameBoard(newBoard, width, height);
+    public GameBoard createBoard() {
+        Cell[][] newBoard = new Cell[GAME_BOARD_HEIGHT][GAME_BOARD_WIDTH];
+        GameBoard gameBoard = new GameBoard(newBoard);
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
+        for (int y = 0; y < GAME_BOARD_HEIGHT; y++) {
+            for (int x = 0; x < GAME_BOARD_WIDTH; x++) {
                 Cell cell = new Cell(new ItemPosition(x, y));
                 gameBoard.setCell(cell, y, x);
             }
@@ -88,4 +88,18 @@ public class ItemCreator {
 
         return gameBoard;
     }
+
+//    public GameBoard createBoard(int width, int height) {
+//        Cell[][] newBoard = new Cell[height][width];
+//        GameBoard gameBoard = new GameBoard(newBoard, width, height);
+//
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                Cell cell = new Cell(new ItemPosition(x, y));
+//                gameBoard.setCell(cell, y, x);
+//            }
+//        }
+//
+//        return gameBoard;
+//    }
 }
