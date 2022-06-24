@@ -2,8 +2,8 @@ package ua.com.javarush.lifesimulator.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,17 +11,22 @@ import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_LOAD_
 import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_LOAD_CONFIGURATION_FILE;
 
 public class ItemsConfigurations {
-    private static final String ANIMALS_PATH_CLASS = "ua.com.javarush.lifesimulator.items.animals.";
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final File animalChanceToEatFile = new File("src/resources/chanceToEatAnimal.json");
-    private final File animalCharacteristicFile = new File("src/resources/animalCharacteristics.json");
+    private static final String ANIMALS_PATH_CLASS = "ua.com.javarush.lifesimulator.items.animals.";
+    private final String pathToAnimalChanceToEatFile = "/resources/chanceToEatAnimal.json";
+    private final String pathToAnimalCharacteristicFile = "/resources/animalCharacteristics.json";
 
     public HashMap getAnimalChanceToEatMap() {
         HashMap animalChanceToEatMap = new HashMap();
+
         try {
-            animalChanceToEatMap = objectMapper.readValue(animalChanceToEatFile, HashMap.class);
+            InputStream inputStream = getClass().getResourceAsStream(pathToAnimalChanceToEatFile);
+            byte[] bytesFromFile = inputStream.readAllBytes();
+
+            animalChanceToEatMap = objectMapper.readValue(bytesFromFile, HashMap.class);
         } catch (IOException e) {
-            System.err.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + animalChanceToEatFile);
+            System.err.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + pathToAnimalChanceToEatFile);
+            e.printStackTrace();
             System.exit(1);
         }
         return animalChanceToEatMap;
@@ -29,10 +34,14 @@ public class ItemsConfigurations {
 
     public Map<Class<?>, Characteristics> getAnimalCharacteristicsMap() {
         ItemSettings animalSettings = null;
+
         try {
-            animalSettings = objectMapper.readValue(animalCharacteristicFile, ItemSettings.class);
+            InputStream inputStream = getClass().getResourceAsStream(pathToAnimalCharacteristicFile);
+            byte[] bytesFromFile = inputStream.readAllBytes();
+            animalSettings = objectMapper.readValue(bytesFromFile, ItemSettings.class);
         } catch (IOException e) {
-            System.err.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + animalCharacteristicFile);
+            System.err.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + pathToAnimalCharacteristicFile);
+            e.printStackTrace();
             System.exit(1);
         }
 
