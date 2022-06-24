@@ -74,3 +74,7 @@ ___
 End of the game example:
 
 ![](images/Screenshot%202.jpg)
+
+Work program in dynamics:
+
+![](images/animation.gif)
