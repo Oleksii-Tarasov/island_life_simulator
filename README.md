@@ -8,7 +8,7 @@ the animals pass the following phases:
 - animals saturation decreases (if saturation falls below zero, animal dies of hunger).
 - animals move in a random direction.
 - herbivores eat grass. Carnivores can eat another animal at a certain chance.
-- if there are pairs/pairs of animals of the same species, they give offspring.
+- if there are pairs of animals of the same species, they give offspring.
 
 At the end of each day, the entire island is displayed on the screen - in each cell the icon indicates the animals 
 that are there now and their number. And textual statistics - how many new animals were born in the world in a day. 
@@ -17,8 +17,6 @@ How many died. How many animals are left in the world.
 On the 30th day of the simulation, a cataclysm occurs - new grass ceases to grow. The animals stop reproducing, 
 but they keep moving around on the map, eating the rest of the grass and other animals. 
 The game ends when the last animal in the world dies.
-
-Project launch:
 ___
 ###Description of classes
 The root package of the `ua.com.javarush.lifesimulator` project contains the `Main` class containing an application
