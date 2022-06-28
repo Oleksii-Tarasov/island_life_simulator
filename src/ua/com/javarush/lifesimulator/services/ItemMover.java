@@ -7,8 +7,8 @@ import ua.com.javarush.lifesimulator.items.board.ItemPosition;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_HEIGHT;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_WIDTH;
 
 public class ItemMover {
     private final ConditionsChecker itemConditionsChecker;

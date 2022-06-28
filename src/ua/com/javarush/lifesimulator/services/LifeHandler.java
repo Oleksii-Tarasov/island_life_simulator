@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static ua.com.javarush.lifesimulator.constants.GameConstants.ANIMAL_PAIR;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.ANIMAL_PAIR;
 
 public class LifeHandler {
     private final ItemCreator itemCreator;

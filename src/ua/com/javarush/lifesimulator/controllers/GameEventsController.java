@@ -1,6 +1,6 @@
 package ua.com.javarush.lifesimulator.controllers;
 
-import static ua.com.javarush.lifesimulator.constants.GameConstants.CATACLYSM_DAY;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.CATACLYSM_DAY;
 
 public class GameEventsController {
     private int daysNumber;

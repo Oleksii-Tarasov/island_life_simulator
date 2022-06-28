@@ -4,8 +4,8 @@ import ua.com.javarush.lifesimulator.controllers.GameEventsController;
 import ua.com.javarush.lifesimulator.items.board.Cell;
 import ua.com.javarush.lifesimulator.items.board.GameBoard;
 
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_HEIGHT;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_WIDTH;
 import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.*;
 
 public class ItemPrinter {

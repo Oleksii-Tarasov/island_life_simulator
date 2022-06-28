@@ -11,7 +11,7 @@ import ua.com.javarush.lifesimulator.items.plants.Plant;
 
 import java.util.List;
 
-import static ua.com.javarush.lifesimulator.constants.GameConstants.*;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.*;
 
 public class ItemCreator {
     private final ItemPlacer itemPlacer;

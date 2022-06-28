@@ -17,8 +17,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_HEIGHT;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_WIDTH;
 import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_CREATE_ITEM;
 import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.DELIMITER;
 import static ua.com.javarush.lifesimulator.constants.PrintableFieldElements.EMPTY_CELL;

@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_HEIGHT;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_WIDTH;
 
 public class WorldUpdater {
     private final GameEventsController gameEventsController;

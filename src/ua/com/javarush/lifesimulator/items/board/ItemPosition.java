@@ -1,7 +1,7 @@
 package ua.com.javarush.lifesimulator.items.board;
 
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_HEIGHT;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_WIDTH;
 
 public class ItemPosition {
     private int x;

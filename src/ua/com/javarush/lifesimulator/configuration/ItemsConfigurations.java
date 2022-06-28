@@ -7,28 +7,27 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import static ua.com.javarush.lifesimulator.constants.GameSettings.*;
 import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_LOAD_CLASS;
 import static ua.com.javarush.lifesimulator.constants.GameErrors.UNABLE_TO_LOAD_CONFIGURATION_FILE;
 
 public class ItemsConfigurations {
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private static final String ANIMALS_PATH_CLASS = "ua.com.javarush.lifesimulator.items.animals.";
-    private final String pathToAnimalChanceToEatFile = "/resources/chanceToEatAnimal.json";
-    private final String pathToAnimalCharacteristicFile = "/resources/animalCharacteristics.json";
 
     public HashMap getAnimalChanceToEatMap() {
         HashMap animalChanceToEatMap = new HashMap();
 
         try {
-            InputStream inputStream = getClass().getResourceAsStream(pathToAnimalChanceToEatFile);
+            InputStream inputStream = getClass().getResourceAsStream(ANIMAL_CHANCE_TO_EAT_FILE_PATH);
             byte[] bytesFromFile = inputStream.readAllBytes();
 
             animalChanceToEatMap = objectMapper.readValue(bytesFromFile, HashMap.class);
         } catch (IOException e) {
-            System.err.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + pathToAnimalChanceToEatFile);
+            System.err.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + ANIMAL_CHANCE_TO_EAT_FILE_PATH);
             e.printStackTrace();
             System.exit(1);
         }
+
         return animalChanceToEatMap;
     }
 
@@ -36,11 +35,11 @@ public class ItemsConfigurations {
         ItemSettings animalSettings = null;
 
         try {
-            InputStream inputStream = getClass().getResourceAsStream(pathToAnimalCharacteristicFile);
+            InputStream inputStream = getClass().getResourceAsStream(ANIMAL_CHARACTERISTIC_FILE_PATH);
             byte[] bytesFromFile = inputStream.readAllBytes();
             animalSettings = objectMapper.readValue(bytesFromFile, ItemSettings.class);
         } catch (IOException e) {
-            System.err.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + pathToAnimalCharacteristicFile);
+            System.err.println(UNABLE_TO_LOAD_CONFIGURATION_FILE + ANIMAL_CHARACTERISTIC_FILE_PATH);
             e.printStackTrace();
             System.exit(1);
         }

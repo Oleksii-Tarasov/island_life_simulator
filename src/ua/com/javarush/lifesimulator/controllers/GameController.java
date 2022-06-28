@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_HEIGHT;
-import static ua.com.javarush.lifesimulator.constants.GameConstants.GAME_BOARD_WIDTH;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_HEIGHT;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.GAME_BOARD_WIDTH;
 
 public class GameController {
     private GameBoard gameBoard;
@@ -22,7 +22,7 @@ public class GameController {
     private final WorldUpdater gameUpdater = new WorldUpdater(gameEventsController, itemCreator);
     private final ItemMover itemMover = new ItemMover(itemPlacer, conditionsChecker);
     private final ItemPrinter itemPrinter = new ItemPrinter(gameEventsController, utility);
-    private final LifeHandler lifeProcessHandler = new LifeHandler(itemCreator, conditionsChecker, gameEventsController);
+    private final LifeHandler lifeHandler = new LifeHandler(itemCreator, conditionsChecker, gameEventsController);
 
     public void createGameBoard() {
         gameBoard = itemCreator.createBoard();
@@ -63,11 +63,11 @@ public class GameController {
 
                 Runnable runPhases = () -> {
                     itemMover.moveAnimals(gameBoard, animalList);
-                    lifeProcessHandler.eatPlants(animalList, cell.getPlantList());
-                    lifeProcessHandler.eatAnimals(animalList);
+                    lifeHandler.eatPlants(animalList, cell.getPlantList());
+                    lifeHandler.eatAnimals(animalList);
 
                     if (!gameEventsController.isCataclysmCome()) {
-                        lifeProcessHandler.reproduction(gameBoard, animalList);
+                        lifeHandler.reproduction(gameBoard, animalList);
                     }
                 };
                 executorService.submit(runPhases);

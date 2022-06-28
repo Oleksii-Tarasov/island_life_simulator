@@ -15,7 +15,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
-import static ua.com.javarush.lifesimulator.constants.GameConstants.*;
+import static ua.com.javarush.lifesimulator.constants.GameSettings.*;
 
 public class ConditionsChecker {
     private final Utility utility;
