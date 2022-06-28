@@ -22,7 +22,7 @@ public class GameController {
     private final WorldUpdater gameUpdater = new WorldUpdater(gameEventsController, itemCreator);
     private final ItemMover itemMover = new ItemMover(itemPlacer, conditionsChecker);
     private final ItemPrinter itemPrinter = new ItemPrinter(gameEventsController, utility);
-    LifeHandler lifeProcessHandler = new LifeHandler(itemCreator, conditionsChecker, gameEventsController);
+    private final LifeHandler lifeProcessHandler = new LifeHandler(itemCreator, conditionsChecker, gameEventsController);
 
     public void createGameBoard() {
         gameBoard = itemCreator.createBoard();
@@ -61,7 +61,7 @@ public class GameController {
                     continue;
                 }
 
-                Runnable runnable = () -> {
+                Runnable runPhases = () -> {
                     itemMover.moveAnimals(gameBoard, animalList);
                     lifeProcessHandler.eatPlants(animalList, cell.getPlantList());
                     lifeProcessHandler.eatAnimals(animalList);
@@ -70,9 +70,10 @@ public class GameController {
                         lifeProcessHandler.reproduction(gameBoard, animalList);
                     }
                 };
-                executorService.execute(runnable);
+                executorService.submit(runPhases);
             }
         }
+        executorService.shutdown();
     }
 
     public void compileWorldStatistics() {

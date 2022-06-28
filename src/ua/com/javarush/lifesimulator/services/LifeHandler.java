@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static ua.com.javarush.lifesimulator.constants.GameConstants.ANIMAL_PAIR;
+
 public class LifeHandler {
     private final ItemCreator itemCreator;
     private final ConditionsChecker conditionsChecker;
@@ -26,24 +28,22 @@ public class LifeHandler {
     public void eatAnimals(List<Animal> animalList) {
         List<Animal> eatenAnimalList = new ArrayList<>();
 
-        synchronized (animalList) {
-            for (Animal attackingAnimal : animalList) {
-                String firstAnimal = attackingAnimal.getAnimalType();
-                for (Animal animalToEat : animalList) {
-                    String secondAnimal = animalToEat.getAnimalType();
+        for (Animal attackingAnimal : animalList) {
+            String firstAnimal = attackingAnimal.getAnimalType();
+            for (Animal animalToEat : animalList) {
+                String secondAnimal = animalToEat.getAnimalType();
 
-                    if (!(conditionsChecker.isAnimalHungry(attackingAnimal)) ||
-                            !(conditionsChecker.isHuntingConditionsGood(attackingAnimal, animalToEat, eatenAnimalList))) {
-                        continue;
-                    }
+                if (!(conditionsChecker.isAnimalHungry(attackingAnimal)) ||
+                        !(conditionsChecker.isHuntingConditionsGood(attackingAnimal, animalToEat, eatenAnimalList))) {
+                    continue;
+                }
 
-                    String animalsPair = firstAnimal + secondAnimal;
-                    boolean isAnimalEaten = conditionsChecker.willAnimalBeEaten(animalsPair);
+                String animalsPair = firstAnimal + secondAnimal;
+                boolean isAnimalEaten = conditionsChecker.willAnimalBeEaten(animalsPair);
 
-                    if (isAnimalEaten) {
-                        saturationProcess(attackingAnimal, animalToEat);
-                        eatenAnimalList.add(animalToEat);
-                    }
+                if (isAnimalEaten) {
+                    saturationProcess(attackingAnimal, animalToEat);
+                    eatenAnimalList.add(animalToEat);
                 }
             }
         }
@@ -52,25 +52,23 @@ public class LifeHandler {
     }
 
     public void eatPlants(List<Animal> animalList, List<Plant> plantList) {
-        if (animalList.isEmpty() || plantList.isEmpty()) {
+        if (plantList.isEmpty()) {
             return;
         }
 
         List<Plant> eatenPlantList = new ArrayList<>();
 
-        synchronized (animalList) {
-            for (Animal animal : animalList) {
-                for (Plant plant : plantList) {
-                    if (!(conditionsChecker.isAnimalHungry(animal)) ||
-                            !(conditionsChecker.canEatPlants(animal, plant, eatenPlantList))) {
-                        continue;
-                    }
-
-                    saturationProcess(animal, plant);
-                    eatenPlantList.add(plant);
+        for (Animal animal : animalList) {
+            for (Plant plant : plantList) {
+                if (!(conditionsChecker.isAnimalHungry(animal)) ||
+                        !(conditionsChecker.canEatPlants(animal, plant, eatenPlantList))) {
+                    continue;
                 }
-                plantList.removeAll(eatenPlantList);
+
+                saturationProcess(animal, plant);
+                eatenPlantList.add(plant);
             }
+            plantList.removeAll(eatenPlantList);
         }
     }
 
@@ -87,28 +85,29 @@ public class LifeHandler {
     }
 
     public void reproduction(GameBoard gameBoard, List<Animal> animalList) {
-        synchronized (animalList) {
+        Map<Animal, Long> numberOfEachAnimals = animalList.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-            Map<Animal, Long> numberOfEachAnimals = animalList.stream()
-                    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        for (Map.Entry<Animal, Long> animals : numberOfEachAnimals.entrySet()) {
+            long animalsNumber = animals.getValue();
 
-            for (Map.Entry<Animal, Long> animals : numberOfEachAnimals.entrySet()) {
-                long animalsNumber = animals.getValue();
+            if (animalsNumber < ANIMAL_PAIR) {
+                continue;
+            }
 
-                if (animalsNumber < 2) {
+            Animal animal = animals.getKey();
+
+            for (int i = 0; i < animalsNumber / ANIMAL_PAIR; i++) {
+                if (!conditionsChecker.canAddItemToCell(gameBoard, animal)) {
+                    break;
+                }
+
+                if (!conditionsChecker.isChanceReproduceGood()) {
                     continue;
                 }
 
-                Animal animal = animals.getKey();
-
-                for (int i = 0; i < animalsNumber / 2; i++) {
-                    if (!conditionsChecker.canAddItemToCell(gameBoard, animal)) {
-                        break;
-                    }
-
-                    itemCreator.createNewbornAnimal(gameBoard, animal);
-                    gameEventsController.countingNewbornAnimals();
-                }
+                itemCreator.createNewbornAnimal(gameBoard, animal);
+                gameEventsController.countingNewbornAnimals();
             }
         }
     }

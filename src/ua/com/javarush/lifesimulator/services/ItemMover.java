@@ -21,25 +21,23 @@ public class ItemMover {
 
     public void moveAnimals(GameBoard gameBoard, List<Animal> animalList) {
         List<Animal> movingAnimalList = new ArrayList<>(animalList);
-        synchronized (this) {
-            for (Animal animal : movingAnimalList) {
-                if (itemConditionsChecker.cantMove(animal)) {
-                    continue;
-                }
+        for (Animal animal : movingAnimalList) {
+            if (itemConditionsChecker.cantMove(animal)) {
+                continue;
+            }
 
-                ItemPosition currentAnimalPosition = animal.getItemPosition();
-                ItemPosition newAnimalPosition = calculateNewDestination(animal);
+            ItemPosition currentAnimalPosition = animal.getItemPosition();
+            ItemPosition newAnimalPosition = calculateNewDestination(animal);
 
-                if (itemConditionsChecker.hasDestinationChanged(currentAnimalPosition, newAnimalPosition)) {
-                    animal.setItemPosition(newAnimalPosition);
+            if (itemConditionsChecker.hasDestinationChanged(currentAnimalPosition, newAnimalPosition)) {
+                animal.setItemPosition(newAnimalPosition);
 
-                    if (itemConditionsChecker.canAddItemToCell(gameBoard, animal)) {
-                        itemPlacer.putItemOnTheField(gameBoard, animal);
-                        animal.setAlreadyWalked(true);
-                        animalList.remove(animal);
-                    } else {
-                        animal.setItemPosition(currentAnimalPosition);
-                    }
+                if (itemConditionsChecker.canAddItemToCell(gameBoard, animal)) {
+                    itemPlacer.putItemOnTheField(gameBoard, animal);
+                    animal.setAlreadyWalked(true);
+                    animalList.remove(animal);
+                } else {
+                    animal.setItemPosition(currentAnimalPosition);
                 }
             }
         }

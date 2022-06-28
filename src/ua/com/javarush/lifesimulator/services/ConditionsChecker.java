@@ -11,6 +11,7 @@ import ua.com.javarush.lifesimulator.items.plants.Plant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -18,6 +19,7 @@ import static ua.com.javarush.lifesimulator.constants.GameConstants.*;
 
 public class ConditionsChecker {
     private final Utility utility;
+    private final Random  successfulEvent = new Random();
 
     public ConditionsChecker(Utility utility) {
         this.utility = utility;
@@ -55,10 +57,10 @@ public class ConditionsChecker {
         return ((currentPosition.getX() != newItemPosition.getX()) || (currentPosition.getY() != newItemPosition.getY()));
     }
 
-    public boolean canReproduce(Animal animal, long currentAnimalNumber) {
-        int maxAmountOnCell = animal.getMaxAmountOnCell();
+    public boolean isChanceReproduceGood() {
+        int chance = successfulEvent.nextInt(2) + 1;
 
-        return ((currentAnimalNumber < maxAmountOnCell));
+        return chance == 1;
     }
 
     public boolean canAddItemToCell(GameBoard gameBoard, BasicItem item) {

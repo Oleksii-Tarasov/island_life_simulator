@@ -18,9 +18,9 @@ public class LifeController {
 
         while (isWorldAlive) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(700);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
 
             gameController.updateGameEvents();
